@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "867048080221",
+    "project_id": "hugmecampus-dff8c",
+    "storage_bucket": "hugmecampus-dff8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867048080221:android:420d56ec70ce45b5029eb4",
+        "android_client_info": {
+          "package_name": "com.diamondTierHuggers.hugMeCampus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867048080221-s9dmsva586paubgr573kvrmrqr05mnkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4ZfJuOeMVkZn8Yysi1An8GmJCUO2a1P0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867048080221-s9dmsva586paubgr573kvrmrqr05mnkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
