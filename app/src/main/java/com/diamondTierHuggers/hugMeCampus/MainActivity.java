@@ -15,6 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello World!");
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
