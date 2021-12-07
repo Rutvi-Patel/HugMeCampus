@@ -20,11 +20,8 @@ public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
-    String input;
-
     EditText inputField;
 
-    Button button;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -49,6 +46,7 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 myRef.setValue(inputField.getText().toString());
+                inputField.getText().clear();
             }
         });
 
