@@ -6,47 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".FirstFragment">
 
-    <TextView
-        android:id="@+id/textview_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hug Me Campus"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
-
     <EditText
-        android:id="@+id/userInput"
+        android:id="@+id/pwdInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginBottom="64dp"
         android:ems="10"
-        android:hint="Input"
+        android:hint="Password"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/sendDBButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.616"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_first"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/pwdInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.616"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_first"
+        app:layout_constraintVertical_bias="0.393" />
 
     <Button
         android:id="@+id/sendDBButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:text="Send"
+        android:layout_marginTop="341dp"
+        android:text="Create"
         app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textview_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Account"
+        app:layout_constraintBottom_toTopOf="@+id/button_first"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.121" />
+
+    <Button
+        android:id="@+id/button_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
