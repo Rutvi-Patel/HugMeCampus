@@ -30,6 +30,7 @@ public class FirstFragment extends Fragment {
     private FirebaseAuth auth;
     EditText emailInput;
     EditText pwdInput;
+
     private View view;
     @Override
     public View onCreateView(
@@ -46,8 +47,8 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         auth = FirebaseAuth.getInstance();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-        DatabaseReference myRef = database.getReference("UserInput");
+//        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+//        DatabaseReference myRef = database.getReference("UserInput");
 
         pwdInput = (EditText) view.findViewById(R.id.pwdInput);
         emailInput = (EditText) view.findViewById(R.id.emailInput);
@@ -62,24 +63,29 @@ public class FirstFragment extends Fragment {
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                sendUserToNextFragment();
+//                NavHostFragment.findNavController(FirstFragment.this)
+//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
     }
 
-    private void signInUser(String email, String pwd) {
-        auth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    //needs to be implemented
-                } else {
-                    //needs to be implemented
-                }
-            }
-        });
-    }
+//    private void signInUser(String email, String pwd) {
+//        auth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if(task.isSuccessful()) {
+//                    //needs to be implemented
+//                    sendUserToNextFragment();
+//                    Toast.makeText(getActivity().getApplicationContext(), "Signin Successful", Toast.LENGTH_SHORT).show();
+//
+//                } else {
+//                    //needs to be implemented
+//                    Toast.makeText(getActivity(),""+task.getException(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
 
     private void sendEmailVerification() {
         FirebaseUser user = auth.getCurrentUser();
@@ -92,6 +98,7 @@ public class FirstFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
                         Toast.makeText(getActivity().getApplicationContext(), "Email Verification sent.", Toast.LENGTH_LONG).show();
+                        sendUserToNextFragment();
                         pwdInput.getText().clear();
                         emailInput.getText().clear();
                     } else {
@@ -149,6 +156,12 @@ public class FirstFragment extends Fragment {
         }
 
         return success[0];
+    }
+
+    private void sendUserToNextFragment() {
+
+        NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+
     }
 
     @Override
