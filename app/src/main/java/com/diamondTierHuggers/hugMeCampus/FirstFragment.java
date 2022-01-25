@@ -121,6 +121,12 @@ public class FirstFragment extends Fragment {
                             Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                             success[0] = true;
                             sendEmailVerification();
+
+                            //adds uid and email to realtime db
+                            FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+                            DatabaseReference myRef = database.getReference();
+                            myRef.child("users").child(auth.getUid()).child("email").setValue(email);
+
                             NavHostFragment.findNavController(FirstFragment.this)
                                     .navigate(R.id.action_FirstFragment_to_SecondFragment);
                         } else {
