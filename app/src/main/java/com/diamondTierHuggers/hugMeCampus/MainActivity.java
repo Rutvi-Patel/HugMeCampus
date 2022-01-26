@@ -1,17 +1,20 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.Preference;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -76,8 +79,16 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this,SettingsActivity.class);
+            startActivity(i);
             return true;
         }
+//        switch (item.getItemId()){
+//            case R.id.action_settings:
+//                Intent i = new Intent(this, SettingsActivity.class);
+//                startActivity(i);
+//
+//        }
 
         return super.onOptionsItemSelected(item);
     }
