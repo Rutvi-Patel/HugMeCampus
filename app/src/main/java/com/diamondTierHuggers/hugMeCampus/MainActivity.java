@@ -1,11 +1,14 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -18,16 +21,23 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private FirebaseAnalytics mFirebaseAnalytics;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +49,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-        DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Hello World!");
+        /*DocumentReference docRef = FirebaseFirestore.getInstance().document(
+                "AcceptedList/test");
+        Map<String, List<String>> test = new HashMap<>();
+        HashSet<String> set = new HashSet<>();
+        set.add("test");
+        set.add("two");
+        test.put("UserOne", new ArrayList<>(set));
+        docRef.set(test);*/
+        /*AcceptListModel model = new AcceptListModel();
+        boolean accepted = model.checkUserIsAccepted("test","UserOne");
+        Log.d(TAG, "Main: " + accepted);
+        Log.d(TAG, "Main: ");
+        DatabaseReference myRef = database.getReference("message");*/
+
+        //myRef.setValue("Hello World!");
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
