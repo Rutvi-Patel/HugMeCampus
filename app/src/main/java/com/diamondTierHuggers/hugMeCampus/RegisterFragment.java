@@ -1,7 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus;
 
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class FirstFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
     private FragmentFirstBinding binding;
     private FirebaseAuth auth;
@@ -160,7 +157,7 @@ public class FirstFragment extends Fragment {
 
     private void sendUserToNextFragment() {
 
-        NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+        NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
 
     }
 

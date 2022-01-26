@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:backgroundTint="#36201E1E"
-    tools:context=".FirstFragment">
+    tools:context=".RegisterFragment">
 
     <EditText
         android:id="@+id/pwdInput"

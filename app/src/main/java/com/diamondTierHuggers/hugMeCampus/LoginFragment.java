@@ -1,16 +1,14 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +23,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SecondFragment extends Fragment {
+public class LoginFragment extends Fragment {
 
     private FragmentSecondBinding binding;
-    TextView createNewAccount;
+    TextView createNewAccount, forgotPassword;
     EditText inputPassword, inputEmail;
     Button loginBtn;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     ProgressDialog progressDialog;
+
 
 
     @Override
@@ -57,13 +57,15 @@ public class SecondFragment extends Fragment {
             loginBtn = view.findViewById(R.id.btnLogin);
             mAuth = FirebaseAuth.getInstance();
             progressDialog = new ProgressDialog(getActivity());
+            forgotPassword = view.findViewById(R.id.textViewForgotPassword);
+            mUser = mAuth.getCurrentUser();
 
 
 
         createNewAccount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.action_SecondFragment_to_FirstFragment);
+                    NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_FirstFragment);
                 }
             });
 
@@ -74,6 +76,15 @@ public class SecondFragment extends Fragment {
                 }
             });
 
+            forgotPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.ForgotActivity);
+                    Intent i = new Intent(getActivity(), ForgotActivity.class);
+                    startActivity(i);
+                    ((Activity) getActivity()).overridePendingTransition(0, 0);
+                }
+            });
         }
 
     @Override
@@ -82,14 +93,16 @@ public class SecondFragment extends Fragment {
         binding = null;
     }
 
-
     private void performLogin(){
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
 
-        if (!email.toLowerCase().endsWith("@student.csulb.edu")){
+        if (!email.toLowerCase().endsWith("@student.csulb.edu") || !mAuth.getCurrentUser().getEmail().equals(email)){
             inputEmail.setError("Enter correct email");
-        }else if(password.isEmpty()|| password.length()<6){
+        }else if(!mAuth.getCurrentUser().isEmailVerified()){
+            inputEmail.setError("Verify your email");
+            mAuth.getCurrentUser().reload();
+        } else if(password.isEmpty()|| password.length()<6){
             inputPassword.setError("Enter correct password");
         }else{
             progressDialog.setMessage("Please wait to Login..");
@@ -103,7 +116,8 @@ public class SecondFragment extends Fragment {
                     if (task.isSuccessful()){
                         progressDialog.dismiss();
                         Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
+                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
+
 
                     }else
                     {
