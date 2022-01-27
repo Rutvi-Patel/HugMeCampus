@@ -50,23 +50,23 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
 
-        /*DocumentReference docRef = FirebaseFirestore.getInstance().document(
-                "AcceptedList/test");
-        Map<String, List<String>> test = new HashMap<>();
-        HashSet<String> set = new HashSet<>();
-        set.add("test");
-        set.add("two");
-        test.put("UserOne", new ArrayList<>(set));
-        docRef.set(test);*/
-        /*AcceptListModel model = new AcceptListModel();
-        boolean accepted = model.checkUserIsAccepted("test","UserOne");
-        Log.d(TAG, "Main: " + accepted);
-        Log.d(TAG, "Main: ");
-        DatabaseReference myRef = database.getReference("message");*/
+        AcceptListModel acceptData = new AcceptListModel();
+        acceptData.getAcceptedUsersSet("uid123", new AcceptedListHashSetData() {
+            @Override
+            public void GetUserAcceptList(HashSet<String> set) {
+                if(set.contains("bob")) {
+                    Log.d(TAG, "Found Bob");
+                }
 
-        //myRef.setValue("Hello World!");
+                if(set.contains("sally")) {
+                    Log.d(TAG, "found sally");
+                }
 
-        // Obtain the FirebaseAnalytics instance.
+                if(!set.contains("joe")) {
+                    Log.d(TAG, "didnt find joe");
+                }
+            }
+        });
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

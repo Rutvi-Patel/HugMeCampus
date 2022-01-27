@@ -8,55 +8,35 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 public class AcceptListModel {
 
-    private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private static final String acceptedListPath = "AcceptedList/test";
-    private DocumentReference docRef = firestore.document(acceptedListPath);
-    public boolean isAccepted;
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     public AcceptListModel(){
 
     }
 
-
-    /*
-        Checks if "uid1" user 1 is in "uid2" user2's accept list
-     */
-    public boolean checkUserIsAccepted(String uid1, String uid2) {
-        HashSet<String> acceptedSet = new HashSet<>();
-        boolean result = false;
-        getAcceptedUsers(uid2, new FirestoreCallback() {
+    public void getAcceptedUsersSet(String uid, AcceptedListHashSetData callback) {
+        DatabaseReference docReference = database.getReference(getAcceptedPath(uid));
+        docReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void GetUserAcceptList(HashSet<String> set) {
-                isAccepted = set.contains(uid1);
-            }
-        });
-
-        return isAccepted;
-    }
-
-
-    private void getAcceptedUsers(String uid, FirestoreCallback callback) {
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
+                    DataSnapshot doc = task.getResult();
                     if(doc.exists()){
-                        Map<String, Object> data = doc.getData();
-                        HashSet<String> set = new HashSet<>();
-                        for(Object obj : (List<Object>)data.get(uid)) {
-                            set.add((String) obj);
-                        }
-                        callback.GetUserAcceptList(set);
+                        callback.GetUserAcceptList(new HashSet((List<String>) doc.getValue()));
                     } else {
                         Log.d(TAG, "No data");
                     }
@@ -73,8 +53,8 @@ public class AcceptListModel {
 
     }
 
-    private interface FirestoreCallback {
-        void GetUserAcceptList(HashSet<String> set);
-    }
+    private String getAcceptedPath(String uid) {
 
+        return "users/" + uid + "/accepted_list";
+    }
 }
