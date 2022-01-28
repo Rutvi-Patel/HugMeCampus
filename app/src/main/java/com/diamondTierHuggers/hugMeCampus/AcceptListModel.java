@@ -38,7 +38,7 @@ public class AcceptListModel {
                     if(doc.exists()){
                         callback.GetUserAcceptList(new HashSet((List<String>) doc.getValue()));
                     } else {
-                        Log.d(TAG, "No data");
+                        callback.GetUserAcceptList(null);
                     }
 
                 } else {
