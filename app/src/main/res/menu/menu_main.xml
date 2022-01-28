@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/matchmaking_action"
+        android:orderInCategory="100"
+        android:title="@string/matchmaking_action"
+        app:showAsAction="never" />
 </menu>
