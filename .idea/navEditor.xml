@@ -29,6 +29,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="ForgotActivity">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="15" />
+                            <option name="y" value="249" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="SecondFragment">
                     <value>
                       <LayoutPositions>
@@ -45,24 +57,17 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_SecondFragment_to_ForgotActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_SecondFragment_to_profileFragment4">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="mainActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-261" />
-                            <option name="y" value="-319" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
