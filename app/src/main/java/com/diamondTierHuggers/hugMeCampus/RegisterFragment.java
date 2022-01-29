@@ -127,6 +127,8 @@ public class RegisterFragment extends Fragment {
                             Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                             success[0] = true;
                             sendEmailVerification();
+                            NavHostFragment.findNavController(FirstFragment.this)
+                                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
                         } else {
                             try {
                                 throw task.getException();
