@@ -1,6 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus;
 
 import android.os.Bundle;
+import android.service.autofill.FieldClassification;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
