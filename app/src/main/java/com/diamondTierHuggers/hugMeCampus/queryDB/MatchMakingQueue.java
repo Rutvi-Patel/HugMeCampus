@@ -1,6 +1,10 @@
-package com.diamondTierHuggers.hugMeCampus.matchmaking;
+package com.diamondTierHuggers.hugMeCampus.queryDB;
+
+import static com.diamondTierHuggers.hugMeCampus.SecondFragment.appUser;
 
 import androidx.annotation.NonNull;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUserComparator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -11,26 +15,7 @@ import java.util.PriorityQueue;
 public class MatchMakingQueue {
 
     private PriorityQueue<HugMeUser> mQueue = new PriorityQueue<HugMeUser>(50, new HugMeUserComparator());
-
-    public MatchMakingQueue() {
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-//        DatabaseReference myRef = database.getReference("users");
-//
-//
-//        readData(myRef.orderByChild("age"), new OnGetDataListener() {
-//            @Override
-//            public void onSuccess(String dataSnapshotValue) {
-//
-//                // This is where you can handle the snapshot's value! (log it, add it
-//                // to a list, etc.)
-////                System.out.println(dataSnapshotValue);
-////                finshedLoading = true;
-//            }
-//        });
-//        System.out.println(mQueue.toString());
-
-    }
+    private int mCount = 0;
 
     public void readData(Query ref, final OnGetDataListener listener) {
 
@@ -39,7 +24,13 @@ public class MatchMakingQueue {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot user : dataSnapshot.getChildren()) {
-                        mQueue.add(user.getValue(HugMeUser.class));
+                        System.out.println(user.getKey());
+                        HugMeUser h = user.getValue(HugMeUser.class);
+                        if (h.online) {
+                            h.setUid(user.getKey());
+                            h.calculateMatchScore(appUser.getAppUser().hug_preferences);
+                            mQueue.add(h);
+                        }
                     }
                 }
                 listener.onSuccess("");
@@ -60,8 +51,15 @@ public class MatchMakingQueue {
                 '}';
     }
 
-    public String poll(){
-        return this.mQueue.poll().toString();
-        // TODO get next user from db and add to queue
+    public HugMeUser poll(){
+        if (mQueue.isEmpty()) {
+            return null;
+        }
+        mCount += 1;
+        if (mCount == 5) {
+            mCount = 0;
+            // TODO get next 5 users from db and add to queue
+        }
+        return this.mQueue.poll();
     }
 }

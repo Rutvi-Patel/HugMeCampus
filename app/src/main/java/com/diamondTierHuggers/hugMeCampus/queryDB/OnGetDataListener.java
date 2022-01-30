@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus.matchmaking;
+package com.diamondTierHuggers.hugMeCampus.queryDB;
 
 public interface OnGetDataListener {
     //this is for callbacks

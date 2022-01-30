@@ -1,12 +1,12 @@
-package com.diamondTierHuggers.hugMeCampus.matchmaking;
+package com.diamondTierHuggers.hugMeCampus.entity;
 
 import java.util.List;
 
 public class HugPreferences {
 
-    public List<Boolean> gender;
-    public List<Boolean> duration;
-    public List<Boolean> mood;
+    public List<Boolean> gender; // [male, female]
+    public List<Boolean> duration; // [short, medium, long]
+    public List<Boolean> mood; // [talkative, quiet, emotional, celebratory, happy, sad]
 
     public HugPreferences() {
     }
