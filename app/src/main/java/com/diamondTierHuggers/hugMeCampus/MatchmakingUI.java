@@ -26,7 +26,7 @@ public class MatchmakingUI extends AppCompatActivity {
 
         // TODO: start loading screen, maybe new fragment or something or else the rest of the code will run and will error polling from queue before queue is ready
 
-        mq.readData(database.getReference("users").orderByChild("online").limitToFirst(50), new OnGetDataListener() {
+        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
             @Override
             public void onSuccess(String dataSnapshotValue) {
                 // TODO: exit loading screen

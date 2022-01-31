@@ -2,6 +2,8 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.ArrayList;
+
 @IgnoreExtraProperties
 public class HugMeUser {
 
@@ -20,6 +22,9 @@ public class HugMeUser {
     public UserPictures pictures;
     public boolean online;
     public int gender;
+    public ArrayList<String> rejected_list;
+    public ArrayList<String> accepted_list;
+    public ArrayList<String> blocked_list;
 
     private int matchScore = 0;
 
@@ -28,6 +33,10 @@ public class HugMeUser {
 
     public int getMatchScore() {
         return matchScore;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public void calculateMatchScore(HugPreferences appUserPreferences) {
