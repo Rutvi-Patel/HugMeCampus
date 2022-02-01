@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.12771701413459102" />
+        <entry key="app/src/main/res/layout/activity_matchmaking_ui.xml" value="0.12395833333333334" />
+        <entry key="app/src/main/res/layout/edit_user_profile_fragment.xml" value="0.24524205620190961" />
+        <entry key="app/src/main/res/layout/fragment_display_user_profile.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.27221717519318533" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1942850240349944" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

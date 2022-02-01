@@ -26,6 +26,16 @@ public class HugMeUser {
     public HugMeUser() {
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+
+
     public int getMatchScore() {
         return matchScore;
     }
