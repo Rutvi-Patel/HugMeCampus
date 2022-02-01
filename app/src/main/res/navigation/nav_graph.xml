@@ -8,9 +8,8 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.RegisterFragment"
-        android:label="@string/first_fragment_label"
+        android:label="fragment_first"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -18,7 +17,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.LoginFragment"
-        android:label="@string/second_fragment_label"
+        android:label="fragment_second"
         tools:layout="@layout/fragment_second">
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

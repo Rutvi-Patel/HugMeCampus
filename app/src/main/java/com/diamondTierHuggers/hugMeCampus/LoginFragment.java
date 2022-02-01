@@ -94,12 +94,12 @@ public class LoginFragment extends Fragment {
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
 
-        if (!email.toLowerCase().endsWith("@student.csulb.edu") || !mAuth.getCurrentUser().getEmail().equals(email)){
+        if (!(email.toLowerCase().endsWith("@student.csulb.edu")) || !(mAuth.getCurrentUser().getEmail().equals(email))){
             inputEmail.setError("Enter correct email");
-        }else if(!mAuth.getCurrentUser().isEmailVerified()){
+        }else if (!mAuth.getCurrentUser().isEmailVerified()){
             inputEmail.setError("Verify your email");
             mAuth.getCurrentUser().reload();
-        } else if(password.isEmpty()|| password.length()<6){
+        }else if(password.isEmpty()|| password.length()<6){
             inputPassword.setError("Enter correct password");
         }else{
             progressDialog.setMessage("Please wait to Login..");

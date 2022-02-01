@@ -5,6 +5,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth auth;
     EditText emailInput;
     EditText pwdInput;
+    Button sendDBButton;
 
     private View view;
     @Override
@@ -49,8 +51,9 @@ public class RegisterFragment extends Fragment {
 
         pwdInput = (EditText) view.findViewById(R.id.pwdInput);
         emailInput = (EditText) view.findViewById(R.id.emailInput);
+        sendDBButton = (Button) view.findViewById(R.id.sendDBButton);
 
-        binding.sendDBButton.setOnClickListener(new View.OnClickListener() {
+        sendDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
@@ -95,7 +98,8 @@ public class RegisterFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
                         Toast.makeText(getActivity().getApplicationContext(), "Email Verification sent.", Toast.LENGTH_LONG).show();
-                        sendUserToNextFragment();
+                        NavHostFragment.findNavController(RegisterFragment.this)
+                                .navigate(R.id.SecondFragment);
                         pwdInput.getText().clear();
                         emailInput.getText().clear();
                     } else {
@@ -126,7 +130,7 @@ public class RegisterFragment extends Fragment {
                             success[0] = true;
                             sendEmailVerification();
                             NavHostFragment.findNavController(RegisterFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                                    .navigate(R.id.SecondFragment);
                         } else {
                             try {
                                 throw task.getException();
@@ -159,14 +163,14 @@ public class RegisterFragment extends Fragment {
 
     private void sendUserToNextFragment() {
 
-        NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+        NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.SecondFragment);
 
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        binding = null;
+//    }
 
 }

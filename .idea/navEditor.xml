@@ -29,18 +29,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="ForgotActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="15" />
-                            <option name="y" value="249" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="SecondFragment">
                     <value>
                       <LayoutPositions>
@@ -52,17 +40,43 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_SecondFragment_self">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_SecondFragment_to_FirstFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_SecondFragment_to_ForgotActivity">
+                            <entry key="action_SecondFragment_to_forgotFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_SecondFragment_to_profileFragment4">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="forgotFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="56" />
+                            <option name="y" value="394" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_forgotFragment_to_SecondFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
