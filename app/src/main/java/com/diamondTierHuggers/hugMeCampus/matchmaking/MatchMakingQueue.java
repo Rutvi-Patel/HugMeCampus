@@ -30,5 +30,6 @@ public class MatchMakingQueue {
     public String poll(){
         this.mQueue.poll();
         // TODO get next user from db and add to queue
+        return "next user";
     }
 }

@@ -5,21 +5,21 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
-    tools:context=".MainActivity">
+    tools:context=".ForgotFragment">
 
     <TextView
         android:id="@+id/tv_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forget Password"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="#000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="24dp"
-        />
+        android:fontFamily="casual"
+        android:text="Forget Password"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -97,12 +97,13 @@
                     android:id="@+id/tv_already_have_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:fontFamily="casual"
+                    android:text="Remember Password!"
                     android:textColor="#000"
                     android:textSize="18sp"
-                    android:text="Remember Password!"
-                    />
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
                     android:id="@+id/bt_signup"

@@ -79,10 +79,7 @@ public class LoginFragment extends Fragment {
             forgotPassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.ForgotActivity);
-                    Intent i = new Intent(getActivity(), ForgotActivity.class);
-                    startActivity(i);
-                    ((Activity) getActivity()).overridePendingTransition(0, 0);
+                    NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_forgotFragment);
                 }
             });
         }
@@ -119,9 +116,16 @@ public class LoginFragment extends Fragment {
                         NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
 
 
-                    }else
-                    {
-                        Toast.makeText(getActivity().getApplicationContext(),""+task.getException(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        progressDialog.dismiss();
+                        if (task.getException().toString().contains("InvalidCredentialsException")){
+                            Toast.makeText(getActivity().getApplicationContext(), "Enter valid credentials", Toast.LENGTH_SHORT).show();
+                        }else if(task.getException().toString().contains("TooManyRequestsException")){
+                            Toast.makeText(getActivity().getApplicationContext(), "Unusual activity. Try again later.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity().getApplicationContext(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

@@ -20,7 +20,6 @@
         android:name="com.diamondTierHuggers.hugMeCampus.LoginFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
@@ -28,17 +27,24 @@
             android:id="@+id/action_SecondFragment_to_profileFragment4"
             app:destination="@id/profileFragment4" />
         <action
-            android:id="@+id/action_SecondFragment_to_ForgotActivity"
-            app:destination="@id/ForgotActivity" />
+            android:id="@+id/action_SecondFragment_to_forgotFragment"
+            app:destination="@id/forgotFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_self"
+            app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment4"
         android:name="com.diamondTierHuggers.hugMeCampus.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <activity
-        android:id="@+id/ForgotActivity"
-        android:name="com.diamondTierHuggers.hugMeCampus.MainActivity"
-        android:label="activity_forgot"
-        tools:layout="@layout/activity_forgot" />
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.ForgotFragment"
+        android:label="fragment_forgot"
+        tools:layout="@layout/fragment_forgot" >
+        <action
+            android:id="@+id/action_forgotFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
 </navigation>
