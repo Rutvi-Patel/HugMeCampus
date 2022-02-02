@@ -7,6 +7,7 @@ import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUserComparator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.PriorityQueue;
@@ -15,7 +16,9 @@ import java.util.PriorityQueue;
 public class MatchMakingQueue {
 
     private PriorityQueue<HugMeUser> mQueue = new PriorityQueue<HugMeUser>(50, new HugMeUserComparator());
-    private int mCount = 0;
+    private String appUserUid = appUser.getAppUser().getUid();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+    private boolean requeried = false;
 
     public void readData(Query ref, final OnGetDataListener listener) {
 
@@ -24,10 +27,11 @@ public class MatchMakingQueue {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot user : dataSnapshot.getChildren()) {
-                        System.out.println(user.getKey());
                         HugMeUser h = user.getValue(HugMeUser.class);
-                        if (h.online) {
-                            h.setUid(user.getKey());
+                        String hUid = user.getKey();
+                        if (h.online && !appUser.getAppUser().rejected_list.contains(hUid) && !appUser.getAppUser().accepted_list.contains(hUid) && !appUser.getAppUser().blocked_list.contains(hUid)
+                                && !h.rejected_list.contains(appUserUid) && !h.blocked_list.contains(appUserUid)) {
+                            h.setUid(hUid);
                             h.calculateMatchScore(appUser.getAppUser().hug_preferences);
                             mQueue.add(h);
                         }
@@ -55,10 +59,14 @@ public class MatchMakingQueue {
         if (mQueue.isEmpty()) {
             return null;
         }
-        mCount += 1;
-        if (mCount == 5) {
-            mCount = 0;
-            // TODO get next 5 users from db and add to queue
+        if (!requeried && mQueue.size() <= 10) {
+            readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
+                @Override
+                public void onSuccess(String dataSnapshotValue) {
+                    System.out.println("queried for more online users");
+                }
+            });
+            requeried = true;
         }
         return this.mQueue.poll();
     }
