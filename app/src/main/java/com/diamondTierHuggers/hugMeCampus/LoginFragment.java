@@ -92,32 +92,26 @@ public class LoginFragment extends Fragment {
 
     private void performLogin(){
         String email = inputEmail.getText().toString();
+        mAuth.signOut();
         String password = inputPassword.getText().toString();
-
-        if (!(email.toLowerCase().endsWith("@student.csulb.edu")) || !(mAuth.getCurrentUser().getEmail().equals(email))){
-            inputEmail.setError("Enter correct email");
-        }else if (!mAuth.getCurrentUser().isEmailVerified()){
-            inputEmail.setError("Verify your email");
-            mAuth.getCurrentUser().reload();
-        }else if(password.isEmpty()|| password.length()<6){
-            inputPassword.setError("Enter correct password");
-        }else{
-            progressDialog.setMessage("Please wait to Login..");
-            progressDialog.setTitle("Login");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
 
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         progressDialog.dismiss();
-                        Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
-
+                        if (!mAuth.getCurrentUser().isEmailVerified()){
+                            inputEmail.setError("Verify your email");
+                            mAuth.signOut();
+                        }
+                        else {
+                            Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
+                        }
 
                     }else {
                         progressDialog.dismiss();
+
                         if (task.getException().toString().contains("InvalidCredentialsException")){
                             Toast.makeText(getActivity().getApplicationContext(), "Enter valid credentials", Toast.LENGTH_SHORT).show();
                         }else if(task.getException().toString().contains("TooManyRequestsException")){
@@ -131,5 +125,3 @@ public class LoginFragment extends Fragment {
             });
         }
     }
-
-}

@@ -64,28 +64,10 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sendUserToNextFragment();
-//                NavHostFragment.findNavController(FirstFragment.this)
-//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+
             }
         });
     }
-
-//    private void signInUser(String email, String pwd) {
-//        auth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful()) {
-//                    //needs to be implemented
-//                    sendUserToNextFragment();
-//                    Toast.makeText(getActivity().getApplicationContext(), "Signin Successful", Toast.LENGTH_SHORT).show();
-//
-//                } else {
-//                    //needs to be implemented
-//                    Toast.makeText(getActivity(),""+task.getException(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
 
     private void sendEmailVerification() {
         FirebaseUser user = auth.getCurrentUser();
@@ -166,11 +148,11 @@ public class RegisterFragment extends Fragment {
         NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.SecondFragment);
 
     }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        binding = null;
-//    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 
 }
