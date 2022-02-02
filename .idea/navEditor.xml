@@ -34,23 +34,28 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-56" />
+                            <option name="y" value="-68" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_SecondFragment_self">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_SecondFragment_to_FirstFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_SecondFragment_to_displayUserProfile2">
+                            <entry key="action_SecondFragment_to_forgotFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_SecondFragment_to_matchmakingUI">
+                            <entry key="action_SecondFragment_to_profileFragment4">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -60,25 +65,34 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="displayUserProfile2">
+                  <entry key="forgotFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="85" />
-                            <option name="y" value="407" />
+                            <option name="x" value="56" />
+                            <option name="y" value="394" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_forgotFragment_to_SecondFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="matchmakingUI">
+                  <entry key="profileFragment4">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-307" />
-                            <option name="y" value="-26" />
+                            <option name="x" value="123" />
+                            <option name="y" value="-323" />
                           </Point>
                         </option>
                       </LayoutPositions>

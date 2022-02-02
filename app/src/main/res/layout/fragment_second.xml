@@ -4,111 +4,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
-
-<!--    <org.imaginativeworld.whynotimagecarousel.ImageCarousel-->
-<!--        android:id="@+id/carousel"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="256dp" />-->
+    tools:context=".LoginFragment">
 
 
-    <FrameLayout
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_height="match_parent"
+        android:background="#23000000"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2"
+        tools:ignore="UnknownId" />
 
-        <com.google.android.material.card.MaterialCardView
+    <ScrollView
+        android:id="@+id/scrollerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="8dp">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:backgroundTint="#22FFFFFF">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textview_Register"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp">
+                android:layout_marginTop="80dp"
+                android:fontFamily="casual"
+                android:text="Login"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+            <EditText
+                android:id="@+id/editTextTextEmailAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_email_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_Register"
+                tools:ignore="MissingConstraints" />
 
-                <me.relex.circleindicator.CircleIndicator2
-                    android:id="@+id/custom_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    app:ci_animator="@animator/scale_with_alpha"
-                    app:ci_drawable="@drawable/dot"
-                    app:ci_drawable_unselected="@drawable/dot" />
+            <EditText
+                android:id="@+id/editTextTextPassword2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/input_bg"
+                android:drawableLeft="@drawable/ic_baseline_security_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+                tools:ignore="MissingConstraints" />
 
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="#9b59b6"-->
-<!--                    android:paddingStart="8dp"-->
-<!--                    android:paddingTop="8dp"-->
-<!--                    android:paddingEnd="8dp"-->
-<!--                    android:paddingBottom="8dp"-->
-<!--                    android:text="hello ryan"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="14sp" />-->
+            <TextView
+                android:id="@+id/textViewForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="casual"
+                android:text="Forgot password?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnSignup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_bg"
+                android:backgroundTint="#97FFEB3B"
+                android:fontFamily="casual"
+                android:text="Login"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
+                app:layout_constraintTop_toBottomOf="@+id/textViewForgotPassword" />
 
-        </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/textViewhaveacccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="casual"
+                android:text="Create new account?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/btnSignup"
+                app:layout_constraintStart_toStartOf="@+id/btnSignup"
+                app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
 
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel4"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="16dp"
-            android:translationZ="8dp"
-            app:autoPlay="true"
-            app:autoPlayDelay="4000"
-            app:carouselGravity="CENTER"
-            app:carouselPaddingBottom="8dp"
-            app:carouselPaddingTop="8dp"
-            app:carouselType="SHOWCASE"
-            app:imageScaleType="centerCrop"
-            app:scaleOnScroll="true"
-            app:scalingFactor=".25"
-            app:showBottomShadow="false"
-            app:showCaption="false"
-            app:showIndicator="false"
-            app:showNavigationButtons="false"
-            app:showTopShadow="false" />
 
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="547dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

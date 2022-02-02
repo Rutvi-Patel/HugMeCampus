@@ -3,46 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SecondFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.diamondTierHuggers.hugMeCampus.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:name="com.diamondTierHuggers.hugMeCampus.RegisterFragment"
+        android:label="fragment_first"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.diamondTierHuggers.hugMeCampus.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:name="com.diamondTierHuggers.hugMeCampus.LoginFragment"
+        android:label="fragment_second"
         tools:layout="@layout/fragment_second">
-
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
         <action
-            android:id="@+id/action_SecondFragment_to_matchmakingUI"
-            app:destination="@id/matchmakingUI"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_SecondFragment_to_profileFragment4"
+            app:destination="@id/profileFragment4" />
         <action
-            android:id="@+id/action_SecondFragment_to_displayUserProfile2"
-            app:destination="@id/displayUserProfile2" />
+            android:id="@+id/action_SecondFragment_to_forgotFragment"
+            app:destination="@id/forgotFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_self"
+            app:destination="@id/SecondFragment" />
     </fragment>
-    <activity
-        android:id="@+id/matchmakingUI"
-        android:name="com.diamondTierHuggers.hugMeCampus.MatchmakingUI"
-        android:label="activity_matchmaking_ui"
-        tools:layout="@layout/activity_matchmaking_ui" />
     <fragment
-        android:id="@+id/displayUserProfile2"
-        android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
-        android:label="fragment_display_user_profile"
-        tools:layout="@layout/fragment_display_user_profile" />
+        android:id="@+id/profileFragment4"
+        android:name="com.diamondTierHuggers.hugMeCampus.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.ForgotFragment"
+        android:label="fragment_forgot"
+        tools:layout="@layout/fragment_forgot" >
+        <action
+            android:id="@+id/action_forgotFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
 </navigation>

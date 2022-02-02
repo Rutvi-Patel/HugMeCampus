@@ -1,12 +1,14 @@
 package com.diamondTierHuggers.hugMeCampus;
 
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,12 +26,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FirstFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
     private FragmentFirstBinding binding;
     private FirebaseAuth auth;
     EditText emailInput;
     EditText pwdInput;
+    Button sendDBButton;
+    TextView login;
+    Integer gender;
+
     private View view;
     @Override
     public View onCreateView(
@@ -47,38 +53,44 @@ public class FirstFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-        DatabaseReference myRef = database.getReference("UserInput");
+        DatabaseReference myRef = database.getReference();
 
-        pwdInput = (EditText) view.findViewById(R.id.pwdInput);
-        emailInput = (EditText) view.findViewById(R.id.emailInput);
+        pwdInput = (EditText) view.findViewById(R.id.editTextTextPassword2);
+        emailInput = (EditText) view.findViewById(R.id.editTextTextEmailAddress);
+        sendDBButton = (Button) view.findViewById(R.id.btnSignup);
+        login = (TextView) view.findViewById(R.id.textViewhaveacccount);
 
-        binding.sendDBButton.setOnClickListener(new View.OnClickListener() {
+
+        sendDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
+
+                if (binding.radioFemale.isSelected()){
+                    gender = 1;
+                }else{
+                    gender = 0;
+                }
+
+                setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender,myRef );
             }
         });
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                sendUserToNextFragment();
             }
         });
     }
 
-    private void signInUser(String email, String pwd) {
-        auth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    //needs to be implemented
-                } else {
-                    //needs to be implemented
-                }
-            }
-        });
+    private void setBioValues(String firstName, String lastName, Integer Gender, DatabaseReference myRef ){
+
+        myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
+        myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
+        myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
+        myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
+        myRef.child("users").child(auth.getUid()).child("hug_tier").setValue(0);
     }
 
     private void sendEmailVerification() {
@@ -92,6 +104,8 @@ public class FirstFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
                         Toast.makeText(getActivity().getApplicationContext(), "Email Verification sent.", Toast.LENGTH_LONG).show();
+                        NavHostFragment.findNavController(RegisterFragment.this)
+                                .navigate(R.id.SecondFragment);
                         pwdInput.getText().clear();
                         emailInput.getText().clear();
                     } else {
@@ -108,6 +122,8 @@ public class FirstFragment extends Fragment {
         }
     }
 
+
+
     private boolean createUserAccount(String email, String pwd) {
         final boolean[] success = {false};
 
@@ -121,8 +137,8 @@ public class FirstFragment extends Fragment {
                             Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                             success[0] = true;
                             sendEmailVerification();
-                            NavHostFragment.findNavController(FirstFragment.this)
-                                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                            NavHostFragment.findNavController(RegisterFragment.this)
+                                    .navigate(R.id.SecondFragment);
                         } else {
                             try {
                                 throw task.getException();
@@ -151,6 +167,12 @@ public class FirstFragment extends Fragment {
         }
 
         return success[0];
+    }
+
+    private void sendUserToNextFragment() {
+
+        NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.SecondFragment);
+
     }
 
     @Override
