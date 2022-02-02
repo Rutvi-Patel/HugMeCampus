@@ -45,7 +45,29 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_SecondFragment_to_displayUserProfile2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_SecondFragment_to_matchmakingUI">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="displayUserProfile2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="85" />
+                            <option name="y" value="407" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
