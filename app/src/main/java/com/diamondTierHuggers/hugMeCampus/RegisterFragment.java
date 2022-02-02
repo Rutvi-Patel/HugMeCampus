@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterFragment extends Fragment {
 
@@ -29,6 +33,8 @@ public class RegisterFragment extends Fragment {
     EditText emailInput;
     EditText pwdInput;
     Button sendDBButton;
+    TextView login;
+    Integer gender;
 
     private View view;
     @Override
@@ -46,27 +52,45 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         auth = FirebaseAuth.getInstance();
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-//        DatabaseReference myRef = database.getReference("UserInput");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+        DatabaseReference myRef = database.getReference();
 
-        pwdInput = (EditText) view.findViewById(R.id.pwdInput);
-        emailInput = (EditText) view.findViewById(R.id.emailInput);
-        sendDBButton = (Button) view.findViewById(R.id.sendDBButton);
+        pwdInput = (EditText) view.findViewById(R.id.editTextTextPassword2);
+        emailInput = (EditText) view.findViewById(R.id.editTextTextEmailAddress);
+        sendDBButton = (Button) view.findViewById(R.id.btnSignup);
+        login = (TextView) view.findViewById(R.id.textViewhaveacccount);
+
 
         sendDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
+
+                if (binding.radioFemale.isSelected()){
+                    gender = 1;
+                }else{
+                    gender = 0;
+                }
+
+                setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender,myRef );
             }
         });
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendUserToNextFragment();
-
             }
         });
+    }
+
+    private void setBioValues(String firstName, String lastName, Integer Gender, DatabaseReference myRef ){
+
+        myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
+        myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
+        myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
+        myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
+        myRef.child("users").child(auth.getUid()).child("hug_tier").setValue(0);
     }
 
     private void sendEmailVerification() {
@@ -97,6 +121,8 @@ public class RegisterFragment extends Fragment {
 
         }
     }
+
+
 
     private boolean createUserAccount(String email, String pwd) {
         final boolean[] success = {false};

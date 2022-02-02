@@ -1,8 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +49,10 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
             super.onViewCreated(view, savedInstanceState);
 
-            createNewAccount = view.findViewById(R.id.textViewCreateNewAccount);
+            createNewAccount = view.findViewById(R.id.textViewhaveacccount);
             inputEmail = view.findViewById(R.id.editTextTextEmailAddress);
             inputPassword = view.findViewById(R.id.editTextTextPassword2);
-            loginBtn = view.findViewById(R.id.btnLogin);
+            loginBtn = view.findViewById(R.id.btnSignup);
             mAuth = FirebaseAuth.getInstance();
             progressDialog = new ProgressDialog(getActivity());
             forgotPassword = view.findViewById(R.id.textViewForgotPassword);
