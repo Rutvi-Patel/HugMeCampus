@@ -15,11 +15,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentSecondBinding;
+import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
+import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginFragment extends Fragment {
 
@@ -31,6 +34,7 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     ProgressDialog progressDialog;
+    public static AppUser appUser = new AppUser();
 
 
 
@@ -103,6 +107,15 @@ public class LoginFragment extends Fragment {
                             mAuth.signOut();
                         }
                         else {
+                            //TODO move to after logging in, queries for the app users data in db, needed for matchmaking and displaying users profile
+                            FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+                            FirebaseAuth auth = FirebaseAuth.getInstance();
+                            appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
+                                @Override
+                                public void onSuccess(String dataSnapshotValue) {
+                                    System.out.println("created HugMeUser for app user");
+                                }
+                            });
                             Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                             NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
                         }

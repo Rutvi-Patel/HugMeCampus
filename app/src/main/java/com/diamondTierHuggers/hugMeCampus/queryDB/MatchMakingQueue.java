@@ -1,6 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus.queryDB;
 
-import static com.diamondTierHuggers.hugMeCampus.SecondFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import androidx.annotation.NonNull;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
