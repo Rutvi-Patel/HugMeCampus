@@ -25,8 +25,8 @@ public class HugMeUser {
     public boolean online;
     public int gender;
     public HashMap<String, Boolean> rejected_list;
-//    public HashMap<String, Boolean> accepted_list;
-//    public HashMap<String, Boolean> blocked_list;
+    public HashMap<String, Boolean> accepted_list;
+    public HashMap<String, Boolean> blocked_list;
 
     private int matchScore = 0;
 
