@@ -1,5 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
 import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
@@ -32,6 +35,11 @@ public class DisplayUserProfile extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private final String[] gender = {"Male", "Female"};
+    private final String[] emoji = {"poop", "coal", "bronze", "silver", "gold", "platinum", "diamond"};
+
+    private TextView name, info, bio;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,6 +91,13 @@ public class DisplayUserProfile extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        name = view.findViewById(R.id.name);
+        info = view.findViewById(R.id.info);
+        bio = view.findViewById(R.id.bio);
+
+        name.setText(appUser.getAppUser().first_name + " " + appUser.getAppUser().last_name);
+        info.setText(appUser.getAppUser().age + ", " + gender[appUser.getAppUser().gender] + ", " + emoji[appUser.getAppUser().hug_count/50]);
+        bio.setText(appUser.getAppUser().bio);
         //carousel v2
         binding.carousel4.registerLifecycle(getLifecycle());
 

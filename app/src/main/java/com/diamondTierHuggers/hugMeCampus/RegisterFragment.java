@@ -90,7 +90,6 @@ public class RegisterFragment extends Fragment {
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
         myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
-        myRef.child("users").child(auth.getUid()).child("hug_tier").setValue(0);
     }
 
     private void sendEmailVerification() {
