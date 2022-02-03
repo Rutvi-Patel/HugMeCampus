@@ -13,6 +13,7 @@ import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -42,23 +43,23 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
 
-        AcceptListModel acceptData = new AcceptListModel();
-        acceptData.getAcceptedUsersSet("uid123", new AcceptedListHashSetData() {
-            @Override
-            public void GetUserAcceptList(HashSet<String> set) {
-                if(set.contains("bob")) {
-                    Log.d(TAG, "Found Bob");
-                }
-
-                if(set.contains("sally")) {
-                    Log.d(TAG, "found sally");
-                }
-
-                if(!set.contains("joe")) {
-                    Log.d(TAG, "didnt find joe");
-                }
-            }
-        });
+//        AcceptListModel acceptData = new AcceptListModel();
+//        acceptData.getAcceptedUsersSet("uid123", new AcceptedListHashSetData() {
+//            @Override
+//            public void GetUserAcceptList(HashSet<String> set) {
+//                if(set.contains("bob")) {
+//                    Log.d(TAG, "Found Bob");
+//                }
+//
+//                if(set.contains("sally")) {
+//                    Log.d(TAG, "found sally");
+//                }
+//
+//                if(!set.contains("joe")) {
+//                    Log.d(TAG, "didnt find joe");
+//                }
+//            }
+//        });
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

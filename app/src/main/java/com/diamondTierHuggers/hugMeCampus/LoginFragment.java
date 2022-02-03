@@ -29,7 +29,7 @@ public class LoginFragment extends Fragment {
     private FragmentSecondBinding binding;
     TextView createNewAccount, forgotPassword;
     EditText inputPassword, inputEmail;
-    Button loginBtn;
+    Button loginBtn, matchmakingBtn, profileBtn;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -61,7 +61,32 @@ public class LoginFragment extends Fragment {
             progressDialog = new ProgressDialog(getActivity());
             forgotPassword = view.findViewById(R.id.textViewForgotPassword);
             mUser = mAuth.getCurrentUser();
+            matchmakingBtn = view.findViewById(R.id.matchmaking);
+            profileBtn = view.findViewById(R.id.profile);
 
+
+        matchmakingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
+                    @Override
+                    public void onSuccess(String dataSnapshotValue) {
+                        System.out.println("created HugMeUser for app user");
+                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_matchmakingUI);
+                    }
+                });
+
+            }
+        });
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_displayUserProfile2);
+            }
+        });
 
 
         createNewAccount.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +142,7 @@ public class LoginFragment extends Fragment {
                                 }
                             });
                             Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
+                            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_displayUserProfile2);
                         }
 
                     }else {

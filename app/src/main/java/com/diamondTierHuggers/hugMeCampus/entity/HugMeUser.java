@@ -3,6 +3,8 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @IgnoreExtraProperties
 public class HugMeUser {
@@ -22,9 +24,9 @@ public class HugMeUser {
     public UserPictures pictures;
     public boolean online;
     public int gender;
-    public ArrayList<String> rejected_list;
-    public ArrayList<String> accepted_list;
-    public ArrayList<String> blocked_list;
+    public HashMap<String, Boolean> rejected_list;
+//    public HashMap<String, Boolean> accepted_list;
+//    public HashMap<String, Boolean> blocked_list;
 
     private int matchScore = 0;
 

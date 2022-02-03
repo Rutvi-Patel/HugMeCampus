@@ -34,8 +34,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-56" />
-                            <option name="y" value="-68" />
+                            <option name="x" value="-54" />
+                            <option name="y" value="-51" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -50,17 +50,34 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_SecondFragment_to_displayUserProfile2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_SecondFragment_to_forgotFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_SecondFragment_to_profileFragment4">
+                            <entry key="action_SecondFragment_to_matchmakingUI">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="displayUserProfile2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-416" />
+                            <option name="y" value="-11" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -86,13 +103,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="profileFragment4">
+                  <entry key="matchmakingUI">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="123" />
-                            <option name="y" value="-323" />
+                            <option name="x" value="-418" />
+                            <option name="y" value="438" />
                           </Point>
                         </option>
                       </LayoutPositions>

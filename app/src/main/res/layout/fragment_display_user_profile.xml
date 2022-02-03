@@ -5,6 +5,7 @@
     android:id="@+id/displayUserProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#34223b"
     tools:context=".DisplayUserProfile">
 
     <!-- TODO: Update blank fragment layout -->
@@ -42,7 +43,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="150dp" />
+                            android:layout_height="250dp" />
 
                         <me.relex.circleindicator.CircleIndicator2
                             android:id="@+id/custom_indicator"
@@ -62,7 +63,7 @@
                             android:paddingBottom="8dp"
                             android:text="First Name, Last Name"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="25sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                             android:paddingTop="8dp"
                             android:paddingEnd="8dp"
                             android:paddingBottom="8dp"
-                            android:text="Bio"
+                            android:text="Bio:\n\nHello, I want to give you a hug."
                             android:textColor="@color/white"
                             android:textSize="14sp" />
 
@@ -95,7 +96,7 @@
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                     android:id="@+id/carousel4"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="250dp"
                     android:layout_marginTop="16dp"
                     android:translationZ="8dp"
                     app:autoPlay="true"

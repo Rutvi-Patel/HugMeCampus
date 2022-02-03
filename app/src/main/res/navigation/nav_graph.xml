@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.RegisterFragment"
-        android:label="fragment_first"
+        android:label="Register Account"
         tools:layout="@layout/fragment_first">
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,33 +17,41 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.LoginFragment"
-        android:label="fragment_second"
+        android:label="Login"
         tools:layout="@layout/fragment_second">
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_profileFragment4"
-            app:destination="@id/profileFragment4" />
         <action
             android:id="@+id/action_SecondFragment_to_forgotFragment"
             app:destination="@id/forgotFragment" />
         <action
             android:id="@+id/action_SecondFragment_self"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_displayUserProfile2"
+            app:destination="@id/displayUserProfile2" />
+        <action
+            android:id="@+id/action_SecondFragment_to_matchmakingUI"
+            app:destination="@id/matchmakingUI" />
     </fragment>
-    <fragment
-        android:id="@+id/profileFragment4"
-        android:name="com.diamondTierHuggers.hugMeCampus.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/forgotFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.ForgotFragment"
-        android:label="fragment_forgot"
+        android:label="Forgot Password"
         tools:layout="@layout/fragment_forgot" >
         <action
             android:id="@+id/action_forgotFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/displayUserProfile2"
+        android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_display_user_profile" />
+    <activity
+        android:id="@+id/matchmakingUI"
+        android:name="com.diamondTierHuggers.hugMeCampus.MatchmakingUI"
+        android:label="activity_matchmaking_ui"
+        tools:layout="@layout/activity_matchmaking_ui" />
 </navigation>

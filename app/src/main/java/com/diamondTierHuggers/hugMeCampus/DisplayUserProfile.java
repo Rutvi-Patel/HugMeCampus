@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentSecondBinding;
 import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
 
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
