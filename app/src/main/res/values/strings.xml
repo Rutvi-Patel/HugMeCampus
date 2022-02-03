@@ -25,4 +25,11 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="submit_here">Submit Here</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="logout_menu">Logout</string>
+    <string name="verify_your_account_information_to_continue_with_account_deletion">Verify your Account information to continue with account deletion.</string>
 </resources>

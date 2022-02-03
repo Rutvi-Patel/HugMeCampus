@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/activity_delete_user.xml" value="0.25" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/activity_main.xml" value="0.15501519756838905" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/content_main.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/fragment_first.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/fragment_forgot.xml" value="0.31875" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/fragment_profile.xml" value="0.16793313069908813" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/fragment_second.xml" value="0.2980072463768116" />
         <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/settings_activity.xml" value="0.2658514492753623" />
+        <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/menu/menu_main.xml" value="0.31384615384615383" />
         <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/xml/root_preferences.xml" value="0.2658514492753623" />
       </map>
     </option>

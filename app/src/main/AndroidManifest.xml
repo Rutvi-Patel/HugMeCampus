@@ -16,6 +16,12 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+
+        <activity
+            android:name=".DeleteUser"
+            android:label="DeleteUser"
+            android:parentActivityName=".MainActivity"
+            android:exported="false"/>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
