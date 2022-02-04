@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment {
 
     private void performLogin(){
         String email = inputEmail.getText().toString();
-        mAuth.signOut();
+        //mAuth.signOut();
         String password = inputPassword.getText().toString();
 
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -103,6 +103,7 @@ public class LoginFragment extends Fragment {
                             mAuth.signOut();
                         }
                         else {
+                            //task.getResult().getUser();
                             Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                             NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileFragment4);
                         }

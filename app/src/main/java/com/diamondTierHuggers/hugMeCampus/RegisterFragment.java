@@ -1,5 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
+
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -51,9 +53,7 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         auth = FirebaseAuth.getInstance();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-        DatabaseReference myRef = database.getReference();
+        auth.signOut();
 
         pwdInput = (EditText) view.findViewById(R.id.editTextTextPassword2);
         emailInput = (EditText) view.findViewById(R.id.editTextTextEmailAddress);
@@ -66,13 +66,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View view) {
                 createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
 
-                if (binding.radioFemale.isSelected()){
-                    gender = 1;
-                }else{
-                    gender = 0;
-                }
 
-                setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender,myRef );
             }
         });
 
@@ -84,13 +78,12 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    private void setBioValues(String firstName, String lastName, Integer Gender, DatabaseReference myRef ){
+    private void setBioValues(String firstName, String lastName, Integer Gender ){
 
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
         myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
-        myRef.child("users").child(auth.getUid()).child("hug_tier").setValue(0);
     }
 
     private void sendEmailVerification() {
@@ -137,6 +130,15 @@ public class RegisterFragment extends Fragment {
                             Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                             success[0] = true;
                             sendEmailVerification();
+                            //
+                            if (binding.radioFemale.isSelected()){
+                                gender = 1;
+                            }else{
+                                gender = 0;
+                            }
+
+                            setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender);
+                            //
                             NavHostFragment.findNavController(RegisterFragment.this)
                                     .navigate(R.id.SecondFragment);
                         } else {
