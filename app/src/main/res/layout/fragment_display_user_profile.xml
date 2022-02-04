@@ -5,7 +5,7 @@
     android:id="@+id/displayUserProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#34223b"
+    android:background="@color/background_purple"
     tools:context=".DisplayUserProfile">
 
     <!-- TODO: Update blank fragment layout -->

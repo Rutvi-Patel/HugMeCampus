@@ -2,9 +2,7 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 @IgnoreExtraProperties
 public class HugMeUser {
