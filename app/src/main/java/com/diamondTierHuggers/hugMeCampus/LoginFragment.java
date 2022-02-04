@@ -84,7 +84,15 @@ public class LoginFragment extends Fragment {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_displayUserProfile2);
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
+                    @Override
+                    public void onSuccess(String dataSnapshotValue) {
+                        System.out.println("created HugMeUser for app user");
+                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_displayUserProfile2);
+                    }
+                });
             }
         });
 
