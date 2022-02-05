@@ -1,8 +1,11 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,38 +39,34 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
             //Logout Button
-//            Preference logoutPreference = findPreference("LogoutButton");
-//            assert logoutPreference != null;
-//            logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(Preference preference) {
-//                    FirebaseAuth.getInstance().signOut();
-//                    Intent LoginIntent = new Intent(SettingsFragment.this.getActivity(), LoginFragment.class);
-//                    SettingsFragment.this.startActivity(LoginIntent);
-//                    NavHostFragment.findNavController(SettingsFragment.this).
-//                            navigate(R.id.nav_host_fragment_content_main);
-
-//                    return true;
-//                }
-//            });
+            Preference logoutPreference = findPreference("LogoutButton");
+            assert logoutPreference != null;
+            logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent LogoutIntent = new Intent(SettingsFragment.this.getActivity(), MainActivity.class);
+                    SettingsFragment.this.startActivity(LogoutIntent);
+                    Intent intent = new Intent(SettingsFragment.this.getActivity(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    return true;
+                }
+            });
 
             //Delete Account Button
-//            Preference deletePreference = findPreference("Delete Button");
-//            assert deletePreference != null;
-//            assert deletePreference != null;
-//            deletePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(Preference preference) {
-//                    Intent i = new Intent(getActivity(), DeleteUser.class);
-//                    startActivity(i);
-//                    ((Activity) getActivity()).overridePendingTransition(0,0);
+            Preference deletePreference = findPreference("Delete Button");
+            deletePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
 
-//                    Intent deleteIntent = new Intent(SettingsFragment.this.getActivity(), DeleteUser.class);
-//                    SettingsFragment.this.startActivity(deleteIntent);
-//                    startActivity(new Intent(preference.getContext(), DeleteUser.class));
-//                    return true;
-//                }
-//            });
+                    Intent deleteIntent = new Intent(SettingsFragment.this.getActivity(), DeleteUser.class);
+                    SettingsFragment.this.startActivity(deleteIntent);
+                    return true;
+                }
+            });
 
         }
     }

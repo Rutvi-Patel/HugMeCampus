@@ -76,18 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent i = new Intent(this,SettingsActivity.class);
             startActivity(i);
-            return true;
         }
-        if (id == R.id.menu_logout) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(MainActivity.this, LoginFragment.class));
-            return true;
-        }
-        if (id == R.id.delete) {
-            startActivity(new Intent(MainActivity.this, DeleteUser.class));
-            return true;
-        }
-
 
         return super.onOptionsItemSelected(item);
     }

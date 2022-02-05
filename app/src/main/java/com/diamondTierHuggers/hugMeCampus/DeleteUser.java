@@ -43,7 +43,6 @@ public class DeleteUser extends AppCompatActivity {
 
         // Get auth credentials from the user for re-authentication. The example below shows
         // email and password credentials but there are multiple possible providers,
-        // such as GoogleAuthProvider or FacebookAuthProvider.
         AuthCredential credential = EmailAuthProvider.getCredential(email, password);
 
         // Prompt the user to re-provide their sign-in credentials
