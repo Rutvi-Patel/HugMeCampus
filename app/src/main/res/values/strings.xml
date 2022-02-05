@@ -32,4 +32,5 @@
     <string name="delete_account">Delete Account</string>
     <string name="logout_menu">Logout</string>
     <string name="verify_your_account_information_to_continue_with_account_deletion">Verify your Account information to continue with account deletion.</string>
+    <string name="verify_your_account_to_continue_with_deletion">Verify your account to continue with deletion</string>
 </resources>
