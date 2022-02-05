@@ -57,4 +57,5 @@ dependencies {
 
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.0.6'
+    implementation 'com.lorentzos.swipecards:library:1.0.9'
 }

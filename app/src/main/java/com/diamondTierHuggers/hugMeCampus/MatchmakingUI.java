@@ -1,33 +1,21 @@
 package com.diamondTierHuggers.hugMeCampus;
 
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.queryDB.AppUser.mq;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
-import com.diamondTierHuggers.hugMeCampus.queryDB.MatchMakingQueue;
-import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import java.util.HashSet;
+import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import java.util.ArrayList;
+
 
 public class MatchmakingUI extends AppCompatActivity {
 
     private Button acceptButton;
-
-    private final String[] gender = {"Male", "Female"};
-    private final String[] emoji = {"poop", "coal", "bronze", "silver", "gold", "platinum", "diamond"};
-
-    private TextView name, info, bio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,60 +23,78 @@ public class MatchmakingUI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matchmaking_ui);
 
-        MatchMakingQueue mq = new MatchMakingQueue();
-
-        // TODO: start loading screen, maybe new fragment or something or else the rest of the code will run and will error polling from queue before queue is ready
-
-        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-            @Override
-            public void onSuccess(String dataSnapshotValue) {
-                // TODO: exit loading screen
-                System.out.println("finished loading mq");
-                name = findViewById(R.id.name);
-                info = findViewById(R.id.info);
-                bio = findViewById(R.id.bio);
-                HugMeUser h = mq.poll();
-                System.out.println(h);
-                name.setText(h.first_name + " " + h.last_name);
-                info.setText(h.age + ", " + gender[h.gender] + ", " + emoji[h.hug_count/50]);
-                bio.setText(h.bio);
-            }
-        });
-
         acceptButton = findViewById(R.id.Accept);
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HugMeUser h = mq.poll();
-
-                name = findViewById(R.id.name);
-                info = findViewById(R.id.info);
-                bio = findViewById(R.id.bio);
-
-                name.setText(h.first_name + " " + h.last_name);
-                info.setText(h.age + ", " + gender[h.gender] + ", " + emoji[h.hug_count/50]);
-                bio.setText(h.bio);
-
-
-//                AcceptListModel accepted = new AcceptListModel();
-//                FirebaseAuth auth = FirebaseAuth.getInstance();
-//                String uid = "uid123";
-//                if(auth.getUid() != null) {
-//                    uid = auth.getUid();
-//                }
-//                accepted.getAcceptedUsersSet(uid, new AcceptedListHashSetData() {
-//                    @Override
-//                    public void GetUserAcceptList(HashSet<String> set) {
-//                        if(set != null && set.contains("joe")) {
-//                            Toast.makeText(getApplicationContext(), "It's a match!", Toast.LENGTH_LONG).show();
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), "Adding user to our match list", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
 
             }
         });
+
+        //add the view via xml or programmatically
+        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+
+        ArrayList al = new ArrayList<HugMeUser>();
+
+        al.add(mq.poll());
+        al.add(mq.poll());
+
+
+        ProfileAdapter arrayAdapter = new ProfileAdapter(this, al );
+
+        //set the listener and the adapter
+        flingContainer.setAdapter(arrayAdapter);
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            @Override
+            public void removeFirstObjectInAdapter() {
+                // this is the simplest way to delete an object from the Adapter (/AdapterView)
+                System.out.println("LIST removed object!");
+                al.remove(0);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLeftCardExit(Object dataObject) {
+                //Do something on the left!
+                //You also have access to the original object.
+                //If you want to use it just cast it (String) dataObject
+//                Toast.makeText(this, "Left!", Toast.LENGTH_SHORT).show();
+                System.out.println("LEFT");
+                al.add(mq.poll());
+            }
+
+            @Override
+            public void onRightCardExit(Object dataObject) {
+//                Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
+                System.out.println("RIGHT");
+                al.add(mq.poll());
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                // Ask for more data here
+//                al.add("XML ".concat(String.valueOf(i)));
+//                arrayAdapter.notifyDataSetChanged();
+//                Log.d("LIST", "notified");
+//                i++;
+                System.out.println("ABOUT TO EMPTY");
+            }
+
+            @Override
+            public void onScroll(float v) {
+                System.out.println("SCROLL");
+            }
+        });
+
+        // Optionally add an OnItemClickListener
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject) {
+//                makeToast(MyActivity.this, "Clicked!");
+                System.out.println("CLICKED");
+            }
+        });
+
 
 
     }
