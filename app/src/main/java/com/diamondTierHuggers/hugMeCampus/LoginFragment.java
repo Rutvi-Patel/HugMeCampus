@@ -91,7 +91,16 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onSuccess(String dataSnapshotValue) {
                         System.out.println("created HugMeUser for app user");
-                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_displayUserProfile2);
+
+                        //TODO move this to on click from navigation then start loading screen
+                        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
+                            @Override
+                            public void onSuccess(String dataSnapshotValue) {
+                                System.out.println("finished loading mq");
+                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileActivity);
+
+                            }
+                        });
                     }
                 });
             }
