@@ -6,10 +6,20 @@
         <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/drawable/input_bg.xml" value="0.2703125" />
         <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/activity_forgot.xml" value="0.22554347826086957" />
         <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/activity_profile.xml" value="0.22644927536231885" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/app_bar_profile.xml" value="0.21145833333333333" />
         <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/content_main.xml" value="0.264" />
-        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_first.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/content_profile.xml" value="0.10054347826086957" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_first.xml" value="0.4" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_forgot.xml" value="0.203125" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_gallery.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_home.xml" value="0.21145833333333333" />
         <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_profile.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_second.xml" value="0.4" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_slideshow.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/menu/activity_main_drawer.xml" value="0.16875" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/menu/menu_main.xml" value="0.16875" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/menu/profile.xml" value="0.16875" />
       </map>
     </option>
   </component>
