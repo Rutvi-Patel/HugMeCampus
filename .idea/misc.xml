@@ -3,31 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3921875" />
-        <entry key="app/src/main/res/drawable/dot.xml" value="0.21197916666666666" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3921875" />
-        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.42188284612189464" />
-        <entry key="app/src/main/res/drawable/ic_wb_cloudy_with_padding.xml" value="0.37447916666666664" />
-        <entry key="app/src/main/res/layout/activity_carousel_helper.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_circular_flow_demo.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2817028985507246" />
-        <entry key="app/src/main/res/layout/activity_matchmaking_ui.xml" value="0.2817028985507246" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.2817028985507246" />
-        <entry key="app/src/main/res/layout/drawer_layout.xml" value="0.396875" />
-        <entry key="app/src/main/res/layout/edit_user_profile_fragment.xml" value="0.18333333333333332" />
-        <entry key="app/src/main/res/layout/fragment_carousel.xml" value="0.3619791666666667" />
-        <entry key="app/src/main/res/layout/fragment_display_user_profile.xml" value="0.3633618520382486" />
-        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.2817028985507246" />
-        <entry key="app/src/main/res/layout/fragment_forgot.xml" value="0.29270833333333335" />
-        <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog_item.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/fragment_scrolling.xml" value="0.3619791666666667" />
-        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1761617510623268" />
-        <entry key="app/src/main/res/layout/item.xml" value="0.17760416666666667" />
-        <entry key="app/src/main/res/layout/item_custom_fixed_size_layout_3.xml" value="0.12635869565217392" />
-        <entry key="app/src/main/res/menu/menu_main.xml" value="0.18541666666666667" />
-        <entry key="app/src/main/res/xml/activity_carousel_helper_scene.xml" value="0.1" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/drawable/input_bg.xml" value="0.2703125" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/activity_forgot.xml" value="0.22554347826086957" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/activity_profile.xml" value="0.22644927536231885" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/app_bar_profile.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/content_main.xml" value="0.264" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/content_profile.xml" value="0.10054347826086957" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_first.xml" value="0.4" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_forgot.xml" value="0.203125" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_gallery.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_home.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_profile.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_second.xml" value="0.4" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/layout/fragment_slideshow.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/menu/activity_main_drawer.xml" value="0.16875" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/menu/menu_main.xml" value="0.16875" />
+        <entry key="..\:/Users/rutvi/Desktop/491A/hugMeCampus/app/src/main/res/menu/profile.xml" value="0.16875" />
       </map>
     </option>
   </component>

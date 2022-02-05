@@ -107,7 +107,15 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performLogin();
+                if (inputValidation()){
+                        performLogin();
+                    }else{
+                        if (inputEmail.getText().toString().isEmpty())
+                        inputEmail.setError("Enter email");
+                        else{
+                            inputPassword.setError("Enter password");
+                        }
+                    }
             }
         });
 
@@ -125,7 +133,13 @@ public class LoginFragment extends Fragment {
         binding = null;
     }
 
-    private void performLogin() {
+    public boolean inputValidation(){
+        if (binding.editTextTextEmailAddress.getText().toString().isEmpty()|| binding.editTextTextPassword2.getText().toString().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+    private void performLogin(){
         String email = inputEmail.getText().toString();
         mAuth.signOut();
         String password = inputPassword.getText().toString();
@@ -149,7 +163,7 @@ public class LoginFragment extends Fragment {
                             }
                         });
                         Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_displayUserProfile2);
+                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileActivity);
                     }
 
                 } else {

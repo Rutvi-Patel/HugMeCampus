@@ -29,6 +29,9 @@
             android:id="@+id/action_SecondFragment_self"
             app:destination="@id/SecondFragment" />
         <action
+            android:id="@+id/action_SecondFragment_to_profileActivity"
+            app:destination="@id/profileActivity" />
+        <action
             android:id="@+id/action_SecondFragment_to_displayUserProfile2"
             app:destination="@id/displayUserProfile2" />
         <action
@@ -44,6 +47,11 @@
             android:id="@+id/action_forgotFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
+    <activity
+        android:id="@+id/profileActivity"
+        android:name="com.diamondTierHuggers.hugMeCampus.ProfileActivity"
+        android:label="app_bar_profile"
+        tools:layout="@layout/app_bar_profile" />
     <fragment
         android:id="@+id/displayUserProfile2"
         android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"

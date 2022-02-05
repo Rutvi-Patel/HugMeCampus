@@ -53,10 +53,8 @@ public class ForgotFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 performCodeVerify();
-                NavHostFragment.findNavController(ForgotFragment.this).navigate(R.id.action_forgotFragment_to_SecondFragment);
             }
         });
-
         LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,19 +67,15 @@ public class ForgotFragment extends Fragment {
 
     // Checking if the input in form is valid
     boolean validateInput() {
-
-        if (etEmail.getText().toString().equals("")) {
-            etEmail.setError("Please Enter Email");
+        if (etEmail.getText().toString().isEmpty()){
+            etEmail.setError("Enter email");
             return false;
         }
-
         // checking the proper email format
         if (!isEmailValid(etEmail.getText().toString())) {
             etEmail.setError("Please Enter Valid Email");
             return false;
         }
-
-
         return true;
     }
 
@@ -98,6 +92,7 @@ public class ForgotFragment extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity().getApplicationContext(), "Reset email instructions sent to " + email, Toast.LENGTH_LONG).show();
+                            NavHostFragment.findNavController(ForgotFragment.this).navigate(R.id.action_forgotFragment_to_SecondFragment);
                         } else {
                             Toast.makeText(getActivity().getApplicationContext(), email + " does not exist", Toast.LENGTH_LONG).show();
                         }
