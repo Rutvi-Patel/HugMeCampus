@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.data;
 
 import java.util.HashSet;
 

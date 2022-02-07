@@ -6,8 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
+import com.diamondTierHuggers.hugMeCampus.data.BoolDataCallback;
+import com.diamondTierHuggers.hugMeCampus.data.RejectListModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
@@ -17,7 +23,8 @@ public class MatchmakingUI extends AppCompatActivity {
 
     private Button acceptButton;
     private Button declineButton;
-
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
@@ -28,29 +35,11 @@ public class MatchmakingUI extends AppCompatActivity {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AcceptListModel accepted = new AcceptListModel();
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                String uid = "uid123";
-                if(auth.getUid() != null) {
-                    uid = auth.getUid();
-                }
-                AcceptListModel model = new AcceptListModel();
-
-                model.isUserAccepted(uid,"test", new BoolDataCallback() {
-                    @Override
-                    public void getBool(boolean value) {
-                        if(value) {
-                            Toast.makeText(getApplicationContext(), "It's a match!", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Match not found!", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                });
 
             }
         });
 
+        currentUser = auth.getCurrentUser();
         //add the view via xml or programmatically
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -80,6 +69,8 @@ public class MatchmakingUI extends AppCompatActivity {
                 //If you want to use it just cast it (String) dataObject
 //                Toast.makeText(this, "Left!", Toast.LENGTH_SHORT).show();
                 System.out.println("LEFT");
+                HugMeUser otherUser = (HugMeUser) dataObject;
+                RejectListModel.insertRejectedUser(otherUser.getUid(), currentUser.getUid());
                 al.add(mq.poll());
             }
 
@@ -87,6 +78,18 @@ public class MatchmakingUI extends AppCompatActivity {
             public void onRightCardExit(Object dataObject) {
 //                Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
                 System.out.println("RIGHT");
+                HugMeUser otherUser = (HugMeUser) dataObject;
+                AcceptListModel.isUserAccepted(otherUser.getUid(), currentUser.getUid(), new BoolDataCallback() {
+                    @Override
+                    public void getBool(boolean value) {
+                        if(value)
+                        {
+                            Toast.makeText(getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        AcceptListModel.insertAcceptedUser(otherUser.getUid(), currentUser.getUid());
+                    }
+                });
                 al.add(mq.poll());
             }
 
@@ -119,17 +122,6 @@ public class MatchmakingUI extends AppCompatActivity {
         declineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RejectListModel model = new RejectListModel();
-                model.isUserRejected("1", "aUserUID", new BoolDataCallback() {
-                    @Override
-                    public void getBool(boolean value) {
-                        if(value) {
-                            Toast.makeText(getApplicationContext(), "It's a match!", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Match not found!", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
 
             }
         });
