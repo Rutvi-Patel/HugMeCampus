@@ -1,7 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus;
 
 import static com.diamondTierHuggers.hugMeCampus.queryDB.AppUser.mq;
-
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,9 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
+import com.diamondTierHuggers.hugMeCampus.data.BoolDataCallback;
+import com.diamondTierHuggers.hugMeCampus.data.RejectListModel;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentMatchMakingBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
@@ -22,8 +28,10 @@ public class MatchMakingFragment extends Fragment {
 
 
     private FragmentMatchMakingBinding binding;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     public MatchMakingFragment() {
+
     }
 
 
@@ -77,6 +85,9 @@ public class MatchMakingFragment extends Fragment {
                 //If you want to use it just cast it (String) dataObject
 //                Toast.makeText(this, "Left!", Toast.LENGTH_SHORT).show();
                 System.out.println("LEFT");
+                HugMeUser otherUser = (HugMeUser) dataObject;
+                RejectListModel.insertRejectedUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                appUser.getAppUser().rejected_list.put(otherUser.getUid(), true);
                 al.add(mq.poll());
             }
 
@@ -84,6 +95,19 @@ public class MatchMakingFragment extends Fragment {
             public void onRightCardExit(Object dataObject) {
 //                Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
                 System.out.println("RIGHT");
+                HugMeUser otherUser = (HugMeUser) dataObject;
+                appUser.getAppUser().accepted_list.put(otherUser.getUid(), true);
+                AcceptListModel.isUserAccepted(appUser.getAppUser().getUid(), otherUser.getUid(), new BoolDataCallback() {
+                    @Override
+                    public void getBool(boolean value) {
+                        if(value)
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        AcceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                    }
+                });
                 al.add(mq.poll());
             }
 

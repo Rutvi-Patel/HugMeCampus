@@ -31,8 +31,9 @@ public class MatchMakingQueue {
                     for (DataSnapshot user : dataSnapshot.getChildren()) {
                         HugMeUser h = user.getValue(HugMeUser.class);
                         String hUid = user.getKey();
+
                         // FIXME checking appuser uid and h uid is the same is not working, could match with self
-                        if (appUser.getAppUser().getUid() != h.getUid() && !appUser.getAppUser().rejected_list.containsKey(hUid) && !appUser.getAppUser().accepted_list.containsKey(hUid) && !appUser.getAppUser().blocked_list.containsKey(hUid)
+                        if (!appUser.getAppUser().getUid().equals(hUid) && !appUser.getAppUser().rejected_list.containsKey(hUid) && !appUser.getAppUser().accepted_list.containsKey(hUid) && !appUser.getAppUser().blocked_list.containsKey(hUid)
                                 && !h.rejected_list.containsKey(appUserUid) && !h.blocked_list.containsKey(appUserUid)) {
                             h.setUid(hUid);
                             h.calculateMatchScore(appUser.getAppUser().hug_preferences);

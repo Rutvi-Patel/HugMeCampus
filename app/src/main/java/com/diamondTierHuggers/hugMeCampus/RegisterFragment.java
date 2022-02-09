@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentFirstBinding;
+import com.diamondTierHuggers.hugMeCampus.databinding.FragmentRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentRegisterBinding binding;
     private FirebaseAuth auth;
     EditText emailInput;
     EditText pwdInput;
@@ -44,7 +44,7 @@ public class RegisterFragment extends Fragment {
             Bundle savedInstanceState
     ){
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

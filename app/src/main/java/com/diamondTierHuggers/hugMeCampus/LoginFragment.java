@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentSecondBinding;
+import com.diamondTierHuggers.hugMeCampus.databinding.FragmentLoginBinding;
 import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
 import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,10 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginFragment extends Fragment {
 
-    private FragmentSecondBinding binding;
+    private FragmentLoginBinding binding;
     TextView createNewAccount, forgotPassword;
     EditText inputPassword, inputEmail;
-    Button loginBtn, matchmakingBtn, profileBtn;
+    Button loginBtn,  profileBtn;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     ProgressDialog progressDialog;
@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -54,33 +54,8 @@ public class LoginFragment extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         forgotPassword = view.findViewById(R.id.textViewForgotPassword);
         mUser = mAuth.getCurrentUser();
-        matchmakingBtn = view.findViewById(R.id.matchmaking);
         profileBtn = view.findViewById(R.id.profile);
 
-        matchmakingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO add this to main activity or smth so appuser is set when the app is opened
-                FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
-                    @Override
-                    public void onSuccess(String dataSnapshotValue) {
-                        System.out.println("created HugMeUser for app user");
-
-                        //TODO move this to on click from navigation then start loading screen
-                        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-                            @Override
-                            public void onSuccess(String dataSnapshotValue) {
-                                System.out.println("finished loading mq");
-                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_matchmakingUI);
-
-                            }
-                        });
-                    }
-                });
-            }
-        });
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
