@@ -1,6 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentFirstBinding;
+import com.diamondTierHuggers.hugMeCampus.databinding.FragmentRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentRegisterBinding binding;
     private FirebaseAuth auth;
     EditText emailInput;
     EditText pwdInput;
@@ -41,11 +42,10 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
-    ) {
+    ){
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -64,15 +64,14 @@ public class RegisterFragment extends Fragment {
         sendDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
+                if (inputValidation()) {
 
-                if (binding.radioFemale.isSelected()){
-                    gender = 1;
+                        createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
+                        setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(), gender, myRef);
+
                 }else{
-                    gender = 0;
+                    Toast.makeText(getActivity().getApplicationContext(), "All values required", Toast.LENGTH_SHORT).show();
                 }
-
-                setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender,myRef );
             }
         });
 
@@ -84,13 +83,13 @@ public class RegisterFragment extends Fragment {
         });
     }
 
+
     private void setBioValues(String firstName, String lastName, Integer Gender, DatabaseReference myRef ){
 
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
         myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
-        myRef.child("users").child(auth.getUid()).child("hug_tier").setValue(0);
     }
 
     private void sendEmailVerification() {
@@ -122,6 +121,14 @@ public class RegisterFragment extends Fragment {
         }
     }
 
+    public boolean inputValidation(){
+        if (binding.textViewFirstName.getText().toString().isEmpty()|| binding.textviewLastName.getText().toString().isEmpty()||
+                binding.editTextTextEmailAddress.getText().toString().isEmpty()|| binding.editTextTextPassword2.getText().toString().isEmpty()
+                && (!binding.radioFemale.isSelected() && !binding.radioMale.isSelected())){
+                return false;
+        }
+        return true;
+    }
 
 
     private boolean createUserAccount(String email, String pwd) {
@@ -134,11 +141,11 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
-                            success[0] = true;
-                            sendEmailVerification();
-                            NavHostFragment.findNavController(RegisterFragment.this)
-                                    .navigate(R.id.SecondFragment);
+                                Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
+                                success[0] = true;
+                                sendEmailVerification();
+                                NavHostFragment.findNavController(RegisterFragment.this)
+                                        .navigate(R.id.SecondFragment);
                         } else {
                             try {
                                 throw task.getException();
@@ -172,7 +179,6 @@ public class RegisterFragment extends Fragment {
     private void sendUserToNextFragment() {
 
         NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.SecondFragment);
-
     }
 
     @Override
