@@ -1,6 +1,8 @@
 package com.diamondTierHuggers.hugMeCampus;
 
 import android.content.Intent;
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -8,22 +10,24 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.Preference;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();

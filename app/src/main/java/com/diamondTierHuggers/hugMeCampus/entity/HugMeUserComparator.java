@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus.matchmaking;
+package com.diamondTierHuggers.hugMeCampus.entity;
 
 import java.util.Comparator;
 
