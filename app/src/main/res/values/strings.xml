@@ -114,4 +114,5 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_matchmaking">MatchMaking</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_list">Matches and Friends</string>
 </resources>
