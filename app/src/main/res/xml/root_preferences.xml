@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Types of Notifications"/>
+
+        <ListPreference
+            android:defaultValue="false"
+            android:key="Notifications"
+            android:summary="Choose preferred Notification type"
+            android:entries="@array/reply_entries"
+            android:entryValues="@array/reply_values"
+            android:title="Notifications"/>
+
+    <PreferenceCategory app:title="Account"/>
+
+        <Preference
+            android:title="Logout"
+            android:key="LogoutButton"
+            android:summary="Logout of account"/>
+
+    <Preference
+        android:title="Delete Account"
+        android:key="Delete Button"
+        android:summary="Delete account"/>
+
+
+</PreferenceScreen>

@@ -146,8 +146,9 @@ public class LoginFragment extends Fragment {
                                 System.out.println("created HugMeUser for app user");
                             }
                         });
-                        Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileActivity);
+                        //task.getResult().getUser();
+                            Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_SecondFragment_to_profileActivity);
                     }
 
                 } else {

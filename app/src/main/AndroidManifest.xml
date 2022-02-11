@@ -10,6 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HugMeCampus">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ProfileActivity">
+
+        </activity>
+
+        <activity
+            android:name=".DeleteUser"
+            android:label="DeleteUser"
+            android:parentActivityName=".SettingsActivity"
+            android:exported="false"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_profile"

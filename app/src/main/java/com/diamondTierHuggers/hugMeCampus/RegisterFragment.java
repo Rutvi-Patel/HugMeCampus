@@ -1,5 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
+
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Patterns;
@@ -51,9 +53,7 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         auth = FirebaseAuth.getInstance();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-        DatabaseReference myRef = database.getReference();
+        auth.signOut();
 
         pwdInput = (EditText) view.findViewById(R.id.editTextTextPassword2);
         emailInput = (EditText) view.findViewById(R.id.editTextTextEmailAddress);
@@ -67,7 +67,7 @@ public class RegisterFragment extends Fragment {
                 if (inputValidation()) {
 
                         createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
-                        setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(), gender, myRef);
+                        setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(), gender);
 
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(), "All values required", Toast.LENGTH_SHORT).show();
@@ -84,7 +84,7 @@ public class RegisterFragment extends Fragment {
     }
 
 
-    private void setBioValues(String firstName, String lastName, Integer Gender, DatabaseReference myRef ){
+    private void setBioValues(String firstName, String lastName, Integer Gender){
 
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
@@ -144,8 +144,17 @@ public class RegisterFragment extends Fragment {
                                 Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                                 success[0] = true;
                                 sendEmailVerification();
-                                NavHostFragment.findNavController(RegisterFragment.this)
-                                        .navigate(R.id.SecondFragment);
+                                //
+                            if (binding.radioFemale.isSelected()){
+                                gender = 1;
+                            }else{
+                                gender = 0;
+                            }
+
+                            setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender);
+                            //
+                            NavHostFragment.findNavController(RegisterFragment.this)
+                                    .navigate(R.id.SecondFragment);
                         } else {
                             try {
                                 throw task.getException();
