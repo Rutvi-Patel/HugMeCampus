@@ -3,16 +3,16 @@ package com.diamondTierHuggers.hugMeCampus;
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.viewbinding.ViewBinding;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.viewbinding.ViewBinding;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
 import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
@@ -101,6 +101,7 @@ public class DisplayUserProfile extends Fragment {
         //carousel v2
         binding.carousel4.registerLifecycle(getLifecycle());
 
+
         binding.carousel4.setCarouselListener((CarouselListener) (new CarouselListener() {
             @Override
             public ViewBinding onCreateViewHolder(LayoutInflater layoutInflater, ViewGroup parent) {
@@ -123,6 +124,8 @@ public class DisplayUserProfile extends Fragment {
             public void onLongClick(int position, CarouselItem carouselItem) {
                 DefaultImpls.onLongClick(this, position, carouselItem);
             }
+
+
         }));
 
         List<CarouselItem> list = new ArrayList<>();

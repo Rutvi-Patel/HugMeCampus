@@ -26,7 +26,6 @@
             app:cardElevation="10dp">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -82,6 +81,13 @@
                     android:text="Bio:\n\nHello, I want to give you a hug."
                     android:textColor="@color/white"
                     android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:text="Edit" />
 
             </LinearLayout>
 
