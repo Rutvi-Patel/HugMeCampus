@@ -56,8 +56,6 @@ public class ProfileActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.profile, menu);
         return true;
-
-
     }
 
     @Override
@@ -76,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this,SettingsActivity.class);
+            Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
         }
 

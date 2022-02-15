@@ -12,29 +12,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.diamondTierHuggers.hugMeCampus.placeholder.PlaceholderContent;
-
 /**
  * A fragment representing a list of Items.
  */
-public class ListItemFragment extends Fragment {
+public class ListFriendRequestFragment extends Fragment implements MyListItemRecyclerViewAdapter.OnItemListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private MyListItemRecyclerViewAdapter mMyListItemRecyclerViewAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ListItemFragment() {
+    public ListFriendRequestFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ListItemFragment newInstance(int columnCount) {
-        ListItemFragment fragment = new ListItemFragment();
+    public static ListFriendRequestFragment newInstance(int columnCount) {
+        ListFriendRequestFragment fragment = new ListFriendRequestFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -54,8 +53,6 @@ public class ListItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -64,8 +61,15 @@ public class ListItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyListItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            mMyListItemRecyclerViewAdapter = new MyListItemRecyclerViewAdapter(this, false);
+            recyclerView.setAdapter(mMyListItemRecyclerViewAdapter);
         }
         return view;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // TODO create intent and view profile activity or transition to new fragment
+        System.out.println(position);
     }
 }

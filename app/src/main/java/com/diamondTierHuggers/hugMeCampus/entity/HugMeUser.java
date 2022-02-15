@@ -10,21 +10,22 @@ public class HugMeUser {
     private String uid;
     public int age;
     public String bio;
-    public boolean completed_setup;
-    public String email;
+//    public boolean completed_setup;
+//    public String email;
     public String first_name;
     public int hug_count;
-    public String hug_tier;
+//    public String hug_tier;
     public String last_name;
-    public boolean verified_email;
-    public String verified_email_date;
+//    public boolean verified_email;
+//    public String verified_email_date;
     public HugPreferences hug_preferences;
     public UserPictures pictures;
-    public boolean online;
+//    public boolean online;
     public int gender;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
+    public HashMap<String, Boolean> friend_list;
 
     private int matchScore = 0;
 
@@ -38,8 +39,6 @@ public class HugMeUser {
     public int getAge() {
         return this.age;
     }
-
-
 
     public int getMatchScore() {
         return matchScore;
@@ -73,23 +72,16 @@ public class HugMeUser {
         }
     }
 
-
     @Override
     public String toString() {
         return "HugMeUser{" +
                 "age=" + age +
                 ", bio='" + bio + '\'' +
-                ", completed_setup=" + completed_setup +
-                ", email='" + email + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", hug_count=" + hug_count +
-                ", hug_tier='" + hug_tier + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", verified_email=" + verified_email +
-                ", verified_email_date='" + verified_email_date + '\'' +
                 ", hug_preferances=" + hug_preferences +
                 ", pictures=" + pictures +
-                ", online=" + online +
                 ", matchScore=" + matchScore +
                 '}';
     }

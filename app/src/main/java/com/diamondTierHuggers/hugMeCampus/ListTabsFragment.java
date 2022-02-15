@@ -11,11 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 public class ListTabsFragment extends Fragment {
 
-        // When requested, this adapter returns a DemoObjectFragment,
-        // representing an object in the collection.
         ListTabsCollectionPagerAdapter listTabsCollectionPagerAdapter;
         ViewPager viewPager;
 
@@ -33,6 +30,7 @@ public class ListTabsFragment extends Fragment {
             viewPager = view.findViewById(R.id.pager);
             viewPager.setAdapter(listTabsCollectionPagerAdapter);
         }
-    }
+
+}
 
 
