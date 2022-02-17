@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_matchmaking" />
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/editUserProfile"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_profile" />
         <item
