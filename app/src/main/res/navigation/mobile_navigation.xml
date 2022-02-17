@@ -21,11 +21,21 @@
         android:id="@+id/editUserProfile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditUserProfile"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_edit_user_profile" />
+        tools:layout="@layout/fragment_edit_user_profile" >
+        <action
+            android:id="@+id/editUserProfile_to_EditProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.diamondTierHuggers.hugMeCampus.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

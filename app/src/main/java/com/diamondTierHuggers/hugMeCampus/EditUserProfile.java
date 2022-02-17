@@ -1,32 +1,15 @@
 package com.diamondTierHuggers.hugMeCampus;
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
-import static com.diamondTierHuggers.hugMeCampus.queryDB.AppUser.mq;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.viewbinding.ViewBinding;
 
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentEditUserProfileBinding;
-import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
-import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
-import org.imaginativeworld.whynotimagecarousel.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,7 +76,7 @@ public class EditUserProfile extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(EditUserProfile.this).navigate(R.id.action_editUserProfile2_to_editProfile);
+                NavHostFragment.findNavController(EditUserProfile.this).navigate(R.id.editUserProfile_to_EditProfile);
             }
         });
     }
