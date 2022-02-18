@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,12 +76,20 @@ public class ListFriendFragment extends Fragment implements MyListItemRecyclerVi
         System.out.println(position);
 //        Intent i = new Intent(this.getContext(), new DisplayUserProfile(mMyListItemRecyclerViewAdapter.getItem(position)).getClass());
 //        startActivity(i);
-        DisplayUserProfile displayUserProfile = new DisplayUserProfile(mMyListItemRecyclerViewAdapter.getItem(position));
+//        DisplayUserProfile displayUserProfile = new DisplayUserProfile(mMyListItemRecyclerViewAdapter.getItem(position));
 //        NavHostFragment.findNavController(ListFriendFragment.this).nav(displayUserProfile);
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.tabs, displayUserProfile);
-        fragmentTransaction.commit();
 
 
+//        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.tabs, new ViewOtherProfileFragment());
+//        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+//        NavHostFragment.
+
+        System.out.println(getParentFragment().toString());
+
+        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_listTabsFragment2_to_viewOtherProfileFragment);
+//        Navigation.findNavController(getActivity(), R.id.nav_other_profile);
     }
 }

@@ -44,6 +44,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="nav_other_profile">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="nav_profile">
                     <value>
                       <LayoutPositions>
@@ -108,17 +120,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_SecondFragment_to_displayUserProfile2">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_SecondFragment_to_forgotFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_SecondFragment_to_matchmakingUI">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -133,25 +135,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="displayUserProfile2">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="forgotFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="56" />
-                            <option name="y" value="394" />
+                            <option name="x" value="-96" />
+                            <option name="y" value="512" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -166,14 +156,44 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="matchmakingUI">
+                  <entry key="listFriendFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="60" />
+                            <option name="y" value="-832" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_listFriendFragment_to_viewOtherProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_list_tabs">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-356" />
+                            <option name="y" value="-681" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_listTabsFragment2_to_viewOtherProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -183,8 +203,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-117" />
-                            <option name="y" value="-343" />
+                            <option name="x" value="-51" />
+                            <option name="y" value="-358" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="viewOtherProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="387" />
+                            <option name="y" value="-453" />
                           </Point>
                         </option>
                       </LayoutPositions>

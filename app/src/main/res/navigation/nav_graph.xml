@@ -31,9 +31,6 @@
         <action
             android:id="@+id/action_SecondFragment_to_profileActivity"
             app:destination="@id/profileActivity" />
-        <action
-            android:id="@+id/action_SecondFragment_to_displayUserProfile2"
-            app:destination="@id/displayUserProfile2" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
@@ -48,10 +45,24 @@
         android:id="@+id/profileActivity"
         android:name="com.diamondTierHuggers.hugMeCampus.ProfileActivity"
         android:label="app_bar_profile"
-        tools:layout="@layout/app_bar_profile" />
+        tools:layout="@layout/app_bar_profile" >
+
+        <fragment
+            android:id="@+id/viewOtherProfileFragment"
+            android:name="com.diamondTierHuggers.hugMeCampus.ViewOtherProfileFragment"
+            android:label="fragment_view_other_profile"
+            tools:layout="@layout/fragment_view_other_profile" />
     <fragment
-        android:id="@+id/displayUserProfile2"
-        android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
-        android:label="Profile"
-        tools:layout="@layout/fragment_display_user_profile" />
+        android:id="@+id/nav_list_tabs"
+        android:name="com.diamondTierHuggers.hugMeCampus.ListTabsFragment"
+        android:label="@string/menu_list"
+        tools:layout="@layout/fragment_list_tabs" >
+        <action
+            android:id="@+id/action_listTabsFragment2_to_viewOtherProfileFragment"
+            app:destination="@id/viewOtherProfileFragment" />
+    </fragment>
+
+    </activity>
+
+
 </navigation>
