@@ -1,123 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/editUserProfileFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayUserProfile"
-    android:clipChildren="false">
+    android:clipChildren="false"
+    tools:context=".DisplayUserProfile">
 
-    <FrameLayout
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="120.66dp"
+        android:layout_height="35dp"
+        android:text="CheckBox"
+        tools:layout_editor_absoluteX="267dp"
+        tools:layout_editor_absoluteY="576dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="120.66dp"
+        android:layout_height="35dp"
+        android:text="CheckBox"
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="576dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="120.66dp"
+        android:layout_height="35dp"
+        android:text="CheckBox"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="576dp" />
+
+
+    <Spinner
+        android:id="@+id/planets_spinner"
+        android:layout_width="55dp"
+        android:layout_height="32dp"
+        android:text="preference"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="661dp" />
+
+    <EditText
+        android:id="@+id/edit_bio"
+        android:layout_width="362dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_baseline_edit_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Bio"
+        android:minHeight="48dp"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="461dp" />
+
+    <EditText
+        android:id="@+id/edit_gender"
+        android:layout_width="181dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_baseline_edit_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Gender"
+        android:minHeight="48dp"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.999"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="408dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_height="200dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/ic_baseline_add_a_photo_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="10dp">
+    <Button
+        android:id="@+id/upload_Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="264dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp">
+    <EditText
+        android:id="@+id/edit_firstName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_baseline_edit_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="FirstName"
+        android:minHeight="48dp"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="312dp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp" />
+    <EditText
+        android:id="@+id/edit_lastName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_baseline_edit_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="LastName"
+        android:minHeight="48dp"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="360dp" />
 
-                <me.relex.circleindicator.CircleIndicator2
-                    android:id="@+id/custom_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    app:ci_animator="@animator/scale_with_alpha"
-                    app:ci_drawable="@drawable/dot"
-                    app:ci_drawable_unselected="@drawable/dot" />
+    <EditText
+        android:id="@+id/edit_age"
+        android:layout_width="181dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/input_bg"
+        android:drawableStart="@drawable/ic_baseline_edit_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Age"
+        android:minHeight="48dp"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="408dp" />
 
-                <EditText
-                    android:id="@+id/editTextName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#9b59b6"
-                    android:paddingStart="8dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="First Name, Last Name"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-                <EditText
-                    android:id="@+id/editTextInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#9b59b6"
-                    android:paddingStart="8dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="Age, Gender, Tier Emoji"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="362dp"
+        android:layout_height="24dp"
+        android:text="Hug Preferences"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="552dp" />
 
 
-                <EditText
-                    android:id="@+id/editTextBio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#9b59b6"
-                    android:paddingStart="8dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="Bio:\n\nHello, I want to give you a hug."
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/btnEdit"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|right"
-                    android:text="Edit" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel4"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:translationZ="20dp"
-            app:autoPlay="false"
-            app:autoPlayDelay="5000"
-            app:carouselGravity="CENTER"
-            app:carouselPaddingBottom="8dp"
-            app:carouselPaddingTop="8dp"
-            app:carouselType="SHOWCASE"
-            app:imageScaleType="centerCrop"
-            app:infiniteCarousel="false"
-            app:scaleOnScroll="true"
-            app:scalingFactor=".25"
-            app:showBottomShadow="false"
-            app:showCaption="false"
-            app:showIndicator="false"
-            app:showNavigationButtons="false"
-            app:showTopShadow="false" />
-
-    </FrameLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
