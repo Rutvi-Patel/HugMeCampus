@@ -37,7 +37,7 @@ public class DisplayUserProfile extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private final String[] gender = {"Male", "Female"};
-    private final String[] emoji = {"poop", "coal", "bronze", "silver", "gold", "platinum", "diamond"};
+    private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
 
     private TextView name, info, bio;
 
