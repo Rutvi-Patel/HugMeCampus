@@ -63,4 +63,5 @@
     <string name="age">Age</string>
     <string name="bio">Bio</string>
     <string name="upload">Upload</string>
+    <string name="save">Save</string>
 </resources>
