@@ -2,11 +2,23 @@ package com.diamondTierHuggers.hugMeCampus;
 
 import android.os.Bundle;
 
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+
+import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +35,8 @@ public class EditProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String myUID = appUser.getAppUser().getUid();
+    private EditText firstName, lastName, age, gender, bio;
 
     public EditProfile() {
         // Required empty public constructor
@@ -60,5 +74,37 @@ public class EditProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_edit_profile, container, false);
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button saveEditBtn = view.findViewById(R.id.save_edits);
+
+        saveEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firstName = view.findViewById(R.id.edit_firstName);
+                lastName = view.findViewById(R.id.edit_lastName);
+                bio = view.findViewById(R.id.edit_bio);
+
+                String firstNameToString = firstName.getText().toString();
+                String lastNameToString = lastName.getText().toString();
+                String bioToString = bio.getText().toString();
+
+                appUser.getAppUser().setFirst_name(firstNameToString);
+                appUser.getAppUser().setLast_name(lastNameToString);
+                appUser.getAppUser().setBio(bioToString);
+
+                myRef.child("users").child(myUID).child("first_name").setValue(firstNameToString);
+                myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
+                myRef.child("users").child(myUID).child("bio").setValue(bioToString);
+
+                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
+
+                System.out.println(appUser.getAppUser().getUid());
+            }
+        });
     }
 }
