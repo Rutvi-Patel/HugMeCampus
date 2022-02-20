@@ -36,6 +36,6 @@
     <fragment
         android:id="@+id/editProfile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"
-        android:label="fragment_edit_profile"
+        android:label="Edit Profile"
         tools:layout="@layout/fragment_edit_profile" />
 </navigation>
