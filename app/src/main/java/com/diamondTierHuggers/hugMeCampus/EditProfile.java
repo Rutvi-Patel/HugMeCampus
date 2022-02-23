@@ -9,11 +9,13 @@ import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
@@ -37,6 +39,8 @@ public class EditProfile extends Fragment {
     private String mParam2;
     private String myUID = appUser.getAppUser().getUid();
     private EditText firstName, lastName, age, gender, bio;
+    private CheckBox shortHug,mediumHug,longHug, quiet,talkative,celebratory,
+            happy,emotional,sad;
 
     public EditProfile() {
         // Required empty public constructor
@@ -101,9 +105,78 @@ public class EditProfile extends Fragment {
                 myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
                 myRef.child("users").child(myUID).child("bio").setValue(bioToString);
 
+                //Hug Preferences
+                shortHug = view.findViewById(R.id.shortHug);
+                mediumHug = view.findViewById(R.id.mediumHug);
+                longHug = view.findViewById(R.id.longHug);
+                quiet = view.findViewById(R.id.quiet);
+                talkative = view.findViewById(R.id.talkative);
+                celebratory = view.findViewById(R.id.celebratory);
+                happy = view.findViewById(R.id.happy);
+                emotional = view.findViewById(R.id.emotional);
+                sad = view.findViewById(R.id.sad);
+
+                if(shortHug.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("0").setValue(true);
+//                    boolean checked = PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).getBoolean("shortHug",false);
+//                    PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).edit().putBoolean("shortHug",checked).apply();
+//                    shortHug.setChecked(checked);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("0").setValue(false);
+                }
+
+                if(mediumHug.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("1").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("1").setValue(false);
+                }
+
+                if(longHug.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("2").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("2").setValue(false);
+                }
+
+                if(quiet.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("0").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("0").setValue(false);
+                }
+
+                if(talkative.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("1").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("1").setValue(false);
+                }
+
+                if(celebratory.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("2").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("2").setValue(false);
+                }
+
+                if(happy.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("3").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("3").setValue(false);
+                }
+
+                if(emotional.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("4").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("4").setValue(false);
+                }
+
+                if(sad.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("5").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("5").setValue(false);
+                }
+
+
                 NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
 
-                System.out.println(appUser.getAppUser().getUid());
+                //System.out.println(appUser.getAppUser().getUid());
             }
         });
     }
