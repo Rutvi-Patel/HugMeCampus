@@ -10,10 +10,24 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
+import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
+import org.imaginativeworld.whynotimagecarousel.utils.Utils;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -74,22 +88,8 @@ public class ListFriendFragment extends Fragment implements MyListItemRecyclerVi
     public void onItemClick(int position) {
         // TODO create intent and view profile activity or transition to new fragment
         System.out.println(position);
-//        Intent i = new Intent(this.getContext(), new DisplayUserProfile(mMyListItemRecyclerViewAdapter.getItem(position)).getClass());
-//        startActivity(i);
-//        DisplayUserProfile displayUserProfile = new DisplayUserProfile(mMyListItemRecyclerViewAdapter.getItem(position));
-//        NavHostFragment.findNavController(ListFriendFragment.this).nav(displayUserProfile);
-
-
-//        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.tabs, new ViewOtherProfileFragment());
-//        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
-//        NavHostFragment.
-
-        System.out.println(getParentFragment().toString());
-
-        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_listTabsFragment2_to_viewOtherProfileFragment);
-//        Navigation.findNavController(getActivity(), R.id.nav_other_profile);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("hugMeUser", mMyListItemRecyclerViewAdapter.getItem(position));
+        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_list_tabs_to_nav_other_profile, bundle);
     }
 }

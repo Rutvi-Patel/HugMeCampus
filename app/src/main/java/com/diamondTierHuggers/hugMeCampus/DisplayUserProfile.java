@@ -80,16 +80,14 @@ public class DisplayUserProfile extends Fragment {
         return binding.getRoot();
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void setProfile(HugMeUser h) {
+        this.name = getView().findViewById(R.id.name);
+        this.info = getView().findViewById(R.id.info);
+        this.bio = getView().findViewById(R.id.bio);
 
-        name = view.findViewById(R.id.name);
-        info = view.findViewById(R.id.info);
-        bio = view.findViewById(R.id.bio);
-
-        name.setText(mHugMeUser.first_name + " " + mHugMeUser.last_name);
-        info.setText(mHugMeUser.age + ", " + gender[mHugMeUser.gender] + ", " + emoji[mHugMeUser.hug_count/50]);
-        bio.setText(mHugMeUser.bio);
+        name.setText(h.first_name + " " + h.last_name);
+        info.setText(h.age + ", " + gender[h.gender] + ", " + emoji[h.hug_count/50]);
+        bio.setText(h.bio);
         //carousel v2
         binding.carousel4.registerLifecycle(getLifecycle());
 
@@ -123,9 +121,7 @@ public class DisplayUserProfile extends Fragment {
         List<CarouselItem> list = new ArrayList<>();
         list.add(
                 new CarouselItem(
-//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.14.13%20PM.png?alt=media&token=ffc414fb-0524-404a-988a-61c5ede309f6"
                         "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
-//                R.drawable.bryce_canyon
                 )
         );
         list.add(
@@ -146,5 +142,10 @@ public class DisplayUserProfile extends Fragment {
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setProfile(mHugMeUser);
     }
 }

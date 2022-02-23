@@ -2,10 +2,11 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 @IgnoreExtraProperties
-public class HugMeUser {
+public class HugMeUser implements Serializable {
 
     private String uid;
     public int age;
