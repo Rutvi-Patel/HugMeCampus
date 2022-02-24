@@ -1,5 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus.entity;
 
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -27,7 +29,10 @@ public class HugMeUser implements Serializable {
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
     public HashMap<String, Boolean> friend_list;
+    public HashMap<String, Boolean> request_list;
+    public HashMap<String, Boolean> pending_list;
 
+    private int requestPending = 0;
     private int matchScore = 0;
 
     public HugMeUser() {
@@ -73,16 +78,38 @@ public class HugMeUser implements Serializable {
         }
     }
 
+    public boolean isFriend() {
+        return friend_list.containsKey(appUser.getAppUser().getUid());
+    }
+
+    public boolean isFriend(String uid) {
+        return friend_list.containsKey(uid);
+    }
+
+    public int getRequestPending() {
+        return requestPending;
+    }
+
+    public void setRequestPending(int requestPending) {
+        this.requestPending = requestPending;
+    }
+
     @Override
     public String toString() {
         return "HugMeUser{" +
-                "age=" + age +
+                "uid='" + uid + '\'' +
+                ", age=" + age +
                 ", bio='" + bio + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", hug_count=" + hug_count +
                 ", last_name='" + last_name + '\'' +
-                ", hug_preferances=" + hug_preferences +
+                ", hug_preferences=" + hug_preferences +
                 ", pictures=" + pictures +
+                ", gender=" + gender +
+                ", rejected_list=" + rejected_list +
+                ", accepted_list=" + accepted_list +
+                ", blocked_list=" + blocked_list +
+                ", friend_list=" + friend_list +
                 ", matchScore=" + matchScore +
                 '}';
     }
@@ -90,4 +117,5 @@ public class HugMeUser implements Serializable {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
 }

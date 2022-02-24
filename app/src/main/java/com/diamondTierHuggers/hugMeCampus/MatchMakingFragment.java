@@ -96,6 +96,7 @@ public class MatchMakingFragment extends Fragment {
 //                Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
                 System.out.println("RIGHT");
                 HugMeUser otherUser = (HugMeUser) dataObject;
+                appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
                 appUser.getAppUser().accepted_list.put(otherUser.getUid(), true);
                 AcceptListModel.isUserAccepted(appUser.getAppUser().getUid(), otherUser.getUid(), new BoolDataCallback() {
                     @Override
