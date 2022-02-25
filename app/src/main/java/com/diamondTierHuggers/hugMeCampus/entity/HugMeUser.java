@@ -13,17 +13,11 @@ public class HugMeUser implements Serializable {
     private String uid;
     public int age;
     public String bio;
-//    public boolean completed_setup;
-//    public String email;
     public String first_name;
     public int hug_count;
-//    public String hug_tier;
     public String last_name;
-//    public boolean verified_email;
-//    public String verified_email_date;
-    public HugPreferences hug_preferences;
+    public HashMap<String, Boolean> hug_preferences;
     public UserPictures pictures;
-//    public boolean online;
     public int gender;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
@@ -34,6 +28,8 @@ public class HugMeUser implements Serializable {
 
     private int requestPending = 0;
     private int matchScore = 0;
+
+    private final String[] genderArray = {"male", "female", "nonbinary"};
 
     public HugMeUser() {
     }
@@ -54,28 +50,61 @@ public class HugMeUser implements Serializable {
         return uid;
     }
 
-    public void calculateMatchScore(HugPreferences appUserPreferences) {
-        if (appUserPreferences.gender.get(this.gender)) {
+    public void calculateMatchScore(HashMap<String, Boolean> appUserPreferences) {
+        if (appUserPreferences.get(genderArray[this.gender])) {
             matchScore += 5;
         }
         else {
             matchScore -= 2;
         }
 
-        for (int i = 0; i < appUserPreferences.duration.size(); i++) {
-            if (this.hug_preferences.duration.get(i) == appUserPreferences.duration.get(i) && appUserPreferences.duration.get(i) == true) {
-                matchScore += 2;
-            }
+        if (appUserPreferences.get("short") == hug_preferences.get("short")) {
+            matchScore += 2;
+        }
+        if (appUserPreferences.get("medium") == hug_preferences.get("medium")) {
+            matchScore += 2;
+        }
+        if (appUserPreferences.get("long") == hug_preferences.get("long")) {
+            matchScore += 2;
         }
 
-        for (int i = 0; i < appUserPreferences.mood.size(); i++) {
-            if (this.hug_preferences.mood.get(i) == appUserPreferences.mood.get(i) && appUserPreferences.mood.get(i) == true) {
-                matchScore += 3;
-            }
-            else if (this.hug_preferences.mood.get(i) != appUserPreferences.mood.get(i)) {
-                matchScore -= 1;
-            }
+        if (appUserPreferences.get("celebratory") == hug_preferences.get("celebratory")) {
+            matchScore += 2;
         }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("emotional") == hug_preferences.get("emotional")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("happy") == hug_preferences.get("happy")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("quiet") == hug_preferences.get("quiet")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("sad") == hug_preferences.get("sad")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("talkative") == hug_preferences.get("talkative")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+
     }
 
     public boolean isFriend() {
@@ -87,10 +116,18 @@ public class HugMeUser implements Serializable {
     }
 
     public int getRequestPending() {
+        // 0 = friends
+        // 1 = request
+        // 2 = pending
+        // 3 = search
         return requestPending;
     }
 
     public void setRequestPending(int requestPending) {
+        // 0 = friends
+        // 1 = request
+        // 2 = pending
+        // 3 = search
         this.requestPending = requestPending;
     }
 
