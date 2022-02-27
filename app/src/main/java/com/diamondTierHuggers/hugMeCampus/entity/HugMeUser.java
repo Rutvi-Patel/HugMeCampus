@@ -34,22 +34,6 @@ public class HugMeUser implements Serializable {
     public HugMeUser() {
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getAge() {
-        return this.age;
-    }
-
-    public int getMatchScore() {
-        return matchScore;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
     public void calculateMatchScore(HashMap<String, Boolean> appUserPreferences) {
         if (appUserPreferences.get(genderArray[this.gender])) {
             matchScore += 5;
@@ -131,6 +115,138 @@ public class HugMeUser implements Serializable {
         this.requestPending = requestPending;
     }
 
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public int getMatchScore() {
+        return matchScore;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public int getHug_count() {
+        return hug_count;
+    }
+
+    public void setHug_count(int hug_count) {
+        this.hug_count = hug_count;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public HashMap<String, Boolean> getHug_preferences() {
+        return hug_preferences;
+    }
+
+    public void setHug_preferences(HashMap<String, Boolean> hug_preferences) {
+        this.hug_preferences = hug_preferences;
+    }
+
+    public UserPictures getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(UserPictures pictures) {
+        this.pictures = pictures;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public HashMap<String, Boolean> getRejected_list() {
+        return rejected_list;
+    }
+
+    public void setRejected_list(HashMap<String, Boolean> rejected_list) {
+        this.rejected_list = rejected_list;
+    }
+
+    public HashMap<String, Boolean> getAccepted_list() {
+        return accepted_list;
+    }
+
+    public void setAccepted_list(HashMap<String, Boolean> accepted_list) {
+        this.accepted_list = accepted_list;
+    }
+
+    public HashMap<String, Boolean> getBlocked_list() {
+        return blocked_list;
+    }
+
+    public void setBlocked_list(HashMap<String, Boolean> blocked_list) {
+        this.blocked_list = blocked_list;
+    }
+
+    public HashMap<String, Boolean> getFriend_list() {
+        return friend_list;
+    }
+
+    public void setFriend_list(HashMap<String, Boolean> friend_list) {
+        this.friend_list = friend_list;
+    }
+
+    public HashMap<String, Boolean> getRequest_list() {
+        return request_list;
+    }
+
+    public void setRequest_list(HashMap<String, Boolean> request_list) {
+        this.request_list = request_list;
+    }
+
+    public HashMap<String, Boolean> getPending_list() {
+        return pending_list;
+    }
+
+    public void setPending_list(HashMap<String, Boolean> pending_list) {
+        this.pending_list = pending_list;
+    }
+
+    public void setMatchScore(int matchScore) {
+        this.matchScore = matchScore;
+    }
+
+    public String[] getGenderArray() {
+        return genderArray;
+    }
+
     @Override
     public String toString() {
         return "HugMeUser{" +
@@ -149,10 +265,6 @@ public class HugMeUser implements Serializable {
                 ", friend_list=" + friend_list +
                 ", matchScore=" + matchScore +
                 '}';
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
 }

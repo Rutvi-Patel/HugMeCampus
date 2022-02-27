@@ -78,6 +78,8 @@ public class MatchMakingFragment extends Fragment {
                 arrayAdapter.notifyDataSetChanged();
             }
 
+            // TODO below functinos check to see if mq is empty before polling so we dont crash app with null pointer
+
             @Override
             public void onLeftCardExit(Object dataObject) {
                 //Do something on the left!
