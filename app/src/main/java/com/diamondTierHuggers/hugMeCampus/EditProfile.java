@@ -1,5 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,6 +39,8 @@ public class EditProfile extends Fragment {
     private String mParam2;
     private String myUID = appUser.getAppUser().getUid();
     private EditText firstName, lastName, age, gender, bio;
+    private Button uploadBtn, saveEditBtn;
+    private ImageView imageView;
 
     public EditProfile() {
         // Required empty public constructor
@@ -79,7 +83,20 @@ public class EditProfile extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button saveEditBtn = view.findViewById(R.id.save_edits);
+        uploadBtn = view.findViewById(R.id.upload_Button);
+        saveEditBtn = view.findViewById(R.id.save_edits);
+        imageView = view.findViewById(R.id.viewImage);
+
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent galleryIntent = new Intent();
+//
+//
+//            }
+//        });
+
+
 
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
