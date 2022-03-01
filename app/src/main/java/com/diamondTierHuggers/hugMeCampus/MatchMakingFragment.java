@@ -53,15 +53,6 @@ public class MatchMakingFragment extends Fragment {
 
         emptyQueueMessageTextView = view.findViewById(R.id.emptyQueueMessageTextView);
 
-//        Button acceptButton = view.findViewById(R.id.Accept);
-//        acceptButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
-        //add the view via xml or programmatically
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
         ArrayList al = new ArrayList<HugMeUser>();
@@ -108,22 +99,31 @@ public class MatchMakingFragment extends Fragment {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                // TODO if otheruser is in pending list make friend and remove from app user pending list (on db and local) and other user request list (on db)
 
                 HugMeUser otherUser = (HugMeUser) dataObject;
                 appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
                 appUser.getAppUser().accepted_list.put(otherUser.getUid(), true);
-                AcceptListModel.isUserAccepted(appUser.getAppUser().getUid(), otherUser.getUid(), new BoolDataCallback() {
-                    @Override
-                    public void getBool(boolean value) {
-                        if(value)
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
-                        }
+                appUser.acceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
 
-                        AcceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
-                    }
-                });
+                if (appUser.getAppUser().request_list.containsKey(otherUser.getUid())) {
+                    appUser.getAppUser().request_list.remove(otherUser.getUid());
+                    appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), otherUser.getUid());
+                    appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                }
+                else {
+                    appUser.acceptListModel.isUserAccepted(appUser.getAppUser().getUid(), otherUser.getUid(), new BoolDataCallback() {
+                        @Override
+                        public void getBool(boolean value) {
+                            if(value)
+                            {
+                                Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
+                                appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                            }
+
+                        }
+                    });
+                }
+
                 if (mq.size() > 0) {
                     al.add(mq.poll());
                 }

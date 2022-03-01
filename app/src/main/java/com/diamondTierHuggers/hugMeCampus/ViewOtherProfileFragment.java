@@ -95,34 +95,35 @@ public class ViewOtherProfileFragment extends Fragment {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getNumericShortcut() == 0) {
+                        System.out.println(item.getNumericShortcut());
+                        if (item.getNumericShortcut() == '0') {
                             //block user
-                            switch (mHugMeUser.getFriendRequestPending()) {
-                                case 0:
-                                    // friends
-                                    appUser.getAppUser().friend_list.remove(mHugMeUser.getUid());
-                                    appUser.getAppUser().blocked_list.put(mHugMeUser.getUid(), true);
-                                case 1:
-                                    // pending friend's approval
-                                    // TODO remove other user from appUser's request_list on DB
-                                    // TODO remove appuser from other users pending_list on DB
-                                case 2:
-                                    // pending your approval
-                                    // TODO remove appUser from other user's request_list on DB
-                                    // TODO remove other user from app users pending_list on DB
+                            if  (mHugMeUser.getFriendRequestPending() == 0) {
+                                // friends
+                                appUser.acceptListModel.removeFriend(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                                appUser.getAppUser().friend_list.remove(mHugMeUser.getUid());
+                            }
+                            else if (mHugMeUser.getFriendRequestPending() == 1) {
+                                // pending friend's approval
+                                appUser.acceptListModel.removeRequestedPending(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                                appUser.getAppUser().pending_list.remove(mHugMeUser.getUid());
+                            }
+                            else if (mHugMeUser.getFriendRequestPending() == 2) {
+                                // pending your approval
+                                appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
+                                appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
                             }
                             appUser.getAppUser().blocked_list.put(mHugMeUser.getUid(), true);
                             appUser.acceptListModel.insertBlockedUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.savedHugMeUsers.remove(mHugMeUser.getUid());
-                            // TODO remove from friends on db for both users
-                            // TODO go back to previous screen
                             // TODO remove any messages
+                            getFragmentManager().popBackStackImmediate();
                         }
                         else {
                             //add friend
                             appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.acceptListModel.insertFriendUser(mHugMeUser.getUid(), appUser.getAppUser().getUid());
-                            //TODO remove from pending list of other user and request list of app user
+                            appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.getAppUser().friend_list.put(mHugMeUser.getUid(), true);
                             appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
                             messageButton.setVisibility(View.VISIBLE);

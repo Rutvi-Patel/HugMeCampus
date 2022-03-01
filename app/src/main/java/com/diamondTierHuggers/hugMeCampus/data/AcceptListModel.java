@@ -19,35 +19,58 @@ public class AcceptListModel {
     private static final String pending = "pending_list";
     private static final String friend = "friend_list";
     private static final String blocked = "blocked_list";
+    private static final String rejected = "rejected_list";
 
-    public static void insertAcceptedUser(String uid, String uid2) {
+    public void insertAcceptedUser(String uid, String uid2) {
         Map<String, Object> updates = new HashMap<>();
         updates.put(getPath(accepted, uid, uid2), true);
         database.getReference().updateChildren(updates);
     }
 
-    public static void insertRequestedUser(String uid, String uid2) {
+    public void insertRequestedUser(String uid, String uid2) {
         Map<String, Object> updates = new HashMap<>();
         updates.put(getPath(requested, uid, uid2), true);
         database.getReference().updateChildren(updates);
     }
 
-    public static void insertPendingUser(String uid, String uid2) {
+    public void insertPendingUser(String uid, String uid2) {
         Map<String, Object> updates = new HashMap<>();
         updates.put(getPath(pending, uid, uid2), true);
         database.getReference().updateChildren(updates);
     }
 
-    public static void insertFriendUser(String uid, String uid2) {
+    public void insertFriendUser(String uid, String uid2) {
         Map<String, Object> updates = new HashMap<>();
         updates.put(getPath(friend, uid, uid2), true);
         database.getReference().updateChildren(updates);
     }
 
-    public static void insertBlockedUser(String uid, String uid2) {
+    public void insertBlockedUser(String uid, String uid2) {
         Map<String, Object> updates = new HashMap<>();
         updates.put(getPath(blocked, uid, uid2), true);
         database.getReference().updateChildren(updates);
+    }
+
+    public void removeAccepted(String uid, String uid2) {
+        database.getReference().child(getPath(accepted, uid, uid2)).removeValue();
+        database.getReference().child(getPath(accepted, uid2, uid)).removeValue();
+    }
+
+    public void removeRejected(String uid, String uid2) {
+        database.getReference().child(getPath(rejected, uid, uid2)).removeValue();
+        database.getReference().child(getPath(rejected, uid2, uid)).removeValue();
+    }
+
+    public void removeRequestedPending(String uid, String uid2) {
+        database.getReference().child(getPath(requested, uid, uid2)).removeValue();
+        database.getReference().child(getPath(pending, uid2, uid)).removeValue();
+    }
+
+    public void removeFriend(String uid, String uid2) {
+        database.getReference().child(getPath(friend, uid, uid2)).removeValue();
+        database.getReference().child(getPath(friend, uid2, uid)).removeValue();
+        removeAccepted(uid, uid2);
+
     }
 
     public static void isUserAccepted(String uid, String uid2, BoolDataCallback callback) {

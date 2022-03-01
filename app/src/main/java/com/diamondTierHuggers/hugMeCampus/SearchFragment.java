@@ -135,7 +135,7 @@ public class SearchFragment extends Fragment {
                             if (h.getPending_list().containsKey(appUser.getAppUser().getUid())) {
                                 acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), hUid);
                                 acceptListModel.insertFriendUser(hUid, appUser.getAppUser().getUid());
-                                //TODO remove from pending list of other user and request list of app user
+                                appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), hUid);
                                 appUser.savedHugMeUsers.put(hUid, h);
                                 appUser.getAppUser().friend_list.put(hUid, true);
                                 Toast.makeText(getActivity().getApplicationContext(), "Added Friend", Toast.LENGTH_SHORT).show();
@@ -154,7 +154,7 @@ public class SearchFragment extends Fragment {
                             }
                         }
                         else {
-                            Toast.makeText(getActivity().getApplicationContext(), "Could not send request", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "Could not find user", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
