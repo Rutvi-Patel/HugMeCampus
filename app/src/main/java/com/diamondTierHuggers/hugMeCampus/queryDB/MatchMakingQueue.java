@@ -20,7 +20,7 @@ public class MatchMakingQueue {
     private PriorityQueue<HugMeUser> mQueue = new PriorityQueue<HugMeUser>(50, new HugMeUserComparator());
     private String appUserUid = appUser.getAppUser().getUid();
     private FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-    private boolean requeried = false;
+//    private boolean requeried = false;
 
     public void readData(Query ref, final OnGetDataListener listener) {
 
@@ -66,15 +66,16 @@ public class MatchMakingQueue {
         if (mQueue.isEmpty()) {
             return null;
         }
-        if (!requeried && mQueue.size() <= 10) {
-            readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-                @Override
-                public void onSuccess(String dataSnapshotValue) {
-                    System.out.println("queried for more online users");
-                }
-            });
-            requeried = true;
-        }
+        // TODO requerying causes duplicates in the queue
+//        if (!requeried && mQueue.size() <= 10) {
+//            readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
+//                @Override
+//                public void onSuccess(String dataSnapshotValue) {
+//                    System.out.println("queried for more online users");
+//                }
+//            });
+//            requeried = true;
+//        }
         return this.mQueue.poll();
     }
 }

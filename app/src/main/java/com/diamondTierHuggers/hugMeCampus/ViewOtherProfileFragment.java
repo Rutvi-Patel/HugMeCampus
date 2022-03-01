@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -124,6 +125,7 @@ public class ViewOtherProfileFragment extends Fragment {
                             //TODO remove from pending list of other user and request list of app user
                             appUser.getAppUser().friend_list.put(mHugMeUser.getUid(), true);
                             appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
+                            messageButton.setVisibility(View.VISIBLE);
                         }
                         return true;
                     }
