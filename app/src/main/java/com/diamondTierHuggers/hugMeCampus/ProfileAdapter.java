@@ -139,7 +139,10 @@ public class ProfileAdapter extends BaseAdapter {
         List<CarouselItem> list = new ArrayList<>();
         list.add(
                 new CarouselItem(
-                        R.drawable.goldengate
+//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.14.13%20PM.png?alt=media&token=ffc414fb-0524-404a-988a-61c5ede309f6"
+                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
+
+//                        R.drawable.bryce_canyon
                 )
         );
         list.add(

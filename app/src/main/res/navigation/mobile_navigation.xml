@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
@@ -43,4 +43,10 @@
         android:name="com.diamondTierHuggers.hugMeCampus.HugRatings"
         android:label="fragment_hugratings"
         tools:layout="@layout/fragment_hugratings" />
+    <fragment
+        android:id="@+id/nav_list_tabs"
+        android:name="com.diamondTierHuggers.hugMeCampus.ListTabsFragment"
+        android:label="@string/menu_list"
+        tools:layout="@layout/fragment_list_tabs"
+        />
 </navigation>

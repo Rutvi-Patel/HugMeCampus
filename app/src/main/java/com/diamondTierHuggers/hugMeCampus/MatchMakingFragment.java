@@ -48,13 +48,13 @@ public class MatchMakingFragment extends Fragment {
 
         View view = binding.getRoot();
 
-        Button acceptButton = view.findViewById(R.id.Accept);
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        Button acceptButton = view.findViewById(R.id.Accept);
+//        acceptButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
         //add the view via xml or programmatically
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
@@ -113,12 +113,15 @@ public class MatchMakingFragment extends Fragment {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                //TODO make sure if there are no more users to be matched with we display message, otherwise null pointer
+
+
                 // Ask for more data here
 //                al.add("XML ".concat(String.valueOf(i)));
 //                arrayAdapter.notifyDataSetChanged();
 //                Log.d("LIST", "notified");
 //                i++;
-                System.out.println("ABOUT TO EMPTY");
+//                System.out.println("ABOUT TO EMPTY");
             }
 
             @Override
