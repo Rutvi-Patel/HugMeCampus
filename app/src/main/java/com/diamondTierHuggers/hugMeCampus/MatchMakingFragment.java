@@ -105,6 +105,7 @@ public class MatchMakingFragment extends Fragment {
                 appUser.getAppUser().accepted_list.put(otherUser.getUid(), true);
                 appUser.acceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
 
+                // TODO notify other user if they are on the app that they have a new friend
                 if (appUser.getAppUser().request_list.containsKey(otherUser.getUid())) {
                     appUser.getAppUser().request_list.remove(otherUser.getUid());
                     appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), otherUser.getUid());

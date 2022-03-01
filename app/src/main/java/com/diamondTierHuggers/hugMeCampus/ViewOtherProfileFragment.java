@@ -97,6 +97,7 @@ public class ViewOtherProfileFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         System.out.println(item.getNumericShortcut());
                         if (item.getNumericShortcut() == '0') {
+                            // TODO notify other user to remove this user from any lists/messages
                             //block user
                             if  (mHugMeUser.getFriendRequestPending() == 0) {
                                 // friends
@@ -121,6 +122,7 @@ public class ViewOtherProfileFragment extends Fragment {
                         }
                         else {
                             //add friend
+                            // TODO notify other user if they are on the app that they have a new friend
                             appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.acceptListModel.insertFriendUser(mHugMeUser.getUid(), appUser.getAppUser().getUid());
                             appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
