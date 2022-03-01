@@ -14,6 +14,7 @@ public class HugMeUser implements Serializable {
     public int age;
     public String bio;
     public String first_name;
+    public String email;
     public int hug_count;
     public String last_name;
     public HashMap<String, Boolean> hug_preferences;
@@ -139,6 +140,8 @@ public class HugMeUser implements Serializable {
         return bio;
     }
 
+    public String getEmail(){return email;}
+
     public void setBio(String bio) {
         this.bio = bio;
     }
@@ -251,6 +254,7 @@ public class HugMeUser implements Serializable {
     public String toString() {
         return "HugMeUser{" +
                 "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
                 ", age=" + age +
                 ", bio='" + bio + '\'' +
                 ", first_name='" + first_name + '\'' +
