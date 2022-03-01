@@ -68,6 +68,18 @@ public class ViewOtherProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FloatingActionButton button = getView().findViewById(R.id.userButton);
+        FloatingActionButton messageButton = getView().findViewById(R.id.messageButton);
+
+        if (mHugMeUser.getFriendRequestPending() >= 1) {
+            messageButton.setVisibility(View.GONE);
+        }
+
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("button pressed");
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +87,7 @@ public class ViewOtherProfileFragment extends Fragment {
                 PopupMenu popupMenu = new PopupMenu(getContext(), button);
                 popupMenu.getMenuInflater().inflate(R.menu.add_friend_block_menu, popupMenu.getMenu());
 
-                if (mHugMeUser.isFriend()) {
+                if (mHugMeUser.getFriendRequestPending() <= 1) {
                     popupMenu.getMenu().findItem(R.id.add_friend).setVisible(false);
                 }
 
@@ -84,27 +96,34 @@ public class ViewOtherProfileFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getNumericShortcut() == 0) {
                             //block user
-                            switch (mHugMeUser.getRequestPending()) {
+                            switch (mHugMeUser.getFriendRequestPending()) {
                                 case 0:
                                     // friends
                                     appUser.getAppUser().friend_list.remove(mHugMeUser.getUid());
+                                    appUser.getAppUser().blocked_list.put(mHugMeUser.getUid(), true);
                                 case 1:
-                                    // pending your approval
-                                    // TODO check these todo logics, its late at night
-                                    // TODO remove other user from appUser's request_list on DB
-                                case 2:
                                     // pending friend's approval
+                                    // TODO remove other user from appUser's request_list on DB
+                                    // TODO remove appuser from other users pending_list on DB
+                                case 2:
+                                    // pending your approval
                                     // TODO remove appUser from other user's request_list on DB
+                                    // TODO remove other user from app users pending_list on DB
                             }
                             appUser.getAppUser().blocked_list.put(mHugMeUser.getUid(), true);
+                            appUser.acceptListModel.insertBlockedUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.savedHugMeUsers.remove(mHugMeUser.getUid());
-                            // TODO update db, remove from friend list on db, add to block list on db
+                            // TODO remove from friends on db for both users
                             // TODO go back to previous screen
+                            // TODO remove any messages
                         }
                         else {
                             //add friend
+                            appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
+                            appUser.acceptListModel.insertFriendUser(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                            //TODO remove from pending list of other user and request list of app user
                             appUser.getAppUser().friend_list.put(mHugMeUser.getUid(), true);
-                            // TODO update db, put friend in both lists
+                            appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
                         }
                         return true;
                     }

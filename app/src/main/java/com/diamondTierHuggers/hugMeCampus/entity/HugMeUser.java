@@ -26,7 +26,6 @@ public class HugMeUser implements Serializable {
     public HashMap<String, Boolean> request_list;
     public HashMap<String, Boolean> pending_list;
 
-    private int requestPending = 0;
     private int matchScore = 0;
 
     private final String[] genderArray = {"male", "female", "nonbinary"};
@@ -99,20 +98,23 @@ public class HugMeUser implements Serializable {
         return friend_list.containsKey(uid);
     }
 
-    public int getRequestPending() {
+    public int getFriendRequestPending() {
         // 0 = friends
-        // 1 = request
-        // 2 = pending
-        // 3 = search
-        return requestPending;
-    }
-
-    public void setRequestPending(int requestPending) {
-        // 0 = friends
-        // 1 = request
-        // 2 = pending
-        // 3 = search
-        this.requestPending = requestPending;
+        // 1 = pending
+        // 2 = request
+        // 3 = other
+        if (appUser.getAppUser().friend_list.containsKey(uid)) {
+            return 0;
+        }
+        else if (appUser.getAppUser().pending_list.containsKey(uid)) {
+            return 1;
+        }
+        else if (appUser.getAppUser().request_list.containsKey(uid)) {
+            return 2;
+        }
+        else {
+            return 3;
+        }
     }
 
     public void setUid(String uid) {

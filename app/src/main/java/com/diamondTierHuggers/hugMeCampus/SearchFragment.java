@@ -1,5 +1,8 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.MainActivity.database;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -26,6 +38,7 @@ public class SearchFragment extends Fragment {
     EditText usernameTxt;
     Button searchBtn;
     Pattern pattern = Pattern.compile("[a-z]+\\.[a-z]+[0-9]*", Pattern.CASE_INSENSITIVE);
+    AcceptListModel acceptListModel = new AcceptListModel();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,7 +96,6 @@ public class SearchFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO enable btn on complete
                 searchBtn.setClickable(false);
                 performCodeVerify();
             }
@@ -109,14 +121,69 @@ public class SearchFragment extends Fragment {
         return true;
     }
 
-    public void performCodeVerify () {
-        String username = usernameTxt.getText().toString();
-        if (validateInput(username)) {
-            // TODO get uid from username
-            // TODO check if uid is in friends list, accept, block, or other user's block and reject
-            // TODO add uid to accept list on db and local,
-            // TODO add uid to request list of other users db
+    public void readData(Query ref, final OnGetDataListener listener) {
 
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot user : dataSnapshot.getChildren()) {
+                        HugMeUser h = user.getValue(HugMeUser.class);
+                        String hUid = user.getKey();
+                        if (!appUser.getAppUser().blocked_list.containsKey(hUid) && !h.blocked_list.containsKey(appUser.getAppUser().getUid())) {
+                            // other user already added appuser
+                            if (h.getPending_list().containsKey(appUser.getAppUser().getUid())) {
+                                acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), hUid);
+                                acceptListModel.insertFriendUser(hUid, appUser.getAppUser().getUid());
+                                //TODO remove from pending list of other user and request list of app user
+                                appUser.savedHugMeUsers.put(hUid, h);
+                                appUser.getAppUser().friend_list.put(hUid, true);
+                                Toast.makeText(getActivity().getApplicationContext(), "Added Friend", Toast.LENGTH_SHORT).show();
+                            }
+                            else if (!appUser.getAppUser().getUid().equals(hUid) && !appUser.getAppUser().friend_list.containsKey(hUid) && !appUser.getAppUser().getPending_list().containsKey(hUid)
+                                    && !h.rejected_list.containsKey(appUser.getAppUser().getUid())) {
+                                acceptListModel.insertRequestedUser(hUid, appUser.getAppUser().getUid());
+                                acceptListModel.insertPendingUser(appUser.getAppUser().getUid(), hUid);
+                                appUser.getAppUser().pending_list.put(hUid, true);
+                                h.setUid(hUid);
+                                appUser.savedHugMeUsers.put(hUid, h);
+                                Toast.makeText(getActivity().getApplicationContext(), "Sent friend request", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(getActivity().getApplicationContext(), "Could not send request", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(getActivity().getApplicationContext(), "Could not send request", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Could not find user", Toast.LENGTH_SHORT).show();
+                }
+                listener.onSuccess("");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("ERROR: retrieving user data from db for matchmaking");
+            }
+
+        });
+    }
+
+    public void performCodeVerify () {
+        String username = usernameTxt.getText().toString().toLowerCase();
+        if (validateInput(username)) {
+            readData(database.getReference("users").orderByChild("email").equalTo(username + "@student.csulb.edu"), new OnGetDataListener() {
+                @Override
+                public void onSuccess(String dataSnapshotValue) {
+                    searchBtn.setClickable(true);
+                }
+            });
+        }
+        else {
+            searchBtn.setClickable(true);
         }
     }
 

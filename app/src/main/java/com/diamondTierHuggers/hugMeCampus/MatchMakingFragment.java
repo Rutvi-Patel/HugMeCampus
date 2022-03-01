@@ -61,11 +61,14 @@ public class MatchMakingFragment extends Fragment {
 
         ArrayList al = new ArrayList<HugMeUser>();
 
-        al.add(mq.poll());
-        al.add(mq.poll());
-
-
         ProfileAdapter arrayAdapter = new ProfileAdapter(this.getContext(), al );
+
+        if (mq.size() > 0) {
+            al.add(mq.poll());
+        }
+        if (mq.size() > 0) {
+            al.add(mq.poll());
+        }
 
         //set the listener and the adapter
         flingContainer.setAdapter(arrayAdapter);
@@ -78,8 +81,6 @@ public class MatchMakingFragment extends Fragment {
                 arrayAdapter.notifyDataSetChanged();
             }
 
-            // TODO below functinos check to see if mq is empty before polling so we dont crash app with null pointer
-
             @Override
             public void onLeftCardExit(Object dataObject) {
                 //Do something on the left!
@@ -90,12 +91,16 @@ public class MatchMakingFragment extends Fragment {
                 HugMeUser otherUser = (HugMeUser) dataObject;
                 RejectListModel.insertRejectedUser(appUser.getAppUser().getUid(), otherUser.getUid());
                 appUser.getAppUser().rejected_list.put(otherUser.getUid(), true);
-                al.add(mq.poll());
+                if (mq.size() > 0) {
+                    al.add(mq.poll());
+                }
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
 //                Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
+                // TODO if otheruser is in pending list make friend and remove from app user pending list (on db and local) and other user request list (on db)
+
                 System.out.println("RIGHT");
                 HugMeUser otherUser = (HugMeUser) dataObject;
                 appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
@@ -111,14 +116,18 @@ public class MatchMakingFragment extends Fragment {
                         AcceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
                     }
                 });
-                al.add(mq.poll());
+                if (mq.size() > 0) {
+                    al.add(mq.poll());
+                }
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 //TODO make sure if there are no more users to be matched with we display message, otherwise null pointer
 
-
+                if (mq.size() > 0) {
+                    al.add(mq.poll());
+                }
                 // Ask for more data here
 //                al.add("XML ".concat(String.valueOf(i)));
 //                arrayAdapter.notifyDataSetChanged();
