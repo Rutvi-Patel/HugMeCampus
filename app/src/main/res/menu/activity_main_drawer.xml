@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_matchmaking" />
         <item
-            android:id="@+id/editUserProfile"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_profile" />
         <item
@@ -25,7 +25,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
         <item
-            android:id="@+id/HugRatings"
+            android:id="@+id/hugratings"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Hug Ratings" />
     </group>

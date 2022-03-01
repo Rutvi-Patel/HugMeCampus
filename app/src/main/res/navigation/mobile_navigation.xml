@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_match_making" />
 
     <fragment
-        android:id="@+id/editUserProfile"
+        android:id="@+id/nav_profile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditUserProfile"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_edit_user_profile">

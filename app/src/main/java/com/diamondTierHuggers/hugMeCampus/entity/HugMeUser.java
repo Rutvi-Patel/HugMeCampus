@@ -14,8 +14,8 @@ public class HugMeUser {
 //    public String email;
     public String first_name;
     public int hug_count;
-    public int total_rating;
-    public int num_reviews;
+    //public int total_rating;
+    //public int num_reviews;
     public String hug_tier;
 //    public String hug_tier;
     public String last_name;
@@ -82,8 +82,8 @@ public class HugMeUser {
                 ", bio='" + bio + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", hug_count=" + hug_count +
-                ", total_rating=" + total_rating +
-                ", num_reviews=" + num_reviews +
+                //", total_rating=" + total_rating +
+                //", num_reviews=" + num_reviews +
                 ", last_name='" + last_name + '\'' +
                 ", hug_preferances=" + hug_preferences +
                 ", pictures=" + pictures +
