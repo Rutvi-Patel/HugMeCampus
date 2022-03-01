@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".Hugratings">
+    android:windowSoftInputMode="adjustPan"
+    tools:context=".HugRatings">
 
     <ScrollView
         android:id="@+id/HugRatingScroller"
@@ -47,101 +48,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textview_Rating" />
 
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="216dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/input_bg"
-                android:drawableStart="@drawable/ic_baseline_email_24"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="casual"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:minHeight="48dp"
-                android:textColorHint="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_Rating"
-                tools:ignore="MissingConstraints" />
-
-            <EditText
-                android:id="@+id/editTextTextPassword2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/input_bg"
-                android:drawableLeft="@drawable/ic_baseline_security_24"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="casual"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:textColorHint="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/textViewForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="casual"
-                android:text="Forgot password?"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
-
             <Button
-                android:id="@+id/btnSignup"
+                android:id="@+id/btnSubmit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="64dp"
                 android:background="@drawable/input_bg"
                 android:backgroundTint="#97FFEB3B"
                 android:fontFamily="casual"
-                android:text="Login"
+                android:text="Submit"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-                app:layout_constraintTop_toBottomOf="@+id/textViewForgotPassword" />
-
-            <TextView
-                android:id="@+id/textViewhaveacccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="casual"
-                android:text="Create new account?"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/btnSignup"
-                app:layout_constraintStart_toStartOf="@+id/btnSignup"
-                app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
-
-            <Button
-                android:id="@+id/profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="profile"
-                app:layout_constraintEnd_toEndOf="@+id/btnSignup"
-                app:layout_constraintStart_toStartOf="@+id/btnSignup"
-                app:layout_constraintTop_toBottomOf="@+id/textViewhaveacccount" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RatingNotes" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -152,11 +73,32 @@
                 android:foregroundTint="#FFD700"
                 android:indeterminateTint="#FFD700"
                 android:indeterminateTintMode="add"
+                android:numStars="5"
                 android:progressTint="#FFD700"
                 android:secondaryProgressTint="#FFED8A"
+                android:stepSize="1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textview_Rating" />
+
+            <EditText
+                android:id="@+id/RatingNotes"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="345dp"
+                android:gravity="top|left"
+                android:layout_height="145dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/back"
+                android:ellipsize="end"
+                android:hint="Enter review"
+                android:maxEms="10"
+                android:maxLength="50"
+                android:textSize="21sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.56"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

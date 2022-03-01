@@ -34,9 +34,6 @@
         <action
             android:id="@+id/action_SecondFragment_to_displayUserProfile2"
             app:destination="@id/displayUserProfile2" />
-        <action
-            android:id="@+id/action_SecondFragment_to_matchmakingUI"
-            app:destination="@id/matchmakingUI" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
@@ -57,11 +54,6 @@
         android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
         android:label="Profile"
         tools:layout="@layout/fragment_display_user_profile" />
-    <activity
-        android:id="@+id/matchmakingUI"
-        android:name="com.diamondTierHuggers.hugMeCampus.MatchmakingUI"
-        android:label="activity_matchmaking_ui"
-        tools:layout="@layout/activity_matchmaking_ui" />
     <fragment
         android:id="@+id/editProfile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"

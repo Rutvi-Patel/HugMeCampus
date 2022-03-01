@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 public class HugRatingModel {
@@ -15,6 +16,8 @@ public class HugRatingModel {
 
     public static String addHugRating(HugRating newRating) {
         DatabaseReference ratingRef = database.getReference(branch);
+        database.getReference("users/"+  newRating.reviewee + "/total_rating").setValue(ServerValue.increment(newRating.stars));
+        database.getReference("users/"+  newRating.reviewee + "/num_reviews").setValue(ServerValue.increment(1));
         DatabaseReference newRatingRef = ratingRef.push();
         newRatingRef.setValue(newRating);
         return newRatingRef.getKey();

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/hugratings">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/hugratings"
-        android:name="com.diamondTierHuggers.hugMeCampus.Hugratings"
+        android:name="com.diamondTierHuggers.hugMeCampus.HugRatings"
         android:label="fragment_hugratings"
         tools:layout="@layout/fragment_hugratings" />
 </navigation>
