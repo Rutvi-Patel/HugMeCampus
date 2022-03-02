@@ -31,12 +31,6 @@
         <action
             android:id="@+id/action_SecondFragment_to_profileActivity"
             app:destination="@id/profileActivity" />
-        <action
-            android:id="@+id/action_SecondFragment_to_displayUserProfile2"
-            app:destination="@id/displayUserProfile2" />
-        <action
-            android:id="@+id/action_SecondFragment_to_matchmakingUI"
-            app:destination="@id/matchmakingUI" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
@@ -52,31 +46,6 @@
         android:name="com.diamondTierHuggers.hugMeCampus.ProfileActivity"
         android:label="app_bar_profile"
         tools:layout="@layout/app_bar_profile" />
-    <fragment
-        android:id="@+id/displayUserProfile2"
-        android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
-        android:label="Profile"
-        tools:layout="@layout/fragment_display_user_profile" />
-    <activity
-        android:id="@+id/matchmakingUI"
-        android:name="com.diamondTierHuggers.hugMeCampus.MatchmakingUI"
-        android:label="activity_matchmaking_ui"
-        tools:layout="@layout/activity_matchmaking_ui" />
-    <fragment
-        android:id="@+id/editProfile"
-        android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"
-        android:label="EditProfile"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/action_editProfile_to_editUserProfile22"
-            app:destination="@id/editUserProfile2" />
-    </fragment>
-    <fragment
-        android:id="@+id/editUserProfile2"
-        android:name="com.diamondTierHuggers.hugMeCampus.EditUserProfile"
-        android:label="EditUserProfile" >
-        <action
-            android:id="@+id/action_editUserProfile2_to_editProfile"
-            app:destination="@id/editProfile" />
-    </fragment>
+
+
 </navigation>

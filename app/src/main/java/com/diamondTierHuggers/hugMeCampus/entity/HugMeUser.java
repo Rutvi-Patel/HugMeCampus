@@ -1,52 +1,123 @@
 package com.diamondTierHuggers.hugMeCampus.entity;
 
+import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
 @IgnoreExtraProperties
-public class HugMeUser {
+public class HugMeUser implements Serializable {
 
     private String uid;
     public int age;
     public String bio;
-    public boolean completed_setup;
-    public String email;
     public String first_name;
     public int hug_count;
-    public String hug_tier;
     public String last_name;
-    public boolean verified_email;
-    public String verified_email_date;
-    public HugPreferences hug_preferences;
+    public HashMap<String, Boolean> hug_preferences;
     public UserPictures pictures;
-    public boolean online;
     public int gender;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
+    public HashMap<String, Boolean> friend_list;
+    public HashMap<String, Boolean> request_list;
+    public HashMap<String, Boolean> pending_list;
 
+    private int requestPending = 0;
     private int matchScore = 0;
+
+    private final String[] genderArray = {"male", "female", "nonbinary"};
 
     public HugMeUser() {
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public void calculateMatchScore(HashMap<String, Boolean> appUserPreferences) {
+        if (appUserPreferences.get(genderArray[this.gender])) {
+            matchScore += 5;
+        }
+        else {
+            matchScore -= 2;
+        }
+
+        if (appUserPreferences.get("short") == hug_preferences.get("short")) {
+            matchScore += 2;
+        }
+        if (appUserPreferences.get("medium") == hug_preferences.get("medium")) {
+            matchScore += 2;
+        }
+        if (appUserPreferences.get("long") == hug_preferences.get("long")) {
+            matchScore += 2;
+        }
+
+        if (appUserPreferences.get("celebratory") == hug_preferences.get("celebratory")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("emotional") == hug_preferences.get("emotional")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("happy") == hug_preferences.get("happy")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("quiet") == hug_preferences.get("quiet")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("sad") == hug_preferences.get("sad")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+        if (appUserPreferences.get("talkative") == hug_preferences.get("talkative")) {
+            matchScore += 2;
+        }
+        else {
+            matchScore -= 1;
+        }
+
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public boolean isFriend() {
+        return friend_list.containsKey(appUser.getAppUser().getUid());
     }
 
-    public String getLast_name() {
-        return last_name;
+    public boolean isFriend(String uid) {
+        return friend_list.containsKey(uid);
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public int getRequestPending() {
+        // 0 = friends
+        // 1 = request
+        // 2 = pending
+        // 3 = search
+        return requestPending;
+    }
+
+    public void setRequestPending(int requestPending) {
+        // 0 = friends
+        // 1 = request
+        // 2 = pending
+        // 3 = search
+        this.requestPending = requestPending;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public void setAge(int age) {
@@ -57,6 +128,14 @@ public class HugMeUser {
         return this.age;
     }
 
+    public int getMatchScore() {
+        return matchScore;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
     public String getBio() {
         return bio;
     }
@@ -65,20 +144,12 @@ public class HugMeUser {
         this.bio = bio;
     }
 
-    public boolean isCompleted_setup() {
-        return completed_setup;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setCompleted_setup(boolean completed_setup) {
-        this.completed_setup = completed_setup;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
     public int getHug_count() {
@@ -89,35 +160,19 @@ public class HugMeUser {
         this.hug_count = hug_count;
     }
 
-    public String getHug_tier() {
-        return hug_tier;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setHug_tier(String hug_tier) {
-        this.hug_tier = hug_tier;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public boolean isVerified_email() {
-        return verified_email;
-    }
-
-    public void setVerified_email(boolean verified_email) {
-        this.verified_email = verified_email;
-    }
-
-    public String getVerified_email_date() {
-        return verified_email_date;
-    }
-
-    public void setVerified_email_date(String verified_email_date) {
-        this.verified_email_date = verified_email_date;
-    }
-
-    public HugPreferences getHug_preferences() {
+    public HashMap<String, Boolean> getHug_preferences() {
         return hug_preferences;
     }
 
-    public void setHug_preferences(HugPreferences hug_preferences) {
+    public void setHug_preferences(HashMap<String, Boolean> hug_preferences) {
         this.hug_preferences = hug_preferences;
     }
 
@@ -127,14 +182,6 @@ public class HugMeUser {
 
     public void setPictures(UserPictures pictures) {
         this.pictures = pictures;
-    }
-
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
     }
 
     public int getGender() {
@@ -169,72 +216,56 @@ public class HugMeUser {
         this.blocked_list = blocked_list;
     }
 
-    public int getMatchScore() {
-        return matchScore;
+    public HashMap<String, Boolean> getFriend_list() {
+        return friend_list;
     }
 
-    public String getUid() {
-        return uid;
+    public void setFriend_list(HashMap<String, Boolean> friend_list) {
+        this.friend_list = friend_list;
     }
 
-    public void calculateMatchScore(HugPreferences appUserPreferences) {
-        if (appUserPreferences.gender.get(this.gender)) {
-            matchScore += 5;
-        }
-        else {
-            matchScore -= 2;
-        }
-
-        for (int i = 0; i < appUserPreferences.duration.size(); i++) {
-            if (this.hug_preferences.duration.get(i) == appUserPreferences.duration.get(i) && appUserPreferences.duration.get(i) == true) {
-                matchScore += 2;
-            }
-        }
-
-        for (int i = 0; i < appUserPreferences.mood.size(); i++) {
-            if (this.hug_preferences.mood.get(i) == appUserPreferences.mood.get(i) && appUserPreferences.mood.get(i) == true) {
-                matchScore += 3;
-            }
-            else if (this.hug_preferences.mood.get(i) != appUserPreferences.mood.get(i)) {
-                matchScore -= 1;
-            }
-        }
+    public HashMap<String, Boolean> getRequest_list() {
+        return request_list;
     }
 
+    public void setRequest_list(HashMap<String, Boolean> request_list) {
+        this.request_list = request_list;
+    }
+
+    public HashMap<String, Boolean> getPending_list() {
+        return pending_list;
+    }
+
+    public void setPending_list(HashMap<String, Boolean> pending_list) {
+        this.pending_list = pending_list;
+    }
+
+    public void setMatchScore(int matchScore) {
+        this.matchScore = matchScore;
+    }
+
+    public String[] getGenderArray() {
+        return genderArray;
+    }
 
     @Override
     public String toString() {
         return "HugMeUser{" +
-                "age=" + age +
+                "uid='" + uid + '\'' +
+                ", age=" + age +
                 ", bio='" + bio + '\'' +
-                ", completed_setup=" + completed_setup +
-                ", email='" + email + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", hug_count=" + hug_count +
-                ", hug_tier='" + hug_tier + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", verified_email=" + verified_email +
-                ", verified_email_date='" + verified_email_date + '\'' +
-                ", hug_preferances=" + hug_preferences +
+                ", hug_preferences=" + hug_preferences +
                 ", pictures=" + pictures +
-                ", online=" + online +
+                ", gender=" + gender +
+                ", rejected_list=" + rejected_list +
+                ", accepted_list=" + accepted_list +
+                ", blocked_list=" + blocked_list +
+                ", friend_list=" + friend_list +
                 ", matchScore=" + matchScore +
                 '}';
     }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("first_name", first_name);
-        result.put("last_name", last_name);
-
-        return result;
-    }
-
 
 }

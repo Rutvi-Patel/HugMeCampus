@@ -13,18 +13,17 @@
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ProfileActivity">
-
-        </activity>
-
+            android:parentActivityName=".ProfileActivity"></activity>
         <activity
             android:name=".DeleteUser"
+            android:exported="false"
             android:label="DeleteUser"
-            android:parentActivityName=".SettingsActivity"
-            android:exported="false"/>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:parentActivityName=".SettingsActivity" />
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+
         <activity
             android:name=".ProfileActivity"
             android:exported="false"

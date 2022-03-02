@@ -64,4 +64,6 @@
     <string name="bio">Bio</string>
     <string name="upload">Upload</string>
     <string name="save">Save</string>
+    <string name="menu_list">Friends and Requests</string>
+    <string name="menu_search">Search</string>
 </resources>

@@ -14,11 +14,16 @@
             android:title="@string/menu_matchmaking" />
         <item
             android:id="@+id/editUserProfile"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_baseline_portrait_24"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_list_tabs"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_list" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_baseline_person_search_24"
+            android:title="@string/menu_search" />
     </group>
 </menu>
