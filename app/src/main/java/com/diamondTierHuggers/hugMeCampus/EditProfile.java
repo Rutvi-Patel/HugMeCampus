@@ -1,6 +1,11 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
@@ -8,18 +13,33 @@ import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.diamondTierHuggers.hugMeCampus.entity.Model;
+import com.diamondTierHuggers.hugMeCampus.entity.UserPictures;
 import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.prefs.PreferenceChangeEvent;
 
 
 /**
@@ -41,6 +61,9 @@ public class EditProfile extends Fragment {
     private EditText firstName, lastName, age, gender, bio;
     private Button uploadBtn, saveEditBtn;
     private ImageView imageView;
+    private Uri imageUri;
+    private StorageReference reference = FirebaseStorage.getInstance().getReference();
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
 
     public EditProfile() {
         // Required empty public constructor
@@ -87,16 +110,27 @@ public class EditProfile extends Fragment {
         saveEditBtn = view.findViewById(R.id.save_edits);
         imageView = view.findViewById(R.id.viewImage);
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent galleryIntent = new Intent();
-//
-//
-//            }
-//        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 2);
+            }
+        });
 
-
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageUri != null) {
+                    uploadToFirebase(imageUri);
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Please Select Image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,4 +158,50 @@ public class EditProfile extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
+    }
+
+    private void uploadToFirebase(Uri uri) {
+        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Model model = new Model(uri.toString());
+                        String modelID = root.push().getKey();
+                        root.child(modelID).setValue(model);
+                        Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+//        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+//
+//            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity().getApplicationContext(), "Uploading Failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private String getFileExtension(Uri mUri) {
+        ContentResolver cr = getContext().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(mUri));
+    }
+
 }
