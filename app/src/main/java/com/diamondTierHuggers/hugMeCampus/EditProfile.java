@@ -40,7 +40,7 @@ public class EditProfile extends Fragment {
     private String myUID = appUser.getAppUser().getUid();
     private EditText firstName, lastName, age, gender, bio;
     private CheckBox shortHug,mediumHug,longHug, quiet,talkative,celebratory,
-            happy,emotional,sad;
+            happy,emotional,sad,male,female,nonbinary;
 
     public EditProfile() {
         // Required empty public constructor
@@ -115,65 +115,85 @@ public class EditProfile extends Fragment {
                 happy = view.findViewById(R.id.happy);
                 emotional = view.findViewById(R.id.emotional);
                 sad = view.findViewById(R.id.sad);
+//                male = view.findViewById(R.id.male);
+//                female = view.findViewById(R.id.female);
+//                nonbinary = view.findViewById(R.id.nonbinary);
+
 
                 if(shortHug.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("0").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
 //                    boolean checked = PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).getBoolean("shortHug",false);
 //                    PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).edit().putBoolean("shortHug",checked).apply();
 //                    shortHug.setChecked(checked);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("0").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(false);
                 }
 
                 if(mediumHug.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("1").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("1").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(false);
                 }
 
                 if(longHug.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("2").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("duration").child("2").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(false);
                 }
 
                 if(quiet.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("0").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("0").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
                 }
 
                 if(talkative.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("1").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("1").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
                 }
 
                 if(celebratory.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("2").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("2").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(false);
                 }
 
                 if(happy.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("3").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("3").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(false);
                 }
 
                 if(emotional.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("4").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("4").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(false);
                 }
 
                 if(sad.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("5").setValue(true);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(true);
                 }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("mood").child("5").setValue(false);
+                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(false);
                 }
 
-
+//                if(male.isChecked()){
+//                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
+//                }else{
+//                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
+//                }
+//
+//                if(female.isChecked()){
+//                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
+//                }else{
+//                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
+//                }
+//
+//                if(nonbinary.isChecked()){
+//                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
+//                }else{
+//                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
+//                }
                 NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
 
                 //System.out.println(appUser.getAppUser().getUid());
