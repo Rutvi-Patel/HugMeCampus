@@ -109,6 +109,8 @@ public class MatchMakingFragment extends Fragment {
                     appUser.getAppUser().request_list.remove(otherUser.getUid());
                     appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), otherUser.getUid());
                     appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                    appUser.getAppUser().friend_list.put(otherUser.getUid(), true);
+                    appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
                 }
                 else {
                     appUser.acceptListModel.isUserAccepted(otherUser.getUid(), appUser.getAppUser().getUid(), new BoolDataCallback() {
@@ -118,6 +120,8 @@ public class MatchMakingFragment extends Fragment {
                             {
                                 Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
                                 appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                                appUser.getAppUser().friend_list.put(otherUser.getUid(), true);
+                                appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
                             }
 
                         }
