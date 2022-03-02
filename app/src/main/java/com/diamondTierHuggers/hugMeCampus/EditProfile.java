@@ -165,9 +165,9 @@ public class EditProfile extends Fragment {
                 happy = view.findViewById(R.id.happy);
                 emotional = view.findViewById(R.id.emotional);
                 sad = view.findViewById(R.id.sad);
-//                male = view.findViewById(R.id.male);
-//                female = view.findViewById(R.id.female);
-//                nonbinary = view.findViewById(R.id.nonbinary);
+                male = view.findViewById(R.id.male);
+                female = view.findViewById(R.id.female);
+                nonbinary = view.findViewById(R.id.nonBinary);
 
 
                 if(shortHug.isChecked()){
@@ -227,23 +227,23 @@ public class EditProfile extends Fragment {
                     myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(false);
                 }
 
-//                if(male.isChecked()){
-//                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
-//                }else{
-//                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
-//                }
-//
-//                if(female.isChecked()){
-//                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
-//                }else{
-//                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
-//                }
-//
-//                if(nonbinary.isChecked()){
-//                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
-//                }else{
-//                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
-//                }
+                if(male.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
+                }
+
+                if(female.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
+                }
+
+                if(nonbinary.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
+                }
 
                 NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
 
