@@ -1,7 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus.messages;
 
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
-import static com.diamondTierHuggers.hugMeCampus.MainActivity.database;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,9 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Set;
 
@@ -64,14 +60,14 @@ public class chatFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,9 +89,9 @@ public class chatFragment extends Fragment {
         messagesRecyclerView.setHasFixedSize(true);
         messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         System.out.println(appUser.getAppUser().getUid());
-        database.getReference("users").orderByKey().equalTo(appUser.getAppUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//        database.getReference("users").orderByKey().equalTo(appUser.getAppUser().getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 //                for (DataSnapshot dataSnapshot:snapshot.child("users").getChildren()){
 //                    final Stri
@@ -105,23 +101,21 @@ public class chatFragment extends Fragment {
 //                        if (user.getUid() ==
 //                    }
 //                }
-                messagesLists.clear();
 
-                messagesLists = appUser.getAppUser().getFriend_list().keySet();
+            messagesLists = appUser.getAppUser().getFriend_list().keySet();
 
-                RecyclerView recyclerView = binding.messagesRecyclerView;
-                LinearLayoutManager manager = new LinearLayoutManager(chatFragment.this.getContext());
-                recyclerView.setLayoutManager(manager);
-                recyclerView.setHasFixedSize(true);
-                MessagesAdapter adapter = new MessagesAdapter(messagesLists,chatFragment.this.getContext());
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+            RecyclerView recyclerView = binding.messagesRecyclerView;
+            LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
+            recyclerView.setLayoutManager(manager);
+            recyclerView.setHasFixedSize(true);
+            MessagesAdapter adapter = new MessagesAdapter(messagesLists,this.getContext());
+            recyclerView.setAdapter(adapter);
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
     }

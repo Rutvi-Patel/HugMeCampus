@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,16 +27,17 @@ public class chatBoxFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private HugMeUser user;
     private FragmentChatBoxBinding binding;
 
 
-    public chatBoxFragment() {
+    public chatBoxFragment(HugMeUser  hugMeUser) {
         // Required empty public constructor
+        user  = hugMeUser;
     }
 
     /**
@@ -44,9 +50,9 @@ public class chatBoxFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static chatBoxFragment newInstance(HugMeUser user) {
-        chatBoxFragment fragment = new chatBoxFragment();
+        chatBoxFragment fragment = new chatBoxFragment(user);
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, "user");
+//        args.putString(ARG_PARAM1, "user");
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,7 +82,23 @@ public class chatBoxFragment extends Fragment {
         final  String getName = user.getFirst_name()+ " "+user.getLast_name();
         final String getProfilePic = user.getPictures().profile;
 
-        binding.backbtn.setOnClickListener(new View.OnClickListener() {
+        ImageView backbtn = binding.backbtn;
+        TextView name = binding.name;
+        EditText messageEditText = binding.messageEditText;
+        ImageView profilePic = binding.profilePic;
+        Button sendBtn = binding.sendbtn;
+
+        name.setText(getName);
+        Picasso.get().load(getProfilePic).into(profilePic);
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
