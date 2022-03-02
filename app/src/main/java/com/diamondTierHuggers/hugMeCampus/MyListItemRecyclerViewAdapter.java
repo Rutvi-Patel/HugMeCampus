@@ -51,7 +51,6 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
                     for (DataSnapshot user : dataSnapshot.getChildren()) {
                         HugMeUser h = user.getValue(HugMeUser.class);
                         h.setUid(uid);
-                        h.setRequestPending(requestPending);
                         appUser.savedHugMeUsers.put(uid, h);
                         addItem(h);
                     }
@@ -87,7 +86,6 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
         else {
             for (String uid : appUser.getAppUser().request_list.keySet()) {
                 if (appUser.savedHugMeUsers.containsKey(uid)) {
-                    appUser.savedHugMeUsers.get(uid).setRequestPending(1);
                     addItem(appUser.savedHugMeUsers.get(uid));
                 }
                 else {
@@ -101,7 +99,6 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
             }
             for (String uid : appUser.getAppUser().pending_list.keySet()) {
                 if (appUser.savedHugMeUsers.containsKey(uid)) {
-                    appUser.savedHugMeUsers.get(uid).setRequestPending(2);
                     addItem(appUser.savedHugMeUsers.get(uid));
                 }
                 else {
@@ -119,7 +116,6 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnItemListener);
     }
 
@@ -154,16 +150,14 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
             onItemListener.onItemClick(getAdapterPosition());
         }
 
-        @SuppressLint({"SetTextI18n", "ResourceAsColor"})
         public void set() {
             this.mProfileName.setText(this.mItem.first_name + " " + this.mItem.last_name);
-            // TODO make switch case
-            if (mItem.getRequestPending() == 1) {
+            if (mItem.getFriendRequestPending() == 2) {
                 this.mRequestPendingText.setText("Accept Request");
                 this.mRequestPendingText.setTextColor(0xff34223b);
                 this.mRequestPendingCard.setCardBackgroundColor(0xff03dac5);
             }
-            else if (mItem.getRequestPending() == 2) {
+            else if (mItem.getFriendRequestPending() == 1) {
                 this.mRequestPendingText.setText("Pending");
                 this.mRequestPendingText.setTextColor(0xffffffff);
                 this.mRequestPendingCard.setCardBackgroundColor(0xff34223b);
