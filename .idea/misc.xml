@@ -18,6 +18,18 @@
         <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/layout/settings_activity.xml" value="0.2658514492753623" />
         <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/menu/menu_main.xml" value="0.31384615384615383" />
         <entry key="..\:/Users/steve/StudioProjects/hugMeCampus/app/src/main/res/xml/root_preferences.xml" value="0.2658514492753623" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.16168478260869565" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.3695652173913043" />
+        <entry key="app/src/main/res/layout/fragment_container.xml" value="0.16168478260869565" />
+        <entry key="app/src/main/res/layout/fragment_display_user_profile.xml" value="0.3278985507246377" />
+        <entry key="app/src/main/res/layout/fragment_item.xml" value="0.1577560424804688" />
+        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_list_tabs.xml" value="0.32065217391304346" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2857789855072464" />
+        <entry key="app/src/main/res/layout/fragment_match_making.xml" value="0.3695652173913043" />
+        <entry key="app/src/main/res/layout/fragment_view_other_profile.xml" value="0.2802841186523437" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
       </map>
     </option>
   </component>

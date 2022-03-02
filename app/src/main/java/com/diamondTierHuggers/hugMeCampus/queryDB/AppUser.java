@@ -2,16 +2,21 @@ package com.diamondTierHuggers.hugMeCampus.queryDB;
 
 import androidx.annotation.NonNull;
 
+import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class AppUser {
 
     private HugMeUser appUser;
     public static MatchMakingQueue mq;
+    public static HashMap<String, HugMeUser> savedHugMeUsers = new HashMap<>();
+    public static AcceptListModel acceptListModel = new AcceptListModel();
 
 
     public void readData(Query ref, final OnGetDataListener listener) {

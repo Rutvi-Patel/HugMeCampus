@@ -3,19 +3,20 @@ package com.diamondTierHuggers.hugMeCampus;
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.viewbinding.ViewBinding;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.viewbinding.ViewBinding;
+
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
 import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
@@ -31,24 +32,23 @@ import java.util.List;
  */
 public class DisplayUserProfile extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private final String[] gender = {"Male", "Female"};
     private final String[] emoji = {"poop", "coal", "bronze", "silver", "gold", "platinum", "diamond"};
 
     private TextView name, info, bio;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private final HugMeUser mHugMeUser;
+
     private FragmentDisplayUserProfileBinding binding;
 
 
     public DisplayUserProfile() {
         // Required empty public constructor
+        this.mHugMeUser = appUser.getAppUser();
+    }
+
+    public DisplayUserProfile(HugMeUser hugMeUser) {
+        this.mHugMeUser = hugMeUser;
     }
 
     /**
@@ -63,8 +63,6 @@ public class DisplayUserProfile extends Fragment {
     public static DisplayUserProfile newInstance(String param1, String param2) {
         DisplayUserProfile fragment = new DisplayUserProfile();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,11 +70,6 @@ public class DisplayUserProfile extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -85,21 +78,19 @@ public class DisplayUserProfile extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDisplayUserProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
-//        return inflater.inflate(R.layout.fragment_display_user_profile, container, false);
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void setProfile(HugMeUser h) {
+        this.name = getView().findViewById(R.id.name);
+        this.info = getView().findViewById(R.id.info);
+        this.bio = getView().findViewById(R.id.bio);
 
-        name = view.findViewById(R.id.name);
-        info = view.findViewById(R.id.info);
-        bio = view.findViewById(R.id.bio);
-
-        name.setText(appUser.getAppUser().first_name + " " + appUser.getAppUser().last_name);
-        info.setText(appUser.getAppUser().age + ", " + gender[appUser.getAppUser().gender] + ", " + emoji[appUser.getAppUser().hug_count/50]);
-        bio.setText(appUser.getAppUser().bio);
+        name.setText(h.first_name + " " + h.last_name);
+        info.setText(h.age + ", " + gender[h.gender] + ", " + emoji[h.hug_count/50]);
+        bio.setText(h.bio);
         //carousel v2
         binding.carousel4.registerLifecycle(getLifecycle());
+
 
         binding.carousel4.setCarouselListener((CarouselListener) (new CarouselListener() {
             @Override
@@ -123,12 +114,14 @@ public class DisplayUserProfile extends Fragment {
             public void onLongClick(int position, CarouselItem carouselItem) {
                 DefaultImpls.onLongClick(this, position, carouselItem);
             }
+
+
         }));
 
         List<CarouselItem> list = new ArrayList<>();
         list.add(
                 new CarouselItem(
-                        R.drawable.goldengate
+                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
                 )
         );
         list.add(
@@ -149,5 +142,10 @@ public class DisplayUserProfile extends Fragment {
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setProfile(mHugMeUser);
     }
 }
