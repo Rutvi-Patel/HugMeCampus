@@ -16,8 +16,10 @@
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,23 +39,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/edit_age"
                 android:layout_width="181dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="348dp"
-                android:background="@drawable/input_bg"
-                android:drawableStart="@drawable/ic_baseline_edit_24"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="casual"
-                android:hint="@string/age"
-                android:minHeight="48dp"
-                android:textColorHint="@color/black"
+                android:spinnerMode="dropdown"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/edit_bio"
