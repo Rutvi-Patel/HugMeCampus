@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -45,6 +47,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.prefs.PreferenceChangeEvent;
 
 
@@ -83,6 +88,21 @@ public class EditProfile extends Fragment {
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
     private CheckBox shortHug,mediumHug,longHug, quiet,talkative,celebratory,
             happy,emotional,sad,male,female,nonbinary;
+    //CheckBox Keys
+    boolean myBoolVariable =false;
+    private static final String shortHugKey = "shortHugKey";
+    private static final String mediumHugKey = "mediumHugKey";
+    private static final String longHugKey = "longHugKey";
+    private static final String quietHugKey = "quietHugKey";
+    private static final String talkativeHugKey = "talkativeHugKey";
+    private static final String celbratoryHugKey = "celbratoryHugKey";
+    private static final String happyHugKey = "happyHugKey";
+    private static final String emotionalHugKey = "emotionalHugKey";
+    private static final String sadHugKey = "sadHugKey";
+    private static final String maleHugKey = "maleHugKey";
+    private static final String femailHugKey = "femailHugKey";
+    private static final String nonbinaryHugKey = "nonbinaryHugKey";
+    SharedPreferences sharedPref = null;
 
     public EditProfile() {
         // Required empty public constructor
@@ -124,13 +144,29 @@ public class EditProfile extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //Save and Upload buttons
         uploadBtn = view.findViewById(R.id.upload_Button);
         saveEditBtn = view.findViewById(R.id.save_edits);
-        imageView = view.findViewById(R.id.viewImage);
+        //User information
+        firstName = view.findViewById(R.id.edit_firstName);
+        lastName = view.findViewById(R.id.edit_lastName);
+        bio = view.findViewById(R.id.edit_bio);
         editGender = (Spinner)view.findViewById(R.id.editGender);
         editAge = (Spinner)view.findViewById(R.id.edit_age);
-
+        imageView = view.findViewById(R.id.viewImage);
+        //Hug Preferences
+        shortHug = view.findViewById(R.id.shortHug);
+        mediumHug = view.findViewById(R.id.mediumHug);
+        longHug = view.findViewById(R.id.longHug);
+        quiet = view.findViewById(R.id.quiet);
+        talkative = view.findViewById(R.id.talkative);
+        celebratory = view.findViewById(R.id.celebratory);
+        happy = view.findViewById(R.id.happy);
+        emotional = view.findViewById(R.id.emotional);
+        sad = view.findViewById(R.id.sad);
+        male = view.findViewById(R.id.male);
+        female = view.findViewById(R.id.female);
+        nonbinary = view.findViewById(R.id.nonBinary);
 
         //Edit Gender dropdown setup
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
@@ -192,46 +228,26 @@ public class EditProfile extends Fragment {
             }
         });
 
-
         //Save Button
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                firstName = view.findViewById(R.id.edit_firstName);
-                lastName = view.findViewById(R.id.edit_lastName);
-                bio = view.findViewById(R.id.edit_bio);
-                editGender = view.findViewById(R.id.editGender);
-
+                //User info to String
                 String firstNameToString = firstName.getText().toString();
                 String lastNameToString = lastName.getText().toString();
                 String bioToString = bio.getText().toString();
-
+                //User info being set
                 appUser.getAppUser().setFirst_name(firstNameToString);
                 appUser.getAppUser().setLast_name(lastNameToString);
                 appUser.getAppUser().setBio(bioToString);
-
+                //User info updated to database
                 myRef.child("users").child(myUID).child("first_name").setValue(firstNameToString);
                 myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
                 myRef.child("users").child(myUID).child("bio").setValue(bioToString);
                 myRef.child("users").child(myUID).child("gender").setValue(genderChoice);
                 myRef.child("users").child(myUID).child("age").setValue(ageChoice);
 
-                //Hug Preferences
-                shortHug = view.findViewById(R.id.shortHug);
-                mediumHug = view.findViewById(R.id.mediumHug);
-                longHug = view.findViewById(R.id.longHug);
-                quiet = view.findViewById(R.id.quiet);
-                talkative = view.findViewById(R.id.talkative);
-                celebratory = view.findViewById(R.id.celebratory);
-                happy = view.findViewById(R.id.happy);
-                emotional = view.findViewById(R.id.emotional);
-                sad = view.findViewById(R.id.sad);
-                male = view.findViewById(R.id.male);
-                female = view.findViewById(R.id.female);
-                nonbinary = view.findViewById(R.id.nonBinary);
-
-
+                //Hug Preferences updated to database
                 if(shortHug.isChecked()){
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
 //                    boolean checked = PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).getBoolean("shortHug",false);
@@ -306,12 +322,51 @@ public class EditProfile extends Fragment {
                 }else{
                     myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
                 }
-
+                //moved to profile view after Save button has been hit
                 NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
 
-                //System.out.println(appUser.getAppUser().getUid());
             }
         });
+
+        //Keep checkbox state
+        sharedPref = getActivity().getSharedPreferences("allCheckBoxes", Context.MODE_PRIVATE);
+        Map<String,CheckBox> checkBoxMap = new HashMap<>();
+        checkBoxMap.put(shortHugKey,shortHug);
+        checkBoxMap.put(mediumHugKey,mediumHug);
+        checkBoxMap.put(longHugKey,longHug);
+        checkBoxMap.put(quietHugKey,quiet);
+        checkBoxMap.put(talkativeHugKey,talkative);
+        checkBoxMap.put(celbratoryHugKey,celebratory);
+        checkBoxMap.put(happyHugKey,happy);
+        checkBoxMap.put(emotionalHugKey,emotional);
+        checkBoxMap.put(sadHugKey,sad);
+        checkBoxMap.put(maleHugKey,male);
+        checkBoxMap.put(femailHugKey,female);
+        checkBoxMap.put(nonbinaryHugKey,nonbinary);
+
+        loadInitialValues(checkBoxMap);
+        setupCheckedChangeListener(checkBoxMap);
+    }
+
+    //function for loading values into hashmap
+    public void loadInitialValues(Map<String,CheckBox> checkBoxMap){
+        for(Map.Entry<String,CheckBox> checkBoxEntry: checkBoxMap.entrySet()){
+            Boolean checked = sharedPref.getBoolean(checkBoxEntry.getKey(),false);
+            checkBoxEntry.getValue().setChecked(checked);
+        }
+    }
+    //function for checkbox Listener
+    public void setupCheckedChangeListener(Map<String,CheckBox> checkBoxMap){
+        for(final Map.Entry<String,CheckBox> checkBoxEntry: checkBoxMap.entrySet()){
+            checkBoxEntry.getValue().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    final SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean(checkBoxEntry.getKey(), isChecked);
+                    editor.apply();
+                }
+            });
+        }
     }
 
     @Override
