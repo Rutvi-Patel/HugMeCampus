@@ -16,15 +16,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.diamondTierHuggers.hugMeCampus.entity.Model;
@@ -59,7 +64,10 @@ public class EditProfile extends Fragment {
     private String mParam1;
     private String mParam2;
     private String myUID = appUser.getAppUser().getUid();
-    private EditText firstName, lastName, age, gender, bio;
+    private EditText firstName, lastName, bio;
+    private Spinner editGender;
+    private static final String[] paths = {"Male", "Female", "Non-binary"};
+    private int genderChoice;
     private Button uploadBtn, saveEditBtn;
     private ImageView imageView;
     private Uri imageUri;
@@ -112,7 +120,28 @@ public class EditProfile extends Fragment {
         uploadBtn = view.findViewById(R.id.upload_Button);
         saveEditBtn = view.findViewById(R.id.save_edits);
         imageView = view.findViewById(R.id.viewImage);
+        editGender = (Spinner)view.findViewById(R.id.editGender);
 
+
+        //Edit Gender dropdown setup
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editGender.setAdapter(adapter);
+
+        editGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("gender", (String) parent.getItemAtPosition(position));
+                genderChoice = editGender.getSelectedItemPosition();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Image Button
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +151,7 @@ public class EditProfile extends Fragment {
                 startActivityForResult(galleryIntent, 2);
             }
         });
-
+        //Upload Button
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +164,8 @@ public class EditProfile extends Fragment {
             }
         });
 
+
+        //Save Button
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +173,7 @@ public class EditProfile extends Fragment {
                 firstName = view.findViewById(R.id.edit_firstName);
                 lastName = view.findViewById(R.id.edit_lastName);
                 bio = view.findViewById(R.id.edit_bio);
+                editGender = view.findViewById(R.id.editGender);
 
                 String firstNameToString = firstName.getText().toString();
                 String lastNameToString = lastName.getText().toString();
@@ -154,6 +186,8 @@ public class EditProfile extends Fragment {
                 myRef.child("users").child(myUID).child("first_name").setValue(firstNameToString);
                 myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
                 myRef.child("users").child(myUID).child("bio").setValue(bioToString);
+                //Edit Gender
+                myRef.child("users").child(myUID).child("gender").setValue(genderChoice);
 
                 //Hug Preferences
                 shortHug = view.findViewById(R.id.shortHug);

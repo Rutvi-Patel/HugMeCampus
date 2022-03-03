@@ -8,14 +8,12 @@
     tools:context=".DisplayUserProfile"
     tools:ignore="ExtraText">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
         android:fillViewport="true"
         android:padding="16dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,195 +26,173 @@
             android:backgroundTint="#22FFFFFF">
 
 
-    <ImageView
-        android:id="@+id/viewImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_baseline_add_a_photo_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/viewImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_baseline_add_a_photo_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_gender"
-        android:layout_width="181dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="348dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/gender"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+            <EditText
+                android:id="@+id/edit_age"
+                android:layout_width="181dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="348dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/age"
+                android:minHeight="48dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/edit_age"
-        android:layout_width="181dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="348dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/age"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+            <EditText
+                android:id="@+id/edit_bio"
+                android:layout_width="362dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="400dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/bio"
+                android:minHeight="48dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/edit_bio"
-        android:layout_width="362dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/bio"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="362dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="492dp"
+                android:text="@string/hug_preferences"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="362dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="492dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/hug_preferences"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/shortHug"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="516dp"
+                android:text="@string/Short"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/shortHug"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="516dp"
-        android:text="@string/Short"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/mediumHug"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="138dp"
+                android:layout_marginTop="516dp"
+                android:text="@string/Medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/mediumHug"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="516dp"
-        android:text="@string/Medium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/longHug"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="258dp"
+                android:layout_marginTop="516dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/Long"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.033"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/longHug"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="516dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/Long"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/quiet"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="551dp"
+                android:text="@string/Quiet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/quiet"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="551dp"
-        android:text="@string/Quiet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/talkative"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="551dp"
-        android:text="@string/Talkative"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/celebratory"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="551dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/Celebratory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/talkative"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="138dp"
+                android:layout_marginTop="551dp"
+                android:text="@string/Talkative"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <CheckBox
-        android:id="@+id/happy"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="588dp"
-        android:text="@string/happy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/celebratory"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="258dp"
+                android:layout_marginTop="551dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/Celebratory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.033"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/emotional"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="588dp"
-        android:text="@string/Emotional"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/happy"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="138dp"
+                android:layout_marginTop="588dp"
+                android:text="@string/happy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/sad"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="588dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/Sad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <CheckBox
+                android:id="@+id/emotional"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="588dp"
+                android:text="@string/Emotional"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/sad"
+                android:layout_width="120.66dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="258dp"
+                android:layout_marginTop="588dp"
+                android:layout_marginEnd="25dp"
+                android:text="@string/Sad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.033"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
                 android:id="@+id/male"
                 android:layout_width="120.66dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="625dp"
                 android:text="Male"
                 app:layout_constraintStart_toStartOf="parent"
@@ -226,7 +202,7 @@
                 android:id="@+id/female"
                 android:layout_width="120.66dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="144dp"
+                android:layout_marginStart="138dp"
                 android:layout_marginTop="625dp"
                 android:text="Female"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,66 +212,67 @@
                 android:id="@+id/nonBinary"
                 android:layout_width="120.66dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="264dp"
+                android:layout_marginStart="258dp"
                 android:layout_marginTop="625dp"
                 android:layout_marginEnd="24dp"
-                android:text="Non-Binary"
+                android:text="Nonbinary"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.033"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-        android:id="@+id/edit_lastName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/lastname"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+                android:id="@+id/edit_lastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="300dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/lastname"
+                android:minHeight="48dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/edit_firstName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="252dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/firstname"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+            <EditText
+                android:id="@+id/edit_firstName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="252dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/firstname"
+                android:minHeight="48dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/upload_Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="@string/upload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/upload_Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="204dp"
+                android:text="@string/upload"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/save_edits"
@@ -309,8 +286,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
+            <Spinner
+                android:id="@+id/editGender"
+                android:layout_width="181dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="348dp"
+                android:layout_marginEnd="24dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
