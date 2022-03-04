@@ -270,33 +270,33 @@ public class EditProfile extends Fragment {
                 }
 
                 if(quiet.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
-                }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
-                }
-
-                if(talkative.isChecked()){
-                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
-                }else{
-                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
-                }
-
-                if(celebratory.isChecked()){
                     myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(true);
                 }else{
                     myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(false);
                 }
 
-                if(happy.isChecked()){
+                if(talkative.isChecked()){
                     myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(true);
                 }else{
                     myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(false);
                 }
 
-                if(emotional.isChecked()){
+                if(celebratory.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
+                }
+
+                if(happy.isChecked()){
                     myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(true);
                 }else{
                     myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(false);
+                }
+
+                if(emotional.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
                 }
 
                 if(sad.isChecked()){
