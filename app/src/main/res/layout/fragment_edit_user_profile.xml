@@ -5,7 +5,6 @@
         android:id="@+id/editUserProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#AD1B111E"
         android:clickable="true"
         android:focusable="auto"
         tools:context=".EditUserProfile"
@@ -25,13 +24,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@drawable/ic_baseline_email_24"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_right" />
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_right"

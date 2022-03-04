@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
@@ -29,6 +31,7 @@ public class MatchMakingFragment extends Fragment {
 
     private FragmentMatchMakingBinding binding;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private TextView emptyQueueMessageTextView;
 
     public MatchMakingFragment() {
 
@@ -48,24 +51,23 @@ public class MatchMakingFragment extends Fragment {
 
         View view = binding.getRoot();
 
-//        Button acceptButton = view.findViewById(R.id.Accept);
-//        acceptButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        emptyQueueMessageTextView = view.findViewById(R.id.emptyQueueMessageTextView);
 
-        //add the view via xml or programmatically
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
         ArrayList al = new ArrayList<HugMeUser>();
 
-        al.add(mq.poll());
-        al.add(mq.poll());
+        ProfileAdapter arrayAdapter = new ProfileAdapter(this.getContext(), al);
 
-
-        ProfileAdapter arrayAdapter = new ProfileAdapter(this.getContext(), al );
+        if (mq.size() > 0) {
+            al.add(mq.poll());
+            emptyQueueMessageTextView.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+            emptyQueueMessageTextView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            emptyQueueMessageTextView.setVisibility(View.VISIBLE);
+            emptyQueueMessageTextView.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+        }
 
         //set the listener and the adapter
         flingContainer.setAdapter(arrayAdapter);
@@ -73,7 +75,6 @@ public class MatchMakingFragment extends Fragment {
             @Override
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
-                System.out.println("LIST removed object!");
                 al.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -83,61 +84,64 @@ public class MatchMakingFragment extends Fragment {
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
-//                Toast.makeText(this, "Left!", Toast.LENGTH_SHORT).show();
-                System.out.println("LEFT");
                 HugMeUser otherUser = (HugMeUser) dataObject;
                 RejectListModel.insertRejectedUser(appUser.getAppUser().getUid(), otherUser.getUid());
                 appUser.getAppUser().rejected_list.put(otherUser.getUid(), true);
-                al.add(mq.poll());
+                if (mq.size() > 0) {
+                    al.add(mq.poll());
+                }
+                else {
+                    emptyQueueMessageTextView.setVisibility(View.VISIBLE);
+                    emptyQueueMessageTextView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_top));
+                }
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-//                Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
-                System.out.println("RIGHT");
-                HugMeUser otherUser = (HugMeUser) dataObject;
-                appUser.getAppUser().accepted_list.put(otherUser.getUid(), true);
-                AcceptListModel.isUserAccepted(appUser.getAppUser().getUid(), otherUser.getUid(), new BoolDataCallback() {
-                    @Override
-                    public void getBool(boolean value) {
-                        if(value)
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
-                        }
 
-                        AcceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
-                    }
-                });
-                al.add(mq.poll());
+                HugMeUser otherUser = (HugMeUser) dataObject;
+                appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
+                appUser.getAppUser().accepted_list.put(otherUser.getUid(), true);
+                appUser.acceptListModel.insertAcceptedUser(appUser.getAppUser().getUid(), otherUser.getUid());
+
+                // TODO notify other user if they are on the app that they have a new friend
+                if (appUser.getAppUser().request_list.containsKey(otherUser.getUid())) {
+                    appUser.getAppUser().request_list.remove(otherUser.getUid());
+                    appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), otherUser.getUid());
+                    appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                }
+                else {
+                    appUser.acceptListModel.isUserAccepted(otherUser.getUid(), appUser.getAppUser().getUid(), new BoolDataCallback() {
+                        @Override
+                        public void getBool(boolean value) {
+                            if(value)
+                            {
+                                Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
+                                appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                            }
+
+                        }
+                    });
+                }
+
+                if (mq.size() > 0) {
+                    al.add(mq.poll());
+                }
+                else {
+                    emptyQueueMessageTextView.setVisibility(View.VISIBLE);
+                    emptyQueueMessageTextView.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                }
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                //TODO make sure if there are no more users to be matched with we display message, otherwise null pointer
-
-
-                // Ask for more data here
-//                al.add("XML ".concat(String.valueOf(i)));
-//                arrayAdapter.notifyDataSetChanged();
-//                Log.d("LIST", "notified");
-//                i++;
-//                System.out.println("ABOUT TO EMPTY");
             }
 
             @Override
             public void onScroll(float v) {
-                System.out.println("SCROLL");
             }
         });
 
-        // Optionally add an OnItemClickListener
-        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
-//                makeToast(MyActivity.this, "Clicked!");
-                System.out.println("CLICKED");
-            }
-        });
         return view;
     }
 }

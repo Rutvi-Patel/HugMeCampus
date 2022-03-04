@@ -47,5 +47,23 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_matchmaking">MatchMaking</string>
     <string name="menu_profile">Profile</string>
+    <string name="happy">Happy</string>
+    <string name="hug_preferences">Hug Preferences</string>
+    <string name="Short">Short</string>
+    <string name="Medium">Medium</string>
+    <string name="Long">Long</string>
+    <string name="Quiet">Quiet</string>
+    <string name="Talkative">Talkative</string>
+    <string name="Celebratory">Celebratory</string>
+    <string name="Emotional">Emotional</string>
+    <string name="Sad">Sad</string>
+    <string name="lastname">Last Name</string>
+    <string name="firstname">First Name</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="bio">Bio</string>
+    <string name="upload">Upload</string>
+    <string name="save">Save</string>
     <string name="menu_list">Friends and Requests</string>
+    <string name="menu_search">Search</string>
 </resources>

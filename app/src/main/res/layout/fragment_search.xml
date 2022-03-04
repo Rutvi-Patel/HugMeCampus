@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_heading">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:textColorHint="#808080"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.8">
+
+                <EditText
+                    android:id="@+id/username_search_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="Search"
+                    android:inputType="text"
+                    android:paddingBottom="20dp"
+                    android:textColor="#000000"
+                    android:textColorHint="@color/black"
+                    android:textSize="15sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/search_btn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:text="Add Friend"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username_input"
+                app:layout_constraintWidth_percent="0.8" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</FrameLayout>

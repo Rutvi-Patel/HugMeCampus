@@ -31,9 +31,6 @@
         <action
             android:id="@+id/action_SecondFragment_to_profileActivity"
             app:destination="@id/profileActivity" />
-        <action
-            android:id="@+id/action_SecondFragment_to_displayUserProfile2"
-            app:destination="@id/displayUserProfile2" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
@@ -67,4 +64,6 @@
             android:id="@+id/action_editUserProfile2_to_editProfile"
             app:destination="@id/editProfile" />
     </fragment>
+
+
 </navigation>
