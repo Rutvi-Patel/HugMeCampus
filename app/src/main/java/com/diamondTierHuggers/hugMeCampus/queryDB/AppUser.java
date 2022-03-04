@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -20,6 +21,7 @@ public class AppUser {
 
 
     public void readData(Query ref, final OnGetDataListener listener) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -28,7 +30,7 @@ public class AppUser {
                     appUser = dataSnapshot.getValue(HugMeUser.class);
 //                    FirebaseAuth auth = FirebaseAuth.getInstance();
 //                    appUser.setUid(auth.getUid());
-                    appUser.setUid("uid123");
+                    appUser.setUid(auth.getUid());
                     mq = new MatchMakingQueue();
                 }
                 listener.onSuccess("");
