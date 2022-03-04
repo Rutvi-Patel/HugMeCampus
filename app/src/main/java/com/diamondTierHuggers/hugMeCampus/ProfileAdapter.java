@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -163,6 +164,10 @@ public class ProfileAdapter extends BaseAdapter {
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);
+
+        if (position == mObjects.size() - 1) {
+            view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_in_top));
+        }
 
         return view;
 

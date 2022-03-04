@@ -70,8 +70,6 @@ public class ListFriendRequestFragment extends Fragment implements MyListItemRec
 
     @Override
     public void onItemClick(int position) {
-        // TODO create intent and view profile activity or transition to new fragment
-        System.out.println(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("hugMeUser", mMyListItemRecyclerViewAdapter.getItem(position));
         NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_list_tabs_to_nav_other_profile, bundle);

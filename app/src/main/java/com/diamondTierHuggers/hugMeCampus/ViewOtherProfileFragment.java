@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -68,6 +69,18 @@ public class ViewOtherProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FloatingActionButton button = getView().findViewById(R.id.userButton);
+        FloatingActionButton messageButton = getView().findViewById(R.id.messageButton);
+
+        if (mHugMeUser.getFriendRequestPending() >= 1) {
+            messageButton.setVisibility(View.GONE);
+        }
+
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("button pressed");
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,36 +88,47 @@ public class ViewOtherProfileFragment extends Fragment {
                 PopupMenu popupMenu = new PopupMenu(getContext(), button);
                 popupMenu.getMenuInflater().inflate(R.menu.add_friend_block_menu, popupMenu.getMenu());
 
-                if (mHugMeUser.isFriend()) {
+                if (mHugMeUser.getFriendRequestPending() <= 1) {
                     popupMenu.getMenu().findItem(R.id.add_friend).setVisible(false);
                 }
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getNumericShortcut() == 0) {
+                        System.out.println(item.getNumericShortcut());
+                        if (item.getNumericShortcut() == '0') {
+                            // TODO notify other user to remove this user from any lists/messages
                             //block user
-                            switch (mHugMeUser.getRequestPending()) {
-                                case 0:
-                                    // friends
-                                    appUser.getAppUser().friend_list.remove(mHugMeUser.getUid());
-                                case 1:
-                                    // pending your approval
-                                    // TODO check these todo logics, its late at night
-                                    // TODO remove other user from appUser's request_list on DB
-                                case 2:
-                                    // pending friend's approval
-                                    // TODO remove appUser from other user's request_list on DB
+                            if  (mHugMeUser.getFriendRequestPending() == 0) {
+                                // friends
+                                appUser.acceptListModel.removeFriend(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                                appUser.getAppUser().friend_list.remove(mHugMeUser.getUid());
+                            }
+                            else if (mHugMeUser.getFriendRequestPending() == 1) {
+                                // pending friend's approval
+                                appUser.acceptListModel.removeRequestedPending(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                                appUser.getAppUser().pending_list.remove(mHugMeUser.getUid());
+                            }
+                            else if (mHugMeUser.getFriendRequestPending() == 2) {
+                                // pending your approval
+                                appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
+                                appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
                             }
                             appUser.getAppUser().blocked_list.put(mHugMeUser.getUid(), true);
+                            appUser.acceptListModel.insertBlockedUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.savedHugMeUsers.remove(mHugMeUser.getUid());
-                            // TODO update db, remove from friend list on db, add to block list on db
-                            // TODO go back to previous screen
+                            // TODO remove any messages
+                            getFragmentManager().popBackStackImmediate();
                         }
                         else {
                             //add friend
+                            // TODO notify other user if they are on the app that they have a new friend
+                            appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
+                            appUser.acceptListModel.insertFriendUser(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                            appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
                             appUser.getAppUser().friend_list.put(mHugMeUser.getUid(), true);
-                            // TODO update db, put friend in both lists
+                            appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
+                            messageButton.setVisibility(View.VISIBLE);
                         }
                         return true;
                     }
