@@ -3,22 +3,17 @@ package com.diamondTierHuggers.hugMeCampus;
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.MainActivity.database;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentItemBinding;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListItemRecyclerViewAdapter.ViewHolder> {
+public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.ViewHolder> {
 
     private List<HugMeUser> mValues = new ArrayList<>();
     private OnItemListener mOnItemListener;
@@ -77,7 +72,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
                     readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
-                            MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+                            com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
                         }
                     });
                 }
@@ -92,7 +87,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
                     readData(database.getReference("users").orderByKey().equalTo(uid), uid, 1, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
-                            MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+                            com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
                         }
                     });
                 }
@@ -105,7 +100,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
                     readData(database.getReference("users").orderByKey().equalTo(uid), uid, 2, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
-                            MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+                            com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
                         }
                     });
                 }

@@ -2,43 +2,26 @@ package com.diamondTierHuggers.hugMeCampus;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewbinding.ViewBinding;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
-import com.diamondTierHuggers.hugMeCampus.databinding.ItemCustomFixedSizeLayout3Binding;
-import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
-
-import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
-import org.imaginativeworld.whynotimagecarousel.utils.Utils;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
  */
-public class ListFriendFragment extends Fragment implements MyListItemRecyclerViewAdapter.OnItemListener {
+public class ListFriendFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.OnItemListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private MyListItemRecyclerViewAdapter mMyListItemRecyclerViewAdapter;
+    private com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter mMyListItemRecyclerViewAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -78,7 +61,7 @@ public class ListFriendFragment extends Fragment implements MyListItemRecyclerVi
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            mMyListItemRecyclerViewAdapter = new MyListItemRecyclerViewAdapter(this, true);
+            mMyListItemRecyclerViewAdapter = new com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter(this, true);
             recyclerView.setAdapter(mMyListItemRecyclerViewAdapter);
         }
         return view;

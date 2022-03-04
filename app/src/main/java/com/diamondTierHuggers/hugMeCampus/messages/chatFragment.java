@@ -1,5 +1,4 @@
 package com.diamondTierHuggers.hugMeCampus.messages;
-
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import android.os.Bundle;
@@ -7,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +22,7 @@ import java.util.Set;
  * Use the {@link chatFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class chatFragment extends Fragment {
+public class chatFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.messages.MessagesAdapter.OnItemListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +36,7 @@ public class chatFragment extends Fragment {
     private RecyclerView messagesRecyclerView;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private Set<String> messagesLists;
+    MessagesAdapter adapter;
 
     public chatFragment() {
         // Required empty public constructor
@@ -75,13 +75,9 @@ public class chatFragment extends Fragment {
         // Inflate the layout for this fragment
 
         binding = FragmentChatBinding.inflate(inflater, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        RecyclerView recyclerView = (RecyclerView) view;
 
-//        return binding.getRoot();
-        return inflater.inflate(R.layout.fragment_chat, container, false);
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         messagesRecyclerView = binding.messagesRecyclerView;
         email = appUser.getAppUser().getEmail().toString();
         name = appUser.getAppUser().first_name+" "+ appUser.getAppUser().last_name;
@@ -89,34 +85,102 @@ public class chatFragment extends Fragment {
         messagesRecyclerView.setHasFixedSize(true);
         messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         System.out.println(appUser.getAppUser().getUid());
-//        database.getReference("users").orderByKey().equalTo(appUser.getAppUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+//        myRef.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-//                for (DataSnapshot dataSnapshot:snapshot.child("users").getChildren()){
-//                    final Stri
-//                }
-//                if (snapshot.exists()) {
-//                    for (HugMeUser user : snapshot.child("users").getChildren().getClass()) {
-//                        if (user.getUid() ==
+//                myRef.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        int getChatCounts = (int) snapshot.getChildrenCount();
+//                        if (getChatCounts>0){
+//                            for (DataSnapshot snapshot1 : snapshot.getChildren()){
+//                                final String getKey = snapshot1.getKey();
+//                                final String gerUserOne = dfx;
+//                                final String getUserTwo = fdvc;
+//
+//                                if(gerUserOne.equals(user.UID) && getUserTwo.equals(user2.UID) || gerUserOne.equals(user.UID) && getUserTwo.equals(user2.UID)){
+//                                    for(DataSnapshot chatSnapshot: snapshot1.child("messages").getChildren()){
+//                                        final get
+//                                    }
+//                                }
+//                            }
+//                        }
 //                    }
-//                }
-
-            messagesLists = appUser.getAppUser().getFriend_list().keySet();
-
-            RecyclerView recyclerView = binding.messagesRecyclerView;
-            LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
-            recyclerView.setLayoutManager(manager);
-            recyclerView.setHasFixedSize(true);
-            MessagesAdapter adapter = new MessagesAdapter(messagesLists,this.getContext());
-            recyclerView.setAdapter(adapter);
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//            }
 //
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError error) {
 //
 //            }
-//        });
+//        })
+
+
+
+        messagesLists = appUser.getAppUser().getFriend_list().keySet();
+        LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
+//            recyclerView.setLayoutManager(manager);
+//            recyclerView.setHasFixedSize(true);
+        adapter = new MessagesAdapter(this);
+        recyclerView.setAdapter(adapter);
+
+//        return binding.getRoot();
+        return view;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("hugMeUser", adapter.getItem(position));
+        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_chat_to_chatBoxFragment, bundle);
 
 
     }
+
+//    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        messagesRecyclerView = binding.messagesRecyclerView;
+//        email = appUser.getAppUser().getEmail().toString();
+//        name = appUser.getAppUser().first_name+" "+ appUser.getAppUser().last_name;
+//
+//        messagesRecyclerView.setHasFixedSize(true);
+//        messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+//        System.out.println(appUser.getAppUser().getUid());
+//
+////        database.getReference("users").orderByKey().equalTo(appUser.getAppUser().getUid()).addValueEventListener(new ValueEventListener() {
+////            @Override
+////            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+////                for (DataSnapshot dataSnapshot:snapshot.child("users").getChildren()){
+////                    final Stri
+////                }
+////                if (snapshot.exists()) {
+////                    for (HugMeUser user : snapshot.child("users").getChildren().getClass()) {
+////                        if (user.getUid() ==
+////                    }
+////                }
+//
+//            messagesLists = appUser.getAppUser().getFriend_list().keySet();
+//
+//            RecyclerView recyclerView = binding.messagesRecyclerView;
+////            LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
+////            recyclerView.setLayoutManager(manager);
+////            recyclerView.setHasFixedSize(true);
+//            MessagesAdapter adapter = new MessagesAdapter(messagesLists,this.getContext());
+//            recyclerView.setAdapter(adapter);
+////
+////            @Override
+////            public void onCancelled(@NonNull DatabaseError error) {
+////
+////            }
+////        });
+
+
+//    }
 }

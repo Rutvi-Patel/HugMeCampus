@@ -58,12 +58,24 @@
         android:id="@+id/nav_other_profile"
         android:name="com.diamondTierHuggers.hugMeCampus.ViewOtherProfileFragment"
         android:label="Other Profile"
-        tools:layout="@layout/fragment_view_other_profile" />
+        tools:layout="@layout/fragment_view_other_profile" >
+        <action
+            android:id="@+id/action_nav_other_profile_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_chat"
         android:name="com.diamondTierHuggers.hugMeCampus.messages.chatFragment"
         android:label="@string/menu_chat"
         tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_nav_chat_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chatBoxFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.chatBox.chatBoxFragment"
+        android:label="fragment_chat_box"
+        tools:layout="@layout/fragment_chat_box" />
 </navigation>

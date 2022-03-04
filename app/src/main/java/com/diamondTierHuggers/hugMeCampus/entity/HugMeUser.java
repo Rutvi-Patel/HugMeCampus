@@ -20,12 +20,14 @@ public class HugMeUser implements Serializable {
     public HashMap<String, Boolean> hug_preferences;
     public UserPictures pictures;
     public int gender;
+    public String chatKey;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
     public HashMap<String, Boolean> friend_list;
     public HashMap<String, Boolean> request_list;
     public HashMap<String, Boolean> pending_list;
+    public HashMap<String, String> message_list;
 
     private int matchScore = 0;
 
@@ -172,6 +174,10 @@ public class HugMeUser implements Serializable {
         this.last_name = last_name;
     }
 
+    public String getChatKey() { return chatKey; }
+
+    public void setChatKey(String chatKey) { this.chatKey = chatKey; }
+
     public HashMap<String, Boolean> getHug_preferences() {
         return hug_preferences;
     }
@@ -242,6 +248,14 @@ public class HugMeUser implements Serializable {
 
     public void setPending_list(HashMap<String, Boolean> pending_list) {
         this.pending_list = pending_list;
+    }
+
+    public HashMap<String, String> getMessage_list() {
+        return message_list;
+    }
+
+    public void setMessage_list(HashMap<String, String> message_list) {
+        this.message_list = message_list;
     }
 
     public void setMatchScore(int matchScore) {

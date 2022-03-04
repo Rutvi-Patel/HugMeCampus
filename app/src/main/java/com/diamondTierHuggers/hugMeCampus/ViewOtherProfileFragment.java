@@ -4,27 +4,22 @@ import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.TextView;
-
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentViewOtherProfileBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +73,9 @@ public class ViewOtherProfileFragment extends Fragment {
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("button pressed");
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("hugMeUser", mHugMeUser);
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_chatBoxFragment, bundle);
             }
         });
 
