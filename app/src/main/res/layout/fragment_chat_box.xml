@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".chatBox.chatBoxFragment">
 
     <RelativeLayout
@@ -59,12 +60,18 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/topBar"
+    <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@id/recyclerView"
+        android:name="com.diamondTierHuggers.hugMeCampus.chatBox.chatBoxFragment"
+        android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@id/recyclerView"
-        android:layout_above="@id/bottomBar"/>
+        android:layout_above="@id/bottomBar"
+        android:layout_below="@+id/topBar"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".chatBox.chatBoxFragment"
+        tools:listitem="@layout/chatbox_adapter_layout" />
 
     <RelativeLayout
         android:id="@+id/bottomBar"
