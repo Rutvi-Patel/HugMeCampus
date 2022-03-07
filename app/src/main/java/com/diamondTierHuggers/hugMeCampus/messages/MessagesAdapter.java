@@ -100,7 +100,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mProfileName;
+        public TextView mProfileName, lastMessage;
         public HugMeUser mItem;
         public OnItemListener onItemListener;
         ImageView mProfilePic;
@@ -112,6 +112,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             this.mProfileName = binding.getRoot().findViewById(R.id.profile_name);
             this.mProfilePic = binding.getRoot().findViewById(R.id.list_item_profile_photo);
 //            this.rootLayout = binding.getRoot().findViewById(R.id.rootLayout);
+            this.lastMessage = binding.getRoot().findViewById(R.id.last_message);
             binding.getRoot().setOnClickListener(this);
         }
 

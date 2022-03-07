@@ -141,19 +141,6 @@ public class chatBoxFragment extends Fragment{
 
                 if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
                         (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-
-                    database.getReference("Chat").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            chatKey = String.valueOf(snapshot.getChildrenCount()+1);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
                     meUser.getMessage_list().put(mHugmeUser.getUid(), chatKey);
                     mHugmeUser.getMessage_list().put(meUser.getUid(), chatKey);
                     addingToMessageList();
@@ -164,7 +151,7 @@ public class chatBoxFragment extends Fragment{
                 if (getTextMessage.equals("")) {
                     Toast.makeText(getContext(), "Enter message", Toast.LENGTH_SHORT).show();
                 }else{
-                    sendMessages(meUser.getUid(), mHugmeUser.getUid(),currentTimeStamp, getTextMessage, chatKey);
+                    sendMessages(meUser.getUid(), mHugmeUser.getUid(),currentTimeStamp, getTextMessage, "1");
                 }
 
                 messageEditText.setText("");

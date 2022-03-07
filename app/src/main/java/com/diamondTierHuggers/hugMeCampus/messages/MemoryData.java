@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.messages;
 
 import android.content.Context;
 
