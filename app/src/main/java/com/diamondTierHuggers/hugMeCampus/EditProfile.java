@@ -95,14 +95,16 @@ public class EditProfile extends Fragment {
     private static final String longHugKey = "longHugKey";
     private static final String quietHugKey = "quietHugKey";
     private static final String talkativeHugKey = "talkativeHugKey";
-    private static final String celbratoryHugKey = "celbratoryHugKey";
+    private static final String celebratoryHugKey = "celbratoryHugKey";
     private static final String happyHugKey = "happyHugKey";
     private static final String emotionalHugKey = "emotionalHugKey";
     private static final String sadHugKey = "sadHugKey";
     private static final String maleHugKey = "maleHugKey";
-    private static final String femailHugKey = "femailHugKey";
+    private static final String femaleHugKey = "femailHugKey";
     private static final String nonbinaryHugKey = "nonbinaryHugKey";
     SharedPreferences sharedPref = null;
+    SharedPreferences myPrefs = null;
+
 
     public EditProfile() {
         // Required empty public constructor
@@ -194,7 +196,7 @@ public class EditProfile extends Fragment {
         editAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Log.v("age", (String) parent.getItemAtPosition(position));
+                Log.v("age", (String) parent.getItemAtPosition(position));
                 ageChoice = Integer.parseInt((String) editAge.getItemAtPosition(position));
                 System.out.println(ageChoice);
             }
@@ -250,9 +252,6 @@ public class EditProfile extends Fragment {
                 //Hug Preferences updated to database
                 if(shortHug.isChecked()){
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
-//                    boolean checked = PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).getBoolean("shortHug",false);
-//                    PreferenceManager.getDefaultSharedPreferences(shortHug.getContext()).edit().putBoolean("shortHug",checked).apply();
-//                    shortHug.setChecked(checked);
                 }else{
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(false);
                 }
@@ -327,6 +326,15 @@ public class EditProfile extends Fragment {
 
             }
         });
+//        //Keep Spinner state
+//        myPrefs = getActivity().getSharedPreferences("myPrefs",Context.MODE_PRIVATE);
+//        SharedPreferences.Editor textBoxEditor = myPrefs.edit();
+//        textBoxEditor.putString("FIRST_NAME",firstName.getText().toString());
+//        textBoxEditor.putString("LAST_NAME",lastName.getText().toString());
+//        textBoxEditor.putString("BIO_EDIT",bio.getText().toString());
+//        textBoxEditor.apply();
+
+
 
         //Keep checkbox state
         sharedPref = getActivity().getSharedPreferences("allCheckBoxes", Context.MODE_PRIVATE);
@@ -336,12 +344,12 @@ public class EditProfile extends Fragment {
         checkBoxMap.put(longHugKey,longHug);
         checkBoxMap.put(quietHugKey,quiet);
         checkBoxMap.put(talkativeHugKey,talkative);
-        checkBoxMap.put(celbratoryHugKey,celebratory);
+        checkBoxMap.put(celebratoryHugKey,celebratory);
         checkBoxMap.put(happyHugKey,happy);
         checkBoxMap.put(emotionalHugKey,emotional);
         checkBoxMap.put(sadHugKey,sad);
         checkBoxMap.put(maleHugKey,male);
-        checkBoxMap.put(femailHugKey,female);
+        checkBoxMap.put(femaleHugKey,female);
         checkBoxMap.put(nonbinaryHugKey,nonbinary);
 
         loadInitialValues(checkBoxMap);
