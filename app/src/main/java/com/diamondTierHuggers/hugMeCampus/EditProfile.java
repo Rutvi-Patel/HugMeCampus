@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,14 +17,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.diamondTierHuggers.hugMeCampus.entity.Model;
@@ -39,6 +47,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.prefs.PreferenceChangeEvent;
 
 
@@ -58,12 +69,42 @@ public class EditProfile extends Fragment {
     private String mParam1;
     private String mParam2;
     private String myUID = appUser.getAppUser().getUid();
-    private EditText firstName, lastName, age, gender, bio;
+    private EditText firstName, lastName, bio;
+    private Spinner editGender;
+    private int genderChoice;
+    private static final String[] paths = {"Male", "Female", "Non-binary"};
+    private Spinner editAge;
+    private int ageChoice;
+    private static final String[] ages ={"17","18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
+            "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44",
+            "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60",
+            "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76",
+            "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92",
+            "93", "94", "95", "96", "97", "98", "99"};
     private Button uploadBtn, saveEditBtn;
     private ImageView imageView;
     private Uri imageUri;
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
+    private CheckBox shortHug,mediumHug,longHug, quiet,talkative,celebratory,
+            happy,emotional,sad,male,female,nonbinary;
+    //CheckBox Keys
+    boolean myBoolVariable =false;
+    private static final String shortHugKey = "shortHugKey";
+    private static final String mediumHugKey = "mediumHugKey";
+    private static final String longHugKey = "longHugKey";
+    private static final String quietHugKey = "quietHugKey";
+    private static final String talkativeHugKey = "talkativeHugKey";
+    private static final String celebratoryHugKey = "celbratoryHugKey";
+    private static final String happyHugKey = "happyHugKey";
+    private static final String emotionalHugKey = "emotionalHugKey";
+    private static final String sadHugKey = "sadHugKey";
+    private static final String maleHugKey = "maleHugKey";
+    private static final String femaleHugKey = "femailHugKey";
+    private static final String nonbinaryHugKey = "nonbinaryHugKey";
+    SharedPreferences sharedPref = null;
+    SharedPreferences myPrefs = null;
+
 
     public EditProfile() {
         // Required empty public constructor
@@ -105,11 +146,68 @@ public class EditProfile extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //Save and Upload buttons
         uploadBtn = view.findViewById(R.id.upload_Button);
         saveEditBtn = view.findViewById(R.id.save_edits);
+        //User information
+        firstName = view.findViewById(R.id.edit_firstName);
+        lastName = view.findViewById(R.id.edit_lastName);
+        bio = view.findViewById(R.id.edit_bio);
+        editGender = (Spinner)view.findViewById(R.id.editGender);
+        editAge = (Spinner)view.findViewById(R.id.edit_age);
         imageView = view.findViewById(R.id.viewImage);
+        //Hug Preferences
+        shortHug = view.findViewById(R.id.shortHug);
+        mediumHug = view.findViewById(R.id.mediumHug);
+        longHug = view.findViewById(R.id.longHug);
+        quiet = view.findViewById(R.id.quiet);
+        talkative = view.findViewById(R.id.talkative);
+        celebratory = view.findViewById(R.id.celebratory);
+        happy = view.findViewById(R.id.happy);
+        emotional = view.findViewById(R.id.emotional);
+        sad = view.findViewById(R.id.sad);
+        male = view.findViewById(R.id.male);
+        female = view.findViewById(R.id.female);
+        nonbinary = view.findViewById(R.id.nonBinary);
 
+        //Edit Gender dropdown setup
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editGender.setAdapter(adapter);
+
+        editGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("gender", (String) parent.getItemAtPosition(position));
+                genderChoice = editGender.getSelectedItemPosition();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Edit Age dropdown setup
+        ArrayAdapter<String>adapter_2 = new ArrayAdapter<String>(editAge.getContext(), android.R.layout.simple_spinner_item,ages);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editAge.setAdapter(adapter_2);
+
+        editAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("age", (String) parent.getItemAtPosition(position));
+                ageChoice = Integer.parseInt((String) editAge.getItemAtPosition(position));
+                System.out.println(ageChoice);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Image Button
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +217,7 @@ public class EditProfile extends Fragment {
                 startActivityForResult(galleryIntent, 2);
             }
         });
-
+        //Upload Button
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,31 +230,151 @@ public class EditProfile extends Fragment {
             }
         });
 
+        //Save Button
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                firstName = view.findViewById(R.id.edit_firstName);
-                lastName = view.findViewById(R.id.edit_lastName);
-                bio = view.findViewById(R.id.edit_bio);
-
+                //User info to String
                 String firstNameToString = firstName.getText().toString();
                 String lastNameToString = lastName.getText().toString();
                 String bioToString = bio.getText().toString();
-
+                //User info being set
                 appUser.getAppUser().setFirst_name(firstNameToString);
                 appUser.getAppUser().setLast_name(lastNameToString);
                 appUser.getAppUser().setBio(bioToString);
-
+                //User info updated to database
                 myRef.child("users").child(myUID).child("first_name").setValue(firstNameToString);
                 myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
                 myRef.child("users").child(myUID).child("bio").setValue(bioToString);
+                myRef.child("users").child(myUID).child("gender").setValue(genderChoice);
+                myRef.child("users").child(myUID).child("age").setValue(ageChoice);
 
+                //Hug Preferences updated to database
+                if(shortHug.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(false);
+                }
+
+                if(mediumHug.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(false);
+                }
+
+                if(longHug.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(false);
+                }
+
+                if(quiet.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(false);
+                }
+
+                if(talkative.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(false);
+                }
+
+                if(celebratory.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
+                }
+
+                if(happy.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(false);
+                }
+
+                if(emotional.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
+                }
+
+                if(sad.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(false);
+                }
+
+                if(male.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
+                }
+
+                if(female.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
+                }
+
+                if(nonbinary.isChecked()){
+                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
+                }else{
+                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
+                }
+                //moved to profile view after Save button has been hit
                 NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
 
-                System.out.println(appUser.getAppUser().getUid());
             }
         });
+//        //Keep Spinner state
+//        myPrefs = getActivity().getSharedPreferences("myPrefs",Context.MODE_PRIVATE);
+//        SharedPreferences.Editor textBoxEditor = myPrefs.edit();
+//        textBoxEditor.putString("FIRST_NAME",firstName.getText().toString());
+//        textBoxEditor.putString("LAST_NAME",lastName.getText().toString());
+//        textBoxEditor.putString("BIO_EDIT",bio.getText().toString());
+//        textBoxEditor.apply();
+
+
+
+        //Keep checkbox state
+        sharedPref = getActivity().getSharedPreferences("allCheckBoxes", Context.MODE_PRIVATE);
+        Map<String,CheckBox> checkBoxMap = new HashMap<>();
+        checkBoxMap.put(shortHugKey,shortHug);
+        checkBoxMap.put(mediumHugKey,mediumHug);
+        checkBoxMap.put(longHugKey,longHug);
+        checkBoxMap.put(quietHugKey,quiet);
+        checkBoxMap.put(talkativeHugKey,talkative);
+        checkBoxMap.put(celebratoryHugKey,celebratory);
+        checkBoxMap.put(happyHugKey,happy);
+        checkBoxMap.put(emotionalHugKey,emotional);
+        checkBoxMap.put(sadHugKey,sad);
+        checkBoxMap.put(maleHugKey,male);
+        checkBoxMap.put(femaleHugKey,female);
+        checkBoxMap.put(nonbinaryHugKey,nonbinary);
+
+        loadInitialValues(checkBoxMap);
+        setupCheckedChangeListener(checkBoxMap);
+    }
+
+    //function for loading values into hashmap
+    public void loadInitialValues(Map<String,CheckBox> checkBoxMap){
+        for(Map.Entry<String,CheckBox> checkBoxEntry: checkBoxMap.entrySet()){
+            Boolean checked = sharedPref.getBoolean(checkBoxEntry.getKey(),false);
+            checkBoxEntry.getValue().setChecked(checked);
+        }
+    }
+    //function for checkbox Listener
+    public void setupCheckedChangeListener(Map<String,CheckBox> checkBoxMap){
+        for(final Map.Entry<String,CheckBox> checkBoxEntry: checkBoxMap.entrySet()){
+            checkBoxEntry.getValue().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    final SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean(checkBoxEntry.getKey(), isChecked);
+                    editor.apply();
+                }
+            });
+        }
     }
 
     @Override

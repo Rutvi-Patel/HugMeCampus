@@ -2,6 +2,7 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
