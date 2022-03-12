@@ -12,6 +12,7 @@ public class HugMeUser implements Serializable {
 
     private String uid;
     public int age;
+    public String token;
     public String bio;
     public String first_name;
     public String email;
@@ -118,6 +119,11 @@ public class HugMeUser implements Serializable {
         else {
             return 3;
         }
+    }
+
+
+    public String getToken() {
+        return token;
     }
 
     public void setUid(String uid) {

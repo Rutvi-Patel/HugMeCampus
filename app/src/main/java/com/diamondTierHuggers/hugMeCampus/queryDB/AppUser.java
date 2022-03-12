@@ -21,9 +21,7 @@ public class AppUser {
     public static HashMap<String, HugMeUser> savedHugMeUsers = new HashMap<>();
     public static AcceptListModel acceptListModel = new AcceptListModel();
 
-
-    public AppUser() {
-
+    public AppUser(){
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
@@ -36,15 +34,11 @@ public class AppUser {
                         // Get new FCM registration token
                         String token = task.getResult();
                         System.out.println("TOKEN>>>>:" + token);
-
-                        // Log and toast
-//                        String msg = getString(R.string.msg_token_fmt, token);
-//                        Log.d(TAG, msg);
-//                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
     }
+
 
     public void readData(Query ref, final OnGetDataListener listener) {
 
