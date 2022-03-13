@@ -26,7 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,13 +97,14 @@ public class chatBoxFragment extends Fragment{
 
 //        attaching adapter
         chatRecyclerView = binding.recyclerView;
-        chatRecyclerView.setHasFixedSize(true);
+        chatRecyclerView.setNestedScrollingEnabled(false);
+        chatRecyclerView.setHasFixedSize(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setStackFromEnd(true);
         chatRecyclerView.setLayoutManager(linearLayoutManager);
+        ChatAdapter chatAdapter = new com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter(chatLists);
+        chatRecyclerView.setAdapter(chatAdapter);
 
-//        ChatAdapter chatAdapter = new ChatAdapter(chatLists);
-//        chatRecyclerView.setAdapter(chatAdapter);
         Boolean n = true;
         if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
                 (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
@@ -122,17 +125,12 @@ public class chatBoxFragment extends Fragment{
                             ChatList chat = snapshot1.getValue(ChatList.class);
                             chatLists.add(chat);
                             System.out.println(chatLists);
-                            ChatAdapter chatAdapter = new ChatAdapter(chatLists);
+                            chatAdapter.updateChatList(chatLists);
                             chatRecyclerView.setAdapter(chatAdapter);
                         }
                     }
-                    else{
-                        ChatAdapter chatAdapter = new ChatAdapter(chatLists);
-                        chatRecyclerView.setAdapter(chatAdapter);
-                    }
 
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
@@ -175,8 +173,12 @@ public class chatBoxFragment extends Fragment{
             public void onClick(View v) {
                 final String getTextMessage = messageEditText.getText().toString();
 //                get current timestamp
-                final String currentTimeStamp = String.valueOf(System.currentTimeMillis()).substring(0,10);
-
+                final String currentT = String.valueOf(System.currentTimeMillis()).substring(0,10);
+                long yourmilliseconds = Long.parseLong(currentT);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd hh:mm aa");
+                Date resultdate = new Date(yourmilliseconds);
+                String currentTimeStamp = sdf.format(resultdate);
+                System.out.println(currentTimeStamp);
 
                 if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
                         (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
@@ -211,11 +213,6 @@ public class chatBoxFragment extends Fragment{
 
 
     private void sendMessages(String sender, String receiver, String time, String data, String chatKey){
-//        HashMap<String, String > h = new HashMap<>();
-//        h.put("sender", sender);
-//        h.put("receiver", receiver);
-//        h.put("time", time);
-//        h.put("data", data);
         ChatList cl = new ChatList(sender, receiver, time, data);
         database.getReference().child("Chat").child(chatKey).push().setValue(cl);
     }
