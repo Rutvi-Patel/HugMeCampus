@@ -75,7 +75,6 @@ public class MatchMakingFragment extends Fragment {
             @Override
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
-                System.out.println("LIST removed object!");
                 al.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -110,15 +109,19 @@ public class MatchMakingFragment extends Fragment {
                     appUser.getAppUser().request_list.remove(otherUser.getUid());
                     appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), otherUser.getUid());
                     appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                    appUser.getAppUser().friend_list.put(otherUser.getUid(), true);
+                    appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
                 }
                 else {
-                    appUser.acceptListModel.isUserAccepted(appUser.getAppUser().getUid(), otherUser.getUid(), new BoolDataCallback() {
+                    appUser.acceptListModel.isUserAccepted(otherUser.getUid(), appUser.getAppUser().getUid(), new BoolDataCallback() {
                         @Override
                         public void getBool(boolean value) {
                             if(value)
                             {
                                 Toast.makeText(getActivity().getApplicationContext(), "It's a match!!", Toast.LENGTH_SHORT).show();
                                 appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), otherUser.getUid());
+                                appUser.getAppUser().friend_list.put(otherUser.getUid(), true);
+                                appUser.savedHugMeUsers.put(otherUser.getUid(), otherUser);
                             }
 
                         }

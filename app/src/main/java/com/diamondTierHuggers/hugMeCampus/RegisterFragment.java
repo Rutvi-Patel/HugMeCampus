@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 public class RegisterFragment extends Fragment {
 
     private FragmentRegisterBinding binding;
@@ -67,7 +69,7 @@ public class RegisterFragment extends Fragment {
                 if (inputValidation()) {
 
                         createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
-                        setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(), gender);
+//                        setBioValues(binding.editTextTextEmailAddress.getText().toString(), binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(), gender);
 
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(), "All values required", Toast.LENGTH_SHORT).show();
@@ -84,12 +86,33 @@ public class RegisterFragment extends Fragment {
     }
 
 
-    private void setBioValues(String firstName, String lastName, Integer Gender){
-
+    private void setBioValues(String email, String firstName, String lastName, Integer Gender){
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
         myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
+        myRef.child("users").child(auth.getUid()).child("total_rating").setValue(0);
+        myRef.child("users").child(auth.getUid()).child("num_reviews").setValue(0);
+        myRef.child("users").child(auth.getUid()).child("email").setValue(email.toLowerCase());
+        myRef.child("users").child(auth.getUid()).child("request_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("accepted_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("blocked_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("rejected_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("ratings_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("friend_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("pending_list").child("DO_NOT_DELETE").setValue(true);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("celebratory").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("emotional").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("female").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("male").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("happy").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("long").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("medium").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("nonbinary").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("quiet").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("sad").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("short").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("hug_preferences").child("talkative").setValue(false);
     }
 
     private void sendEmailVerification() {
@@ -144,15 +167,13 @@ public class RegisterFragment extends Fragment {
                                 Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                                 success[0] = true;
                                 sendEmailVerification();
-                                //
                             if (binding.radioFemale.isSelected()){
                                 gender = 1;
                             }else{
                                 gender = 0;
                             }
 
-                            setBioValues(binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender);
-                            //
+                            setBioValues(binding.editTextTextEmailAddress.getText().toString(), binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender);
                             NavHostFragment.findNavController(RegisterFragment.this)
                                     .navigate(R.id.SecondFragment);
                         } else {
