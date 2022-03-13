@@ -1,9 +1,16 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+
 import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
 
-import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
@@ -77,9 +83,9 @@ public class EditProfile extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        uploadBtn = view.findViewById(R.id.upload_Button);
-//        saveEditBtn = view.findViewById(R.id.save_edits);
-//        imageView = view.findViewById(R.id.viewImage);
+        uploadBtn = view.findViewById(R.id.upload_Button);
+        saveEditBtn = view.findViewById(R.id.save_edits);
+        imageView = view.findViewById(R.id.viewImage);
 
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -96,9 +102,9 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                firstName = view.findViewById(R.id.edit_firstName);
-//                lastName = view.findViewById(R.id.edit_lastName);
-//                bio = view.findViewById(R.id.edit_bio);
+                firstName = view.findViewById(R.id.edit_firstName);
+                lastName = view.findViewById(R.id.edit_lastName);
+                bio = view.findViewById(R.id.edit_bio);
 
                 String firstNameToString = firstName.getText().toString();
                 String lastNameToString = lastName.getText().toString();
