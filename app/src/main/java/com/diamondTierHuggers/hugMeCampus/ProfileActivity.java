@@ -2,21 +2,18 @@ package com.diamondTierHuggers.hugMeCampus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
+import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityProfileBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -43,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_matchmaking, R.id.editUserProfile, R.id.nav_list_tabs, R.id.nav_search)
+                R.id.nav_home, R.id.nav_matchmaking, R.id.editUserProfile, R.id.nav_list_tabs, R.id.nav_search, R.id.nav_chat)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_profile);

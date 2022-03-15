@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.messages;
 
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.MainActivity.database;
@@ -6,13 +6,14 @@ import static com.diamondTierHuggers.hugMeCampus.MainActivity.database;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.diamondTierHuggers.hugMeCampus.databinding.FragmentItemBinding;
+import com.diamondTierHuggers.hugMeCampus.R;
+import com.diamondTierHuggers.hugMeCampus.databinding.MessagesAdapterLayoutBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.ViewHolder> {
+public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
 
     private List<HugMeUser> mValues = new ArrayList<>();
     private OnItemListener mOnItemListener;
@@ -61,10 +62,9 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
         });
     }
 
-    public MyListItemRecyclerViewAdapter(OnItemListener onItemListener, boolean friends_list) {
+    public MessagesAdapter(OnItemListener onItemListener) {
 
-        if (friends_list) {
-            for (String uid : appUser.getAppUser().friend_list.keySet()) {
+            for (String uid : appUser.getAppUser().message_list.keySet()) {
                 if (appUser.savedHugMeUsers.containsKey(uid)) {
                     addItem(appUser.savedHugMeUsers.get(uid));
                 }
@@ -72,52 +72,26 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
                     readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
-                            com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+                            MessagesAdapter.super.notifyDataSetChanged();
                         }
                     });
                 }
             }
-        }
-        else {
-            for (String uid : appUser.getAppUser().request_list.keySet()) {
-                if (appUser.savedHugMeUsers.containsKey(uid)) {
-                    addItem(appUser.savedHugMeUsers.get(uid));
-                }
-                else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 1, new OnGetDataListener() {
-                        @Override
-                        public void onSuccess(String dataSnapshotValue) {
-                            com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }
-            for (String uid : appUser.getAppUser().pending_list.keySet()) {
-                if (appUser.savedHugMeUsers.containsKey(uid)) {
-                    addItem(appUser.savedHugMeUsers.get(uid));
-                }
-                else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 2, new OnGetDataListener() {
-                        @Override
-                        public void onSuccess(String dataSnapshotValue) {
-                            com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }
-        }
         mOnItemListener = onItemListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnItemListener);
+        return new ViewHolder(MessagesAdapterLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnItemListener);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.set();
+        HugMeUser user = mValues.get(position);
+        String stri = user.first_name + " " + user.last_name;
+        holder.mProfileName.setText(stri);
+        final String ProfilePic = user.getPictures().profile;
+
     }
 
     @Override
@@ -126,17 +100,19 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mProfileName, mRequestPendingText;
+        public TextView mProfileName, lastMessage;
         public HugMeUser mItem;
         public OnItemListener onItemListener;
-        public CardView mRequestPendingCard;
+        ImageView mProfilePic;
+//        private LinearLayout rootLayout;
 
-        public ViewHolder(FragmentItemBinding binding, OnItemListener onItemListener) {
+        public ViewHolder(MessagesAdapterLayoutBinding binding, OnItemListener onItemListener) {
             super(binding.getRoot());
             this.onItemListener = onItemListener;
             this.mProfileName = binding.getRoot().findViewById(R.id.profile_name);
-            this.mRequestPendingText = binding.getRoot().findViewById(R.id.request_pending);
-            this.mRequestPendingCard = binding.getRoot().findViewById(R.id.request_pending_card);
+            this.mProfilePic = binding.getRoot().findViewById(R.id.list_item_profile_photo);
+//            this.rootLayout = binding.getRoot().findViewById(R.id.rootLayout);
+            this.lastMessage = binding.getRoot().findViewById(R.id.last_message);
             binding.getRoot().setOnClickListener(this);
         }
 
@@ -145,19 +121,6 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
             onItemListener.onItemClick(getAdapterPosition());
         }
 
-        public void set() {
-            this.mProfileName.setText(this.mItem.first_name + " " + this.mItem.last_name);
-            if (mItem.getFriendRequestPending() == 2) {
-                this.mRequestPendingText.setText("Accept Request");
-                this.mRequestPendingText.setTextColor(0xff34223b);
-                this.mRequestPendingCard.setCardBackgroundColor(0xff03dac5);
-            }
-            else if (mItem.getFriendRequestPending() == 1) {
-                this.mRequestPendingText.setText("Pending");
-                this.mRequestPendingText.setTextColor(0xffffffff);
-                this.mRequestPendingCard.setCardBackgroundColor(0xff34223b);
-            }
-        }
     }
 
     public interface OnItemListener {

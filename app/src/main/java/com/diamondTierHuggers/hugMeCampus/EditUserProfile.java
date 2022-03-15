@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,14 +67,14 @@ public class EditUserProfile extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FloatingActionButton editBtn = view.findViewById(R.id.editButton);
-
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(EditUserProfile.this).navigate(R.id.editUserProfile_to_EditProfile);
-            }
-        });
+//        FloatingActionButton editBtn = view.findViewById(R.id.editButton);
+//
+//
+//        editBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NavHostFragment.findNavController(EditUserProfile.this).navigate(R.id.editUserProfile_to_EditProfile);
+//            }
+//        });
     }
 }

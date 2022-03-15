@@ -13,19 +13,23 @@ public class HugMeUser implements Serializable {
 
     private String uid;
     public int age;
+    public String token;
     public String bio;
     public String first_name;
+    public String email;
     public int hug_count;
     public String last_name;
     public HashMap<String, Boolean> hug_preferences;
     public UserPictures pictures;
     public int gender;
+    public String chatKey;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
     public HashMap<String, Boolean> friend_list;
     public HashMap<String, Boolean> request_list;
     public HashMap<String, Boolean> pending_list;
+    public HashMap<String, String> message_list;
 
     private int matchScore = 0;
 
@@ -118,6 +122,11 @@ public class HugMeUser implements Serializable {
         }
     }
 
+
+    public String getToken() {
+        return token;
+    }
+
     public void setUid(String uid) {
         this.uid = uid;
     }
@@ -141,6 +150,8 @@ public class HugMeUser implements Serializable {
     public String getBio() {
         return bio;
     }
+
+    public String getEmail(){return email;}
 
     public void setBio(String bio) {
         this.bio = bio;
@@ -169,6 +180,10 @@ public class HugMeUser implements Serializable {
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
+
+    public String getChatKey() { return chatKey; }
+
+    public void setChatKey(String chatKey) { this.chatKey = chatKey; }
 
     public HashMap<String, Boolean> getHug_preferences() {
         return hug_preferences;
@@ -242,6 +257,14 @@ public class HugMeUser implements Serializable {
         this.pending_list = pending_list;
     }
 
+    public HashMap<String, String> getMessage_list() {
+        return message_list;
+    }
+
+    public void setMessage_list(HashMap<String, String> message_list) {
+        this.message_list = message_list;
+    }
+
     public void setMatchScore(int matchScore) {
         this.matchScore = matchScore;
     }
@@ -254,6 +277,7 @@ public class HugMeUser implements Serializable {
     public String toString() {
         return "HugMeUser{" +
                 "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
                 ", age=" + age +
                 ", bio='" + bio + '\'' +
                 ", first_name='" + first_name + '\'' +

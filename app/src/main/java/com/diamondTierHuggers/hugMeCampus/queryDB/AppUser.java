@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 
 import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 
@@ -18,6 +21,24 @@ public class AppUser {
     public static MatchMakingQueue mq;
     public static HashMap<String, HugMeUser> savedHugMeUsers = new HashMap<>();
     public static AcceptListModel acceptListModel = new AcceptListModel();
+
+    public AppUser(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        System.out.println("TOKEN>>>>:" + token);
+                    }
+                });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+    }
 
 
     public void readData(Query ref, final OnGetDataListener listener) {

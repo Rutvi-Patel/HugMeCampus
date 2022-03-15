@@ -66,4 +66,5 @@
     <string name="save">Save</string>
     <string name="menu_list">Friends and Requests</string>
     <string name="menu_search">Search</string>
+    <string name="menu_chat">Messages</string>
 </resources>

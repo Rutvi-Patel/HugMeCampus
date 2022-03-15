@@ -2,6 +2,9 @@ package com.diamondTierHuggers.hugMeCampus;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -9,20 +12,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 /**
  * A fragment representing a list of Items.
  */
-public class ListFriendRequestFragment extends Fragment implements MyListItemRecyclerViewAdapter.OnItemListener {
+public class ListFriendRequestFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.OnItemListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private MyListItemRecyclerViewAdapter mMyListItemRecyclerViewAdapter;
+    private com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter mMessagesAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,8 +61,8 @@ public class ListFriendRequestFragment extends Fragment implements MyListItemRec
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            mMyListItemRecyclerViewAdapter = new MyListItemRecyclerViewAdapter(this, false);
-            recyclerView.setAdapter(mMyListItemRecyclerViewAdapter);
+            mMessagesAdapter = new com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter(this, false);
+            recyclerView.setAdapter(mMessagesAdapter);
         }
         return view;
     }
@@ -71,7 +70,7 @@ public class ListFriendRequestFragment extends Fragment implements MyListItemRec
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("hugMeUser", mMyListItemRecyclerViewAdapter.getItem(position));
+        bundle.putSerializable("hugMeUser", mMessagesAdapter.getItem(position));
         NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_list_tabs_to_nav_other_profile, bundle);
     }
 }

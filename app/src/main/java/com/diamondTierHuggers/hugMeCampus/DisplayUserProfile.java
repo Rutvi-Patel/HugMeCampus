@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentDisplayUserProfileBinding;
