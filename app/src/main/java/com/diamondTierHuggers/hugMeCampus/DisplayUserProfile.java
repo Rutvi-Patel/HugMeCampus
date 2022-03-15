@@ -121,7 +121,7 @@ public class DisplayUserProfile extends Fragment {
         List<CarouselItem> list = new ArrayList<>();
         list.add(
                 new CarouselItem(
-                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
+                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/1646357940988.jpg?alt=media&token=1258fbd3-9395-472d-94c9-43483f1fb73e"
                 )
         );
         list.add(

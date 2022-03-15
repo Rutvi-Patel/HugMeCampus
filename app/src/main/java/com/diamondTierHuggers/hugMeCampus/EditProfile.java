@@ -170,6 +170,8 @@ public class EditProfile extends Fragment {
         female = view.findViewById(R.id.female);
         nonbinary = view.findViewById(R.id.nonBinary);
 
+        System.out.println(myUID);
+
         //Edit Gender dropdown setup
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
