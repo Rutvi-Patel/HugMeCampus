@@ -324,7 +324,7 @@ public class EditProfile extends Fragment {
                     myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
                 }
                 //moved to profile view after Save button has been hit
-                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
+                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editUserProfile_to_EditProfile);
 
             }
         });
