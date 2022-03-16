@@ -46,6 +46,24 @@
         android:name="com.diamondTierHuggers.hugMeCampus.ProfileActivity"
         android:label="app_bar_profile"
         tools:layout="@layout/app_bar_profile" />
+    <fragment
+        android:id="@+id/displayUserProfile2"
+        android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_display_user_profile" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/editUserProfile2"
+        android:name="com.diamondTierHuggers.hugMeCampus.EditUserProfile"
+        android:label="EditUserProfile" >
+        <action
+            android:id="@+id/action_editUserProfile2_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
 
 
 </navigation>

@@ -18,25 +18,27 @@
         tools:layout="@layout/fragment_match_making" />
 
     <fragment
-        android:id="@+id/editUserProfile"
+        android:id="@+id/nav_profile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditUserProfile"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_edit_user_profile" >
+        tools:layout="@layout/fragment_edit_user_profile">
         <action
             android:id="@+id/editUserProfile_to_EditProfile"
             app:destination="@id/editProfile" />
     </fragment>
-
-    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.diamondTierHuggers.hugMeCampus.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
         android:id="@+id/editProfile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile">
-        <action
-            android:id="@+id/editProfile_to_editUserProfile"
-            app:destination="@id/editUserProfile" />
-    </fragment>
-
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/hugratings"
+        android:name="com.diamondTierHuggers.hugMeCampus.HugRatings"
+        android:label="fragment_hugratings"
+        tools:layout="@layout/fragment_hugratings" />
     <fragment
         android:id="@+id/nav_list_tabs"
         android:name="com.diamondTierHuggers.hugMeCampus.ListTabsFragment"
@@ -46,7 +48,6 @@
             android:id="@+id/action_nav_list_tabs_to_nav_other_profile"
             app:destination="@id/nav_other_profile" />
     </fragment>
-
     <fragment
         android:id="@+id/nav_search"
         android:name="com.diamondTierHuggers.hugMeCampus.SearchFragment"

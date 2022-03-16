@@ -7,7 +7,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HugRatingModel {
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -17,6 +21,13 @@ public class HugRatingModel {
         DatabaseReference ratingRef = database.getReference(branch);
         DatabaseReference newRatingRef = ratingRef.push();
         newRatingRef.setValue(newRating);
+
+        Map<String, Object> updates = new HashMap<>();
+        database.getReference("users/"+  newRating.reviewee + "/total_rating").setValue(ServerValue.increment(newRating.stars));
+        database.getReference("users/"+  newRating.reviewee + "/num_reviews").setValue(ServerValue.increment(1));
+        updates.put("users/"+  newRating.reviewee + "/ratings_list/" + newRatingRef.getKey(), true);
+        database.getReference().updateChildren(updates);
+
         return newRatingRef.getKey();
     }
 
