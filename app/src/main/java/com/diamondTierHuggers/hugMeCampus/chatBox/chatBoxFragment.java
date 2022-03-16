@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.messages.FcmNotificationsSender;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -44,6 +45,7 @@ public class chatBoxFragment extends Fragment{
     private HugMeUser mHugmeUser;
     private HugMeUser meUser;
     String chatKey;
+    ChatList cl;
     private RecyclerView chatRecyclerView;
     private List<ChatList> chatLists = new ArrayList<>();
 
@@ -92,7 +94,7 @@ public class chatBoxFragment extends Fragment{
         // Inflate the layout for this fragment
         binding = FragmentChatBoxBinding.inflate(inflater, container, false);
         final String getName = mHugmeUser.getFirst_name() + " " + mHugmeUser.getLast_name();
-        final String getProfilePic = mHugmeUser.getPictures().profile;
+//        final String getProfilePic = mHugmeUser.getPictures().profile;
         binding.name.setText(getName);
 
 //        attaching adapter
@@ -114,7 +116,7 @@ public class chatBoxFragment extends Fragment{
             database.getReferenceFromUrl("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/Chat").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-    //                GET Chat Key for future
+                    //                GET Chat Key for future
                     String val = String.valueOf(snapshot.child("chatNums").getValue());
                     chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
                     System.out.println("INSIDE " + chatKey);
@@ -128,8 +130,17 @@ public class chatBoxFragment extends Fragment{
                             chatAdapter.updateChatList(chatLists);
                             chatRecyclerView.setAdapter(chatAdapter);
                         }
+                    } else {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot snapshot1 : snapshot.child(chatKey).getChildren()) {
+                                ChatList chat = snapshot1.getValue(ChatList.class);
+                                chatLists.add(chat);
+                                System.out.println(chatLists);
+                                chatAdapter.updateChatList(chatLists);
+                                chatRecyclerView.setAdapter(chatAdapter);
+                            }
+                        }
                     }
-
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -141,18 +152,8 @@ public class chatBoxFragment extends Fragment{
 
 //        readMessages(chatKey);
 
-        return binding.getRoot();
+//        final String getProfilePic = mHugmeUser.getPictures().profile;
 
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        final  String getName = mHugmeUser.getFirst_name()+ " "+mHugmeUser.getLast_name();
-        final String getProfilePic = mHugmeUser.getPictures().profile;
-
-        chatRecyclerView = binding.recyclerView;
         ImageView backbtn = binding.backbtn;
         EditText messageEditText = binding.messageEditText;
         ImageView profilePic = binding.profilePic;
@@ -190,30 +191,43 @@ public class chatBoxFragment extends Fragment{
                     chatKey = meUser.getMessage_list().get(mHugmeUser.getUid());
                 }
 
-                final  String getName = mHugmeUser.getFirst_name()+ " "+mHugmeUser.getLast_name();
+                final  String getmyName = meUser.getFirst_name()+ " "+meUser.getLast_name();
 
                 if (getTextMessage.equals("")) {
                     Toast.makeText(getContext(), "Enter message", Toast.LENGTH_SHORT).show();
                 }else{
                     try {
-                        FcmNotificationsSender sendn = new FcmNotificationsSender(mHugmeUser.getToken(), getName, getTextMessage, getContext(), getActivity());
+                        FcmNotificationsSender sendn = new FcmNotificationsSender(mHugmeUser.getToken(), getmyName, getTextMessage, getContext(), getActivity());
                         sendn.SendNotifications();
                     }
                     catch (Exception e){
                         System.out.println("Couldn't send notification or some notification error");
                     }
-                    sendMessages(meUser.getUid(), mHugmeUser.getUid(),currentTimeStamp, getTextMessage, chatKey);
+                    cl = new ChatList(meUser.getUid(), mHugmeUser.getUid(), currentTimeStamp, getTextMessage);
+                    sendMessages(cl,chatKey);
                 }
-
+                List <ChatList>  nl = new ArrayList<>();
+                nl.add(cl);
                 messageEditText.setText("");
+                chatAdapter.updateChatList(nl);
 
             }
         });
+
+
+        return binding.getRoot();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
 
-    private void sendMessages(String sender, String receiver, String time, String data, String chatKey){
-        ChatList cl = new ChatList(sender, receiver, time, data);
+    private void sendMessages(ChatList cl, String chatKey){
+//        ChatList cl = new ChatList(sender, receiver, time, data);
         database.getReference().child("Chat").child(chatKey).push().setValue(cl);
     }
 
@@ -245,7 +259,13 @@ public class chatBoxFragment extends Fragment{
     private void addingToMessageList (){
         System.out.println(meUser.getMessage_list());
         System.out.println(mHugmeUser.getMessage_list());
-        database.getReference().child("users").child(meUser.getUid()).child("message_list").setValue(meUser.getMessage_list());
+        database.getReference().child("users").child(meUser.getUid()).child("message_list").setValue(meUser.getMessage_list())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
+
         database.getReference().child("users").child(mHugmeUser.getUid()).child("message_list").setValue(mHugmeUser.getMessage_list());
     }
 

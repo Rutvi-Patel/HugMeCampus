@@ -260,9 +260,7 @@ public class HugMeUser implements Serializable {
         return message_list;
     }
 
-    public void setMessage_list(HashMap<String, String> message_list) {
-        this.message_list = message_list;
-    }
+
 
     public void setMatchScore(int matchScore) {
         this.matchScore = matchScore;
