@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.preference.PreferenceManager;
+
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,12 +95,12 @@ public class EditProfile extends Fragment {
     private static final String longHugKey = "longHugKey";
     private static final String quietHugKey = "quietHugKey";
     private static final String talkativeHugKey = "talkativeHugKey";
-    private static final String celebratoryHugKey = "celbratoryHugKey";
+    private static final String celebratoryHugKey = "celebratoryHugKey";
     private static final String happyHugKey = "happyHugKey";
     private static final String emotionalHugKey = "emotionalHugKey";
     private static final String sadHugKey = "sadHugKey";
     private static final String maleHugKey = "maleHugKey";
-    private static final String femaleHugKey = "femailHugKey";
+    private static final String femaleHugKey = "femaleHugKey";
     private static final String nonbinaryHugKey = "nonbinaryHugKey";
     SharedPreferences sharedPref = null;
     SharedPreferences myPrefs = null;
@@ -127,6 +127,7 @@ public class EditProfile extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -170,10 +171,15 @@ public class EditProfile extends Fragment {
         female = view.findViewById(R.id.female);
         nonbinary = view.findViewById(R.id.nonBinary);
 
+        //Set first and last name for editing
+        firstName.setText(appUser.getAppUser().getFirst_name());
+        lastName.setText(appUser.getAppUser().getLast_name());
+
         //Edit Gender dropdown setup
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editGender.setAdapter(adapter);
+        editGender.setSelection(appUser.getAppUser().getGender());
 
         editGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -190,8 +196,9 @@ public class EditProfile extends Fragment {
 
         //Edit Age dropdown setup
         ArrayAdapter<String>adapter_2 = new ArrayAdapter<String>(editAge.getContext(), android.R.layout.simple_spinner_item,ages);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editAge.setAdapter(adapter_2);
+        editAge.setSelection(appUser.getAppUser().getAge());
 
         editAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -326,14 +333,6 @@ public class EditProfile extends Fragment {
 
             }
         });
-//        //Keep Spinner state
-//        myPrefs = getActivity().getSharedPreferences("myPrefs",Context.MODE_PRIVATE);
-//        SharedPreferences.Editor textBoxEditor = myPrefs.edit();
-//        textBoxEditor.putString("FIRST_NAME",firstName.getText().toString());
-//        textBoxEditor.putString("LAST_NAME",lastName.getText().toString());
-//        textBoxEditor.putString("BIO_EDIT",bio.getText().toString());
-//        textBoxEditor.apply();
-
 
 
         //Keep checkbox state
