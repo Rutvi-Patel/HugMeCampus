@@ -102,7 +102,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     }
 
     public void reloadMessage_list(){
-        database.getReference().child(appUser.getAppUser().getUid()).child("message_list").addValueEventListener(new ValueEventListener() {
+        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("message_list").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, String> hm = new HashMap<>();

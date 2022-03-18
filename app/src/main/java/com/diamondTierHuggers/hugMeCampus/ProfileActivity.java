@@ -102,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
                         String token = task.getResult();
                         System.out.println("TOKEN>>>>:" + token);
                         System.out.println(appUser.getAppUser().getUid());
-                        database.getReference().child("uid123").child("mtoken").setValue(token);
+                        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
                     }
                 });
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
