@@ -22,6 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
@@ -63,7 +64,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     }
 
     public MessagesAdapter(OnItemListener onItemListener) {
-
+        System.out.println("begin reload messages");
+            reloadMessage_list();
             for (String uid : appUser.getAppUser().message_list.keySet()) {
                 if (appUser.savedHugMeUsers.containsKey(uid)) {
                     addItem(appUser.savedHugMeUsers.get(uid));
@@ -90,13 +92,34 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         HugMeUser user = mValues.get(position);
         String stri = user.first_name + " " + user.last_name;
         holder.mProfileName.setText(stri);
-        final String ProfilePic = user.getPictures().profile;
+//        final String ProfilePic = user.getPictures().profile;
 
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void reloadMessage_list(){
+        database.getReference().child(appUser.getAppUser().getUid()).child("message_list").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HashMap<String, String> hm = new HashMap<>();
+                if(snapshot.exists()){
+                    for (DataSnapshot ds: snapshot.getChildren()){
+                        hm.put(ds.getKey(), ds.getValue().toString());
+                    }
+                }
+                appUser.getAppUser().message_list = hm;
+                System.out.println(appUser.getAppUser().getMessage_list());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

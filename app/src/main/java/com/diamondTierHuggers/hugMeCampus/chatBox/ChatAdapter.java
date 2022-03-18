@@ -1,4 +1,5 @@
 package com.diamondTierHuggers.hugMeCampus.chatBox;
+
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import android.view.LayoutInflater;
@@ -33,19 +34,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ChatList list2 = chatLists.get(position);
+
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.oppoLayout.setVisibility((View.GONE));
 
             holder.myMsg.setText(list2.getData());
-            holder.myTime.setText(list2.getTime()+" "+list2.getTime());
+            holder.myTime.setText(list2.getTime());
         }
         else{
             holder.myLayout.setVisibility(View.GONE);
             holder.oppoLayout.setVisibility(View.VISIBLE);
 
             holder.oppoMsg.setText(list2.getData());
-            holder.oppoTime.setText(list2.getTime()+" "+list2.getTime());
+            holder.oppoTime.setText(list2.getTime());
         }
     }
 

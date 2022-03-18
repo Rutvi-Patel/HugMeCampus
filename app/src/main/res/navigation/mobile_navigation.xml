@@ -28,15 +28,20 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.diamondTierHuggers.hugMeCampus.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
         android:id="@+id/editProfile"
         android:name="com.diamondTierHuggers.hugMeCampus.EditProfile"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile">
-        <action
-            android:id="@+id/editProfile_to_editUserProfile"
-            app:destination="@id/editUserProfile" />
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" >
+    <action
+        android:id="@+id/editProfile_to_editUserProfile"
+        app:destination="@id/editUserProfile" />
     </fragment>
-
     <fragment
         android:id="@+id/nav_list_tabs"
         android:name="com.diamondTierHuggers.hugMeCampus.ListTabsFragment"
