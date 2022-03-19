@@ -10,19 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.MessagesAdapterLayoutBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
@@ -65,13 +66,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     public MessagesAdapter(OnItemListener onItemListener) {
         System.out.println("begin reload messages");
-            reloadMessage_list();
-            database.getReference().child("messages").child(appUser.getAppUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+            database.getReference().child("messages").child(appUser.getAppUser().getUid()).addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     if (snapshot.exists()){
-                        for (DataSnapshot snapshot1: snapshot.getChildren()){
-                            String uid = snapshot1.getKey();
+                            String uid = snapshot.getKey();
+                            System.out.println(uid);
                             if (appUser.savedHugMeUsers.containsKey(uid)) {
                                 addItem(appUser.savedHugMeUsers.get(uid));
                             }
@@ -83,8 +84,22 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                                     }
                                 });
                             }
-                        }
                     }
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                 }
 
@@ -93,19 +108,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
                 }
             });
-//            for (String uid : appUser.getAppUser().message_list.keySet()) {
-//                if (appUser.savedHugMeUsers.containsKey(uid)) {
-//                    addItem(appUser.savedHugMeUsers.get(uid));
-//                }
-//                else {
-//                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
-//                        @Override
-//                        public void onSuccess(String dataSnapshotValue) {
-//                            MessagesAdapter.super.notifyDataSetChanged();
-//                        }
-//                    });
-//                }
-//            }
         mOnItemListener = onItemListener;
     }
 
@@ -126,27 +128,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     @Override
     public int getItemCount() {
         return mValues.size();
-    }
-
-    public void reloadMessage_list(){
-        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("message_list").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                HashMap<String, String> hm = new HashMap<>();
-                if(snapshot.exists()){
-                    for (DataSnapshot ds: snapshot.getChildren()){
-                        hm.put(ds.getKey(), ds.getValue().toString());
-                    }
-                }
-                appUser.getAppUser().message_list = hm;
-                System.out.println(appUser.getAppUser().getMessage_list());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
