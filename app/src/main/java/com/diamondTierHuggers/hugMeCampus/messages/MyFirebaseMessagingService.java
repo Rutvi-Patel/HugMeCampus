@@ -27,15 +27,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d("TAG", "Message data payload: " + remoteMessage.getData());
-
-//            if (/* Check if data needs to be processed by long running job */ true) {
-//                // For long-running tasks (10 seconds or more) use WorkManager.
-//                scheduleJob();
-//            } else {
-//                // Handle message within 10 seconds
-//                handleNow();
-//            }
-
         }
 
         // Check if message contains a notification payload.
@@ -47,6 +38,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             System.out.println("Message Body" + body);
             showNotification(title, body);
         }
+
+//        getApplicationContext()
+//        getFragmentManager.getFragment().messageAdapter.putNewMessage(jadfklsjfkldsj)
     }
 
     public  void showNotification(String title, String data){

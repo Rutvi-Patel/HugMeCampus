@@ -24,6 +24,7 @@ import com.diamondTierHuggers.hugMeCampus.messages.FcmNotificationsSender;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
@@ -119,6 +120,7 @@ public class chatBoxFragment extends Fragment{
                     //                GET Chat Key for future
                     String val = String.valueOf(snapshot.child("chatNums").getValue());
                     chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
+//                    chatKey = snapshot.getChildrenCount()
                     System.out.println("INSIDE " + chatKey);
                     if (flag) {
                         String ChatVal = meUser.getMessage_list().get(mHugmeUser.getUid());
@@ -183,10 +185,11 @@ public class chatBoxFragment extends Fragment{
 
                 if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
                         (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-                    meUser.getMessage_list().put(mHugmeUser.getUid(), chatKey);
-                    mHugmeUser.getMessage_list().put(meUser.getUid(), chatKey);
+                    DatabaseReference chatRef = database.getReference().child("Chat").push();
+                    meUser.getMessage_list().put(mHugmeUser.getUid(), chatRef.getKey());
+                    mHugmeUser.getMessage_list().put(meUser.getUid(), chatRef.getKey());
                     addingToMessageList();
-                    database.getReference().child("Chat").child("chatNums").setValue(chatKey);
+
                 }else{
                     chatKey = meUser.getMessage_list().get(mHugmeUser.getUid());
                 }

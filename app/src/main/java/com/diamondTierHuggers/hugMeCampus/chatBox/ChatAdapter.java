@@ -38,17 +38,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.oppoLayout.setVisibility((View.GONE));
-
             holder.myMsg.setText(list2.getData());
             holder.myTime.setText(list2.getTime());
         }
         else{
             holder.myLayout.setVisibility(View.GONE);
             holder.oppoLayout.setVisibility(View.VISIBLE);
-
             holder.oppoMsg.setText(list2.getData());
             holder.oppoTime.setText(list2.getTime());
         }
+//        holder.lastMessage.setText(list2.getData());
     }
 
     @Override
@@ -63,7 +62,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         private LinearLayout oppoLayout, myLayout;
-        private TextView oppoMsg, myMsg;
+        private TextView oppoMsg, myMsg, lastMessage;
         private TextView oppoTime, myTime;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +72,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             this.myMsg = itemView.findViewById(R.id.myMsg);
             this.myTime = itemView.findViewById(R.id.myTime);
             this.oppoTime = itemView.findViewById(R.id.oppTime);
+            this.lastMessage = itemView.findViewById(R.id.last_message);
 
 
         }
