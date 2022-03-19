@@ -66,19 +66,46 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     public MessagesAdapter(OnItemListener onItemListener) {
         System.out.println("begin reload messages");
             reloadMessage_list();
-            for (String uid : appUser.getAppUser().message_list.keySet()) {
-                if (appUser.savedHugMeUsers.containsKey(uid)) {
-                    addItem(appUser.savedHugMeUsers.get(uid));
-                }
-                else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
-                        @Override
-                        public void onSuccess(String dataSnapshotValue) {
-                            MessagesAdapter.super.notifyDataSetChanged();
+            database.getReference().child("messages").child(appUser.getAppUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        for (DataSnapshot snapshot1: snapshot.getChildren()){
+                            String uid = snapshot1.getKey();
+                            if (appUser.savedHugMeUsers.containsKey(uid)) {
+                                addItem(appUser.savedHugMeUsers.get(uid));
+                            }
+                            else {
+                                readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
+                                    @Override
+                                    public void onSuccess(String dataSnapshotValue) {
+                                        MessagesAdapter.super.notifyDataSetChanged();
+                                    }
+                                });
+                            }
                         }
-                    });
+                    }
+
                 }
-            }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+//            for (String uid : appUser.getAppUser().message_list.keySet()) {
+//                if (appUser.savedHugMeUsers.containsKey(uid)) {
+//                    addItem(appUser.savedHugMeUsers.get(uid));
+//                }
+//                else {
+//                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
+//                        @Override
+//                        public void onSuccess(String dataSnapshotValue) {
+//                            MessagesAdapter.super.notifyDataSetChanged();
+//                        }
+//                    });
+//                }
+//            }
         mOnItemListener = onItemListener;
     }
 
