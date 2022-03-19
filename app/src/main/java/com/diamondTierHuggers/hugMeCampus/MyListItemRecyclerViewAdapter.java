@@ -37,7 +37,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
         mValues.add(h);
     }
 
-    public void readData(Query ref, String uid, int requestPending, final OnGetDataListener listener) {
+    public void readData(Query ref, String uid, final OnGetDataListener listener) {
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -69,7 +69,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
                     addItem(appUser.savedHugMeUsers.get(uid));
                 }
                 else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
+                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
                             com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
@@ -84,7 +84,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
                     addItem(appUser.savedHugMeUsers.get(uid));
                 }
                 else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 1, new OnGetDataListener() {
+                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
                             com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
@@ -97,7 +97,7 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<com.diam
                     addItem(appUser.savedHugMeUsers.get(uid));
                 }
                 else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 2, new OnGetDataListener() {
+                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
                         @Override
                         public void onSuccess(String dataSnapshotValue) {
                             com.diamondTierHuggers.hugMeCampus.MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();

@@ -21,7 +21,6 @@ public class HugMeUser implements Serializable {
     public HashMap<String, Boolean> hug_preferences;
     public UserPictures pictures;
     public int gender;
-    public String chatKey;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
@@ -179,10 +178,6 @@ public class HugMeUser implements Serializable {
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
-
-    public String getChatKey() { return chatKey; }
-
-    public void setChatKey(String chatKey) { this.chatKey = chatKey; }
 
     public HashMap<String, Boolean> getHug_preferences() {
         return hug_preferences;

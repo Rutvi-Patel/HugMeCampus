@@ -45,6 +45,7 @@ public class chatBoxFragment extends Fragment{
     private static final String ARG_PARAM1 = "hugMeUser";
     private HugMeUser mHugmeUser;
     private HugMeUser meUser;
+    DatabaseReference chatRef;
     String chatKey;
     ChatList cl;
     private RecyclerView chatRecyclerView;
@@ -137,18 +138,46 @@ public class chatBoxFragment extends Fragment{
                 Date resultdate = new Date(yourmilliseconds);
                 String currentTimeStamp = sdf.format(resultdate);
                 System.out.println(currentTimeStamp);
+                chatRef = database.getReference().child("Chat").push();
+                chatKey = chatRef.getRef().toString().split("/")[4];
+//                chatRef.child("DO_NOT_DELETE").setValue(true);
 
-                if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
-                        (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-//                    DatabaseReference chatRef = database.getReference().child("Chat").child(database.getReference().push().toString());
-                    chatKey = chatRef.getRef().toString();
-                    meUser.getMessage_list().put(mHugmeUser.getUid(), chatRef.getKey());
-                    mHugmeUser.getMessage_list().put(meUser.getUid(), chatRef.getKey());
-                    addingToMessageList();
 
-                }else{
-                    chatKey = meUser.getMessage_list().get(mHugmeUser.getUid());
-                }
+                DatabaseReference messageRef = database.getReference().child("messages");
+                messageRef.orderByKey().equalTo(mHugmeUser.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()) {
+                            //Key exists
+                        } else {
+                            //Key does not exist
+                            messageRef.child(mHugmeUser.getUid()).child(meUser.getUid()).setValue(chatKey);
+                            messageRef.child(meUser.getUid()).child(mHugmeUser.getUid()).setValue(chatKey);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
+//                if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
+//                        (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
+////                    String chatID =
+////                    database.getReference().child("Chat").push().child("DO_NOT_DELETE").setValue("");
+//                    chatRef = database.getReference().child("Chat").push();
+//                    chatRef.child("DO_NOT_DELETE").setValue(true);
+////                    chatKey = chatRef.getRef().toString();
+//                    meUser.getMessage_list().put(mHugmeUser.getUid(), chatRef.getKey());
+//                    mHugmeUser.getMessage_list().put(meUser.getUid(), chatRef.getKey());
+//                    addingToMessageList();
+//
+//                }
+//                else {
+//                    chatKey = meUser.getMessage_list().get(mHugmeUser.getUid());
+//                }
 
                 final  String getmyName = meUser.getFirst_name()+ " "+meUser.getLast_name();
 
@@ -163,7 +192,7 @@ public class chatBoxFragment extends Fragment{
                         System.out.println("Couldn't send notification or some notification error");
                     }
                     cl = new ChatList(meUser.getUid(), mHugmeUser.getUid(), currentTimeStamp, getTextMessage);
-                    sendMessages(cl,chatKey);
+                    sendMessages(cl);//,chatKey);
                 }
                 List <ChatList>  nl = new ArrayList<>();
                 nl.add(cl);
@@ -174,46 +203,46 @@ public class chatBoxFragment extends Fragment{
         });
 
 
-        Boolean n = true;
-        if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
-                (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-            n = false;
-        }
-        final Boolean flag  = n;
-        database.getReference().child("Chat").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
-                System.out.println("INSIDE " + chatKey);
-                if (flag) {
-
-                    String ChatRef = meUser.getMessage_list().get(mHugmeUser.getUid());
-                    chatLists.clear();
-                    for (DataSnapshot snapshot1 : snapshot.child(ChatRef).getChildren()) {
-                        ChatList chat = snapshot1.getValue(ChatList.class);
-                        chatLists.add(chat);
-                        System.out.println(chatLists);
-                        chatAdapter.updateChatList(chatLists);
-                        chatRecyclerView.setAdapter(chatAdapter);
-                    }
-                }
-                else {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot snapshot1 : snapshot.child(chatKey).getChildren()) {
-                            ChatList chat = snapshot1.getValue(ChatList.class);
-                            chatLists.add(chat);
-                            System.out.println(chatLists);
-                            chatAdapter.updateChatList(chatLists);
-                            chatRecyclerView.setAdapter(chatAdapter);
-                        }
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        Boolean n = true;
+//        if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
+//                (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
+//            n = false;
+//        }
+//        final Boolean flag = n;
+//        database.getReference().child("Chat").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+////                chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
+////                System.out.println("INSIDE " + chatKey);
+//                if (flag) {
+//
+//                    String ChatRef = meUser.getMessage_list().get(mHugmeUser.getUid());
+//                    chatLists.clear();
+//                    for (DataSnapshot snapshot1 : snapshot.child(ChatRef).getChildren()) {
+//                        ChatList chat = snapshot1.getValue(ChatList.class);
+//                        chatLists.add(chat);
+//                        System.out.println(chatLists);
+//                        chatAdapter.updateChatList(chatLists);
+//                        chatRecyclerView.setAdapter(chatAdapter);
+//                    }
+//                }
+//                else {
+//                    if (snapshot.exists()) {
+//                        for (DataSnapshot snapshot1 : snapshot.child(chatKey).getChildren()) {
+//                            ChatList chat = snapshot1.getValue(ChatList.class);
+//                            chatLists.add(chat);
+//                            System.out.println(chatLists);
+//                            chatAdapter.updateChatList(chatLists);
+//                            chatRecyclerView.setAdapter(chatAdapter);
+//                        }
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
         return binding.getRoot();
@@ -227,9 +256,9 @@ public class chatBoxFragment extends Fragment{
     }
 
 
-    private void sendMessages(ChatList cl, String chatKey){
+    private void sendMessages(ChatList cl){
 //        ChatList cl = new ChatList(sender, receiver, time, data);
-        database.getReference().child("Chat").child(chatKey).push().setValue(cl);
+        chatRef.child(String.valueOf(System.currentTimeMillis()).substring(0,10)).setValue(cl);
     }
 
     private void readMessages(String chatKey){
