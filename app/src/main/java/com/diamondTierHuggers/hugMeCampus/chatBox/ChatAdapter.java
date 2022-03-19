@@ -1,6 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus.chatBox;
 
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +13,77 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.friendList.MyListItemRecyclerViewAdapter;
+import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.text.CharsetsKt;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
 
-    private List<ChatList> chatLists;
+    private List<ChatItem> chatItems = new ArrayList<>();
+
+    public ChatAdapter(String chatKey) {
+        readData(database.getReference("chat").orderByKey().equalTo(chatKey), new OnGetDataListener() {
+            @Override
+            public void onSuccess(String dataSnapshotValue) {
+                ChatAdapter.super.notifyDataSetChanged();
+            }
+        });
+//        for (String uid : appUser.getAppUser().friend_list.keySet()) {
+//            if (appUser.savedHugMeUsers.containsKey(uid)) {
+//                addItem(appUser.savedHugMeUsers.get(uid));
+//            }
+//            else {
+//                readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
+//                    @Override
+//                    public void onSuccess(String dataSnapshotValue) {
+//                        MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+//                    }
+//                });
+//            }
+//        }
+    }
+
+    public void readData(Query ref, final OnGetDataListener listener) {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot chat : dataSnapshot.getChildren()) {
+                        for (DataSnapshot chatItem : chat.getChildren()) {
+                            ChatItem c = chatItem.getValue(ChatItem.class);
+                            chatItems.add(c);
+                        }
+                    }
+                }
+                listener.onSuccess("");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("ERROR: retrieving chat data");
+            }
+
+        });
+    }
 //    private final Context context;
 
-    public ChatAdapter(List<ChatList> chatLists) {
-        this.chatLists = chatLists;
-//        this.context = context;
-    }
+//    public ChatAdapter(List<ChatItem> chatItems) {
+//        this.chatItems = chatItems;
+////        this.context = context;
+//    }\
+
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,30 +92,31 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        ChatList list2 = chatLists.get(position);
+        ChatItem list2 = chatItems.get(position);
 
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.oppoLayout.setVisibility((View.GONE));
             holder.myMsg.setText(list2.getData());
-            holder.myTime.setText(list2.getTime());
+//            holder.myTime.setText(list2.getTime());
         }
         else{
             holder.myLayout.setVisibility(View.GONE);
             holder.oppoLayout.setVisibility(View.VISIBLE);
             holder.oppoMsg.setText(list2.getData());
-            holder.oppoTime.setText(list2.getTime());
+//            holder.oppoTime.setText(list2.getTime());
         }
 //        holder.lastMessage.setText(list2.getData());
     }
 
     @Override
     public int getItemCount() {
-        return chatLists.size();
+        return chatItems.size();
     }
 
-    public void updateChatList(List<ChatList> chatLists){
-        this.chatLists = chatLists;
+    public void updateChatList(ChatItem chatItem){
+        this.chatItems.add(chatItem);
+//        this.chatLists = chatLists;
         notifyDataSetChanged();
     }
 
@@ -70,11 +130,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             this.oppoLayout = itemView.findViewById(R.id.oppLayout);
             this.oppoMsg = itemView.findViewById(R.id.opponentMsg);
             this.myMsg = itemView.findViewById(R.id.myMsg);
-            this.myTime = itemView.findViewById(R.id.myTime);
-            this.oppoTime = itemView.findViewById(R.id.oppTime);
+//            this.myTime = itemView.findViewById(R.id.myTime);
+//            this.oppoTime = itemView.findViewById(R.id.oppTime);
             this.lastMessage = itemView.findViewById(R.id.last_message);
-
-
         }
     }
 

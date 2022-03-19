@@ -1,6 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus.entity;
 
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 

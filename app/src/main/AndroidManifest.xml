@@ -12,19 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HugMeCampus">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".options.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ProfileActivity"></activity>
+            android:parentActivityName=".main.MainActivity"></activity>
         <activity
-            android:name=".DeleteUser"
+            android:name=".options.DeleteUser"
             android:exported="false"
             android:label="DeleteUser"
-            android:parentActivityName=".SettingsActivity" />
+            android:parentActivityName=".options.SettingsActivity" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
+            android:value=".main.LoginRegisterActivity" />
 
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
@@ -44,12 +44,12 @@
 
 
         <activity
-            android:name=".ProfileActivity"
+            android:name=".main.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_profile"
             android:theme="@style/Theme.HugMeCampus.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.LoginRegisterActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.HugMeCampus.NoActionBar">

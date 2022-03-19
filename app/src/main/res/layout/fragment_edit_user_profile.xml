@@ -5,16 +5,15 @@
         android:id="@+id/editUserProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#AD1B111E"
         android:clickable="true"
         android:focusable="auto"
-        tools:context=".EditUserProfile"
+        tools:context=".profiles.EditUserProfile"
         android:clipChildren="false">
 
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="com.diamondTierHuggers.hugMeCampus.DisplayUserProfile"
+        android:name="com.diamondTierHuggers.hugMeCampus.profiles.DisplayUserProfile"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

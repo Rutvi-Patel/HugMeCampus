@@ -1,7 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus.messages;
 
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
-import static com.diamondTierHuggers.hugMeCampus.MainActivity.database;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
-import com.diamondTierHuggers.hugMeCampus.databinding.MessagesAdapterLayoutBinding;
+import com.diamondTierHuggers.hugMeCampus.databinding.FragmentMessagesAdapterLayoutBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
-import com.diamondTierHuggers.hugMeCampus.queryDB.OnGetDataListener;
+import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -113,7 +113,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(MessagesAdapterLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnItemListener);
+        return new ViewHolder(FragmentMessagesAdapterLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnItemListener);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         ImageView mProfilePic;
 //        private LinearLayout rootLayout;
 
-        public ViewHolder(MessagesAdapterLayoutBinding binding, OnItemListener onItemListener) {
+        public ViewHolder(FragmentMessagesAdapterLayoutBinding binding, OnItemListener onItemListener) {
             super(binding.getRoot());
             this.onItemListener = onItemListener;
             this.mProfileName = binding.getRoot().findViewById(R.id.profile_name);
