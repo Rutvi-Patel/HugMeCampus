@@ -108,51 +108,6 @@ public class chatBoxFragment extends Fragment{
         ChatAdapter chatAdapter = new com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter(chatLists);
         chatRecyclerView.setAdapter(chatAdapter);
 
-        Boolean n = true;
-        if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
-                (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-            n = false;
-        }
-        final Boolean flag  = n;
-            database.getReferenceFromUrl("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/Chat").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //                GET Chat Key for future
-                    String val = String.valueOf(snapshot.child("chatNums").getValue());
-                    chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
-//                    chatKey = snapshot.getChildrenCount()
-                    System.out.println("INSIDE " + chatKey);
-                    if (flag) {
-                        String ChatVal = meUser.getMessage_list().get(mHugmeUser.getUid());
-                        chatLists.clear();
-                        for (DataSnapshot snapshot1 : snapshot.child(ChatVal).getChildren()) {
-                            ChatList chat = snapshot1.getValue(ChatList.class);
-                            chatLists.add(chat);
-                            System.out.println(chatLists);
-                            chatAdapter.updateChatList(chatLists);
-                            chatRecyclerView.setAdapter(chatAdapter);
-                        }
-                    } else {
-                        if (snapshot.exists()) {
-                            for (DataSnapshot snapshot1 : snapshot.child(chatKey).getChildren()) {
-                                ChatList chat = snapshot1.getValue(ChatList.class);
-                                chatLists.add(chat);
-                                System.out.println(chatLists);
-                                chatAdapter.updateChatList(chatLists);
-                                chatRecyclerView.setAdapter(chatAdapter);
-                            }
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-//        System.out.println("chat key" + chatKey);
-
-//        readMessages(chatKey);
 
 //        final String getProfilePic = mHugmeUser.getPictures().profile;
 
@@ -185,7 +140,8 @@ public class chatBoxFragment extends Fragment{
 
                 if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
                         (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-                    DatabaseReference chatRef = database.getReference().child("Chat").push();
+//                    DatabaseReference chatRef = database.getReference().child("Chat").child(database.getReference().push().toString());
+                    chatKey = chatRef.getRef().toString();
                     meUser.getMessage_list().put(mHugmeUser.getUid(), chatRef.getKey());
                     mHugmeUser.getMessage_list().put(meUser.getUid(), chatRef.getKey());
                     addingToMessageList();
@@ -213,6 +169,48 @@ public class chatBoxFragment extends Fragment{
                 nl.add(cl);
                 messageEditText.setText("");
                 chatAdapter.updateChatList(nl);
+
+            }
+        });
+
+
+        Boolean n = true;
+        if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
+                (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
+            n = false;
+        }
+        final Boolean flag  = n;
+        database.getReference().child("Chat").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
+                System.out.println("INSIDE " + chatKey);
+                if (flag) {
+
+                    String ChatRef = meUser.getMessage_list().get(mHugmeUser.getUid());
+                    chatLists.clear();
+                    for (DataSnapshot snapshot1 : snapshot.child(ChatRef).getChildren()) {
+                        ChatList chat = snapshot1.getValue(ChatList.class);
+                        chatLists.add(chat);
+                        System.out.println(chatLists);
+                        chatAdapter.updateChatList(chatLists);
+                        chatRecyclerView.setAdapter(chatAdapter);
+                    }
+                }
+                else {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot snapshot1 : snapshot.child(chatKey).getChildren()) {
+                            ChatList chat = snapshot1.getValue(ChatList.class);
+                            chatLists.add(chat);
+                            System.out.println(chatLists);
+                            chatAdapter.updateChatList(chatLists);
+                            chatRecyclerView.setAdapter(chatAdapter);
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

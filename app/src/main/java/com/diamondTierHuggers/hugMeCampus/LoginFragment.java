@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onSuccess(String dataSnapshotValue) {
                         System.out.println("created HugMeUser for app user");
-
+                        appUser.getAppUser().setUid("uid123");
                         // TODO move this to on click from navigation then start loading screen
                         mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
                             @Override
