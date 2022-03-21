@@ -14,8 +14,11 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.diamondTierHuggers.hugMeCampus.data.HugRatingDataCallback;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,13 +90,33 @@ public class HugRatings extends Fragment {
             public void onClick(View view) {
                 if((int)ratingBar.getRating() <= 0) {
                     Toast.makeText(getActivity().getApplicationContext(), "Error: No star rating given.", Toast.LENGTH_LONG).show();
+                    HugRatingModel.getRatingObjects("uid100", new HugRatingDataCallback() {
+                        @Override
+                        public void GetHugRating(HugRating rating) {
+
+                        }
+
+                        @Override
+                        public void GetRatingList(ArrayList<HugRating> ratingsList) {
+                                if(ratingsList != null)
+                                {
+                                    for(HugRating rating : ratingsList)
+                                    {
+                                        System.out.println(rating.stars);
+                                        System.out.println(rating.reviewer);
+                                        System.out.println(rating.reviewee);
+                                        System.out.println(rating.desc);
+                                    }
+                                }
+                        }
+                    });
                 }
                 else
                 {
                     HugRating newRating = new HugRating();
                     newRating.stars = (int) ratingBar.getRating();
-                    newRating.reviewer = appUser.getAppUser().getUid();
-                    newRating.reviewee = "uid100";
+                    newRating.reviewer = appUser.getAppUser().first_name + " " + appUser.getAppUser().last_name;
+                    newRating.reviewee = "uid192";
                     newRating.desc = textBox.getText().toString();
 
                     HugRatingModel.addHugRating(newRating);

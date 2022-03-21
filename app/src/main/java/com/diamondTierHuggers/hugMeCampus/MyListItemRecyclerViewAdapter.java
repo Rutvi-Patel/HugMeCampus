@@ -43,7 +43,6 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
     }
 
     public void readData(Query ref, String uid, int requestPending, final OnGetDataListener listener) {
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
