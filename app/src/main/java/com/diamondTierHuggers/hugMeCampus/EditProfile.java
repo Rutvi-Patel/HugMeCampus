@@ -174,11 +174,14 @@ public class EditProfile extends Fragment {
         //Set first and last name for editing
         firstName.setText(appUser.getAppUser().getFirst_name());
         lastName.setText(appUser.getAppUser().getLast_name());
+        //set Bio for editing
+        bio.setText(appUser.getAppUser().getBio());
 
         //Edit Gender dropdown setup
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editGender.setAdapter(adapter);
+        //Set gender for editing
         editGender.setSelection(appUser.getAppUser().getGender());
 
         editGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -198,7 +201,8 @@ public class EditProfile extends Fragment {
         ArrayAdapter<String>adapter_2 = new ArrayAdapter<String>(editAge.getContext(), android.R.layout.simple_spinner_item,ages);
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editAge.setAdapter(adapter_2);
-        editAge.setSelection(appUser.getAppUser().getAge());
+        //Set age for editing
+        editAge.setSelection(appUser.getAppUser().getAge() - 17);
 
         editAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
