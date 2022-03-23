@@ -253,6 +253,8 @@ public class EditProfile extends Fragment {
                 appUser.getAppUser().setFirst_name(firstNameToString);
                 appUser.getAppUser().setLast_name(lastNameToString);
                 appUser.getAppUser().setBio(bioToString);
+                appUser.getAppUser().setAge(ageChoice);
+                appUser.getAppUser().setGender(genderChoice);
                 //User info updated to database
                 myRef.child("users").child(myUID).child("first_name").setValue(firstNameToString);
                 myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
