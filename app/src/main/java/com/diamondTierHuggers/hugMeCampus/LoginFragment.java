@@ -140,7 +140,7 @@ public class LoginFragment extends Fragment {
                         //TODO move to after logging in, queries for the app users data in db, needed for matchmaking and displaying users profile
                         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
                         FirebaseAuth auth = FirebaseAuth.getInstance();
-                        appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
+                        appUser.readData(database.getReference("users").child(auth.getUid()), new OnGetDataListener() {
                             @Override
                             public void onSuccess(String dataSnapshotValue) {
                                 System.out.println("created HugMeUser for app user");
