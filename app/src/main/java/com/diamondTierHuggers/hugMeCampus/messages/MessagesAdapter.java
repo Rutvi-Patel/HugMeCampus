@@ -65,7 +65,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     }
 
     public MessagesAdapter(OnItemListener onItemListener) {
-        System.out.println("begin reload messages");
+//        System.out.println("begin reload messages");
 
             database.getReference().child("messages").child(appUser.getAppUser().getUid()).addChildEventListener(new ChildEventListener() {
                 @Override
@@ -75,6 +75,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                             System.out.println(uid);
                             if (appUser.savedHugMeUsers.containsKey(uid)) {
                                 addItem(appUser.savedHugMeUsers.get(uid));
+                                MessagesAdapter.super.notifyDataSetChanged();
                             }
                             else {
                                 readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
@@ -108,6 +109,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
                 }
             });
+
+
+
         mOnItemListener = onItemListener;
     }
 
@@ -157,4 +161,5 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     public interface OnItemListener {
         void onItemClick(int position);
     }
+
 }

@@ -10,12 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
-import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
-import com.diamondTierHuggers.hugMeCampus.friendList.MyListItemRecyclerViewAdapter;
 import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -24,20 +24,50 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import kotlin.text.CharsetsKt;
-
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
 
     private List<ChatItem> chatItems = new ArrayList<>();
 
     public ChatAdapter(String chatKey) {
-        readData(database.getReference("chat").orderByKey().equalTo(chatKey), new OnGetDataListener() {
+//        readData(database.getReference("chat").orderByKey().equalTo(chatKey), new OnGetDataListener() {
+//            @Override
+//            public void onSuccess(String dataSnapshotValue) {
+//                ChatAdapter.super.notifyDataSetChanged();
+//            }
+//
+//        });
+
+        database.getReference("chat").child(chatKey).orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
-            public void onSuccess(String dataSnapshotValue) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                System.out.println(snapshot);
+                ChatItem c = snapshot.getValue(ChatItem.class);
+                chatItems.add(c);
                 ChatAdapter.super.notifyDataSetChanged();
             }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
+
 //        for (String uid : appUser.getAppUser().friend_list.keySet()) {
 //            if (appUser.savedHugMeUsers.containsKey(uid)) {
 //                addItem(appUser.savedHugMeUsers.get(uid));
@@ -54,7 +84,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     }
 
     public void readData(Query ref, final OnGetDataListener listener) {
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -114,11 +144,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         return chatItems.size();
     }
 
-    public void updateChatList(ChatItem chatItem){
-        this.chatItems.add(chatItem);
-//        this.chatLists = chatLists;
-        notifyDataSetChanged();
-    }
+//    public void updateChatList(ChatItem chatItem){
+//        this.chatItems.add(chatItem);
+//        notifyDataSetChanged();
+//    }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         private LinearLayout oppoLayout, myLayout;

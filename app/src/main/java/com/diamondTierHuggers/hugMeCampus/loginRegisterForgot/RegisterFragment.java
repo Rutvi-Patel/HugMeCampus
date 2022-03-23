@@ -1,5 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus.loginRegisterForgot;
 
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.myRef;
 
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class RegisterFragment extends Fragment {
 
@@ -80,10 +83,31 @@ public class RegisterFragment extends Fragment {
         });
     }
 
+    public void StoreToken(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        System.out.println("TOKEN>>>>:" + token);
+                        System.out.println(appUser.getAppUser().getUid());
+                        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
+                    }
+                });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+    }
+
 
     private void setBioValues(String email, String firstName, String lastName, Integer Gender){
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
+        StoreToken();
         myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
         myRef.child("users").child(auth.getUid()).child("total_rating").setValue(0);

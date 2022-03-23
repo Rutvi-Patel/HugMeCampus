@@ -1,14 +1,10 @@
 package com.diamondTierHuggers.hugMeCampus.main;
 
-import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
-import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -19,10 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.diamondTierHuggers.hugMeCampus.options.SettingsActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        StoreToken();
 
         setSupportActionBar(binding.appBarProfile.toolbar);
 //        binding.appBarProfile.fab.setOnClickListener(new View.OnClickListener() {
@@ -90,24 +81,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void StoreToken(){
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
-                        System.out.println("TOKEN>>>>:" + token);
-                        System.out.println(appUser.getAppUser().getUid());
-                        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
-                    }
-                });
-        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-    }
 
 }

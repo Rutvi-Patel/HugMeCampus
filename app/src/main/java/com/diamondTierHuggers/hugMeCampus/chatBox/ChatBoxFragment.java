@@ -21,12 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.messages.FcmNotificationsSender;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -127,6 +122,7 @@ public class ChatBoxFragment extends Fragment{
 
         chatAdapter = new ChatAdapter(chatKey);
         chatRecyclerView.setAdapter(chatAdapter);
+        chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
 //        final String getProfilePic = mHugmeUser.getPictures().profile;
 
 //        ImageView backbtn = binding.backbtn;
@@ -156,47 +152,6 @@ public class ChatBoxFragment extends Fragment{
                 String currentTimeStamp = sdf.format(resultdate);
                 System.out.println(currentTimeStamp);
 
-//                chatRef = database.getReference().child("Chat").push();
-//                chatKey = chatRef.getRef().toString().split("/")[4];
-//                chatRef.child("DO_NOT_DELETE").setValue(true);
-
-
-//                DatabaseReference messageRef = database.getReference().child("messages");
-//                messageRef.orderByKey().equalTo(mHugmeUser.getUid()).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        if(dataSnapshot.exists()) {
-//                            //Key exists
-//                        } else {
-//                            //Key does not exist
-//                            messageRef.child(mHugmeUser.getUid()).child(meUser.getUid()).setValue(chatKey);
-//                            messageRef.child(meUser.getUid()).child(mHugmeUser.getUid()).setValue(chatKey);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//
-//                });
-
-//                if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
-//                        (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-////                    String chatID =
-////                    database.getReference().child("Chat").push().child("DO_NOT_DELETE").setValue("");
-//                    chatRef = database.getReference().child("Chat").push();
-//                    chatRef.child("DO_NOT_DELETE").setValue(true);
-////                    chatKey = chatRef.getRef().toString();
-//                    meUser.getMessage_list().put(mHugmeUser.getUid(), chatRef.getKey());
-//                    mHugmeUser.getMessage_list().put(meUser.getUid(), chatRef.getKey());
-//                    addingToMessageList();
-//
-//                }
-//                else {
-//                    chatKey = meUser.getMessage_list().get(mHugmeUser.getUid());
-//                }
-
                 final  String getmyName = meUser.getFirst_name()+ " "+meUser.getLast_name();
 
                 if (getTextMessage.equals("")) {
@@ -211,59 +166,11 @@ public class ChatBoxFragment extends Fragment{
                     }
                     cl = new ChatItem(meUser.getUid(), getTextMessage);
                     sendMessages(cl);//,chatKey);
-                    System.out.println("added to chat");
                 }
-//                List <ChatList>  nl = new ArrayList<>();
-//                nl.add(cl);
-//                chatLists.add(cl);
                 messageEditText.setText("");
-                chatAdapter.updateChatList(cl);
 
             }
         });
-
-
-//        Boolean n = true;
-//        if ((!meUser.getMessage_list().containsKey(mHugmeUser.getUid())) ||
-//                (!mHugmeUser.getMessage_list().containsKey(meUser.getUid()))) {
-//            n = false;
-//        }
-//        final Boolean flag = n;
-//        database.getReference().child("Chat").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-////                chatKey = String.valueOf(Integer.parseInt(snapshot.child("chatNums").getValue().toString()) + 1);
-////                System.out.println("INSIDE " + chatKey);
-//                if (flag) {
-//
-//                    String ChatRef = meUser.getMessage_list().get(mHugmeUser.getUid());
-//                    chatLists.clear();
-//                    for (DataSnapshot snapshot1 : snapshot.child(ChatRef).getChildren()) {
-//                        ChatList chat = snapshot1.getValue(ChatList.class);
-//                        chatLists.add(chat);
-//                        System.out.println(chatLists);
-//                        chatAdapter.updateChatList(chatLists);
-//                        chatRecyclerView.setAdapter(chatAdapter);
-//                    }
-//                }
-//                else {
-//                    if (snapshot.exists()) {
-//                        for (DataSnapshot snapshot1 : snapshot.child(chatKey).getChildren()) {
-//                            ChatList chat = snapshot1.getValue(ChatList.class);
-//                            chatLists.add(chat);
-//                            System.out.println(chatLists);
-//                            chatAdapter.updateChatList(chatLists);
-//                            chatRecyclerView.setAdapter(chatAdapter);
-//                        }
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
 
         return binding.getRoot();
 
@@ -282,87 +189,19 @@ public class ChatBoxFragment extends Fragment{
         chatRef.child(String.valueOf(System.currentTimeMillis()).substring(0,10)).setValue(cl);
     }
 
-    private void readMessages(String chatKey){
 
-        database.getReference().child("chat").child(chatKey).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()){
-                    ChatItem chatItem = snapshot.getValue(ChatItem.class);
-//                    System.out.println(uid);
-                    chatItems.add(chatItem);
-//                    com.diamondTierHuggers.hugMeCampus.chatBox.C
-//                    if (appUser.savedHugMeUsers.containsKey(uid)) {
-//                        addItem(appUser.savedHugMeUsers.get(uid));
-                    }
-                    else {
-//                        readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
-//                            @Override
-//                            public void onSuccess(String dataSnapshotValue) {
-//                                MessagesAdapter.super.notifyDataSetChanged();
-//                            }
-//                        });
-                    }
-                }
-
-//            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-//        database.getReferenceFromUrl("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/Chat").child(chatKey).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                chatItems.clear();
-//                for (DataSnapshot snapshot1: snapshot.getChildren()){
-//                    ChatItem chat = snapshot1.getValue(ChatItem.class);
-//                    chatItems.add(chat);
-//                }
-//                System.out.println(chatItems);
-//                for (ChatItem cl: chatItems) {
-//                    ChatAdapter chatAdapter = new ChatAdapter(chatKey);
-//                    chatRecyclerView.setAdapter(chatAdapter);
-//                }
-//            }
-
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
+//    private void addingToMessageList (){
+//        System.out.println(meUser.getMessage_list());
+//        System.out.println(mHugmeUser.getMessage_list());
+//        database.getReference().child("users").child(meUser.getUid()).child("message_list").setValue(meUser.getMessage_list())
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                    }
+//                });
 //
-//            }
-//        });
-
-    }
-
-    private void addingToMessageList (){
-        System.out.println(meUser.getMessage_list());
-        System.out.println(mHugmeUser.getMessage_list());
-        database.getReference().child("users").child(meUser.getUid()).child("message_list").setValue(meUser.getMessage_list())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                });
-
-        database.getReference().child("users").child(mHugmeUser.getUid()).child("message_list").setValue(mHugmeUser.getMessage_list());
-    }
+//        database.getReference().child("users").child(mHugmeUser.getUid()).child("message_list").setValue(mHugmeUser.getMessage_list());
+//    }
 
 
 }

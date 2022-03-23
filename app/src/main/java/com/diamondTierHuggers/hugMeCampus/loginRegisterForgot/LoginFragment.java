@@ -1,6 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus.loginRegisterForgot;
 
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.mq;
+import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginFragment extends Fragment {
 
@@ -153,6 +155,7 @@ public class LoginFragment extends Fragment {
                                         System.out.println("finished loading mq");
                                         Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                         NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
+                                        StoreToken();
                                     }
                                 });
                             }
@@ -174,5 +177,25 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void StoreToken(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        System.out.println("TOKEN>>>>:" + token);
+                        System.out.println(appUser.getAppUser().getUid());
+                        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
+                    }
+                });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
     }
 }
