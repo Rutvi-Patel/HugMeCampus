@@ -70,5 +70,18 @@
         android:id="@+id/chatBoxFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.chatBox.ChatBoxFragment"
         android:label="fragment_chat_box"
-        tools:layout="@layout/fragment_chat_box" />
+        tools:layout="@layout/fragment_chat_box" >
+        <action
+            android:id="@+id/action_chatBoxFragment_to_locationFragment2"
+            app:destination="@id/locationFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment2"
+        android:name="com.diamondTierHuggers.hugMeCampus.location.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment2_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
 </navigation>
