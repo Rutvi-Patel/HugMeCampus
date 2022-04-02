@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/locationFragment2"
         android:name="com.diamondTierHuggers.hugMeCampus.location.LocationFragment"
-        android:label="fragment_location"
+        android:label="Location"
         tools:layout="@layout/fragment_location" >
         <action
             android:id="@+id/action_locationFragment2_to_chatBoxFragment"

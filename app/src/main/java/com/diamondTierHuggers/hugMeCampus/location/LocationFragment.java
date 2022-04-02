@@ -38,8 +38,6 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
 //        View view = inflater.inflate(R.layout.fragment_location, container, false);
 //        RecyclerView recyclerView = (RecyclerView) view;
         locationRecyclerView = binding.locationRecyclerView;
-        name = appUser.getAppUser().first_name+" "+ appUser.getAppUser().last_name;
-
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         System.out.println(appUser.getAppUser().getUid());

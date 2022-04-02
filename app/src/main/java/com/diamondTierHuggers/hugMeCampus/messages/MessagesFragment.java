@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
-import com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter;
-import com.diamondTierHuggers.hugMeCampus.chatBox.ChatItem;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentMessagesBinding;
 import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
 import com.google.firebase.database.DataSnapshot;
@@ -60,12 +58,6 @@ public class MessagesFragment extends Fragment implements com.diamondTierHuggers
         adapter = new MessagesAdapter(this);
         recyclerView.setAdapter(adapter);
 
-//        return binding.getRoot();
-
-//        String token = "f2IAcLLQSdC8V9bx_e8Amv:APA91bF7JvPnNq7cgr-v7rpDVk4ho6n4BmS8x8MfS6t17Fgm4aQDGax1t2dUGQa96w6zkljrJkWPCImHBoKdcj9pxdlBlbYIpGTWRieTky2YLcGWtvkYJ64ann6DwXE9mmmVn_tdBAGu";
-//
-//        FcmNotificationsSender sendn = new FcmNotificationsSender(token, "Test4", "Hello World" , this.getContext(), this.getActivity());
-//        sendn.SendNotifications();
         return view;
     }
 

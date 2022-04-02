@@ -32,10 +32,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     public void addItem(LocationData l) {
         mValues.add(l);
+        LocationAdapter.super.notifyDataSetChanged();
     }
 
-
-    public LocationAdapter(OnItemListener onItemListener){
+    public void readData() {
         database.getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -52,11 +52,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
             }
         });
-
-        LocationAdapter.super.notifyDataSetChanged();
-        mOnItemListener = onItemListener;
     }
 
+    public LocationAdapter(OnItemListener onItemListener){
+        readData();
+        System.out.println(mValues);
+        mOnItemListener = onItemListener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
