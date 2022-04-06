@@ -1,6 +1,8 @@
 package com.diamondTierHuggers.hugMeCampus.location;
 
-public class LocationData{
+import java.io.Serializable;
+
+public class LocationData implements Serializable {
     String url;
     String name;
     String coord;

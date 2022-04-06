@@ -99,7 +99,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     }
 
-
     public interface OnItemListener {
         void onItemClick(int position);
     }

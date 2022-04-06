@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.location.LocationData;
 import com.diamondTierHuggers.hugMeCampus.messages.FcmNotificationsSender;
 import com.google.firebase.database.DatabaseReference;
 
@@ -49,6 +50,8 @@ public class ChatBoxFragment extends Fragment{
     ChatItem cl;
     private RecyclerView chatRecyclerView;
     private List<ChatItem> chatItems = new ArrayList<>();
+    LocationData locationData;
+
 
 //    private static final String ARG_PARAM2 = "param2";
 
@@ -85,8 +88,12 @@ public class ChatBoxFragment extends Fragment{
         if (getArguments() != null) {
             mHugmeUser = (HugMeUser) getArguments().getSerializable(ARG_PARAM1);
             chatKey = getArguments().getString("chatKey");
+            locationData = (LocationData) getArguments().getSerializable("location");
+
         }
         meUser = appUser.getAppUser();
+
+
     }
 
     @Override

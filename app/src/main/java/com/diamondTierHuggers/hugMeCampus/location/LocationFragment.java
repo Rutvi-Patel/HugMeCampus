@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentLocationBinding;
 
 /**
@@ -48,6 +50,11 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
 
     @Override
     public void onItemClick(int position) {
+        Bundle bundle = new Bundle();
+        LocationData location = adapter.getItem(position);
+        bundle.putSerializable("location", location);
+        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_locationFragment2_to_chatBoxFragment);
 
     }
+
 }

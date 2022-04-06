@@ -88,7 +88,9 @@ public class MessagesFragment extends Fragment implements com.diamondTierHuggers
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hugMeUser", adapter.getItem(position));
                 bundle.putString("chatKey", chatKey);
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_chat_to_chatBoxFragment, bundle);            }
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_chat_to_chatBoxFragment, bundle);
+
+            }
         });
 
     }
