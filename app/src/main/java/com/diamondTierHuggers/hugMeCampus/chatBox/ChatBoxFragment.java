@@ -15,13 +15,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
+import com.diamondTierHuggers.hugMeCampus.databinding.FragmentLocationBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.location.LocationAdapter;
 import com.diamondTierHuggers.hugMeCampus.location.LocationData;
 import com.diamondTierHuggers.hugMeCampus.messages.FcmNotificationsSender;
 import com.google.firebase.database.DatabaseReference;
@@ -93,7 +93,6 @@ public class ChatBoxFragment extends Fragment{
         }
         meUser = appUser.getAppUser();
 
-
     }
 
     @Override
@@ -146,7 +145,9 @@ public class ChatBoxFragment extends Fragment{
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_locationFragment2);
+//                NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_locationFragment2);
+            binding.locationFragment.setVisibility(View.VISIBLE);
+
             }
         });
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -212,5 +213,113 @@ public class ChatBoxFragment extends Fragment{
 //        database.getReference().child("users").child(mHugmeUser.getUid()).child("message_list").setValue(mHugmeUser.getMessage_list());
 //    }
 
+
+}
+
+package com.diamondTierHuggers.hugMeCampus.location;
+
+        import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
+
+        import android.os.Bundle;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+
+        import androidx.fragment.app.Fragment;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
+
+        import com.diamondTierHuggers.hugMeCampus.databinding.FragmentLocationBinding;
+
+/**
+ * A fragment representing a list of Items.
+ */
+public class LocationFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.location.LocationAdapter.OnItemListener {
+
+    // TODO: Rename and change types of parameters
+    private String name;
+    private FragmentLocationBinding binding;
+    private RecyclerView locationRecyclerView;
+    private String chatKey;
+    LocationAdapter adapter;
+
+    public LocationFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        binding = FragmentLocationBinding.inflate(inflater, container, false);
+//        View view = inflater.inflate(R.layout.fragment_location, container, false);
+//        RecyclerView recyclerView = (RecyclerView) view;
+        locationRecyclerView = binding.locationRecyclerView;
+        locationRecyclerView.setHasFixedSize(true);
+        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        System.out.println(appUser.getAppUser().getUid());
+        adapter = new LocationAdapter(this);
+        locationRecyclerView.setAdapter(adapter);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+//        Bundle bundle = new Bundle();
+//        LocationData location = adapter.getItem(position);
+//        bundle.putSerializable("location", location);
+//        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_locationFragment2_to_chatBoxFragment);
+
+        getParentFragment().getContext().binding.locationFragment.setVisibility(View.VISIBLE);
+
+    }
+
+
+    /**
+     * A fragment representing a list of Items.
+     */
+    public class LocationFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.location.LocationAdapter.OnItemListener {
+
+        // TODO: Rename and change types of parameters
+        private String name;
+        private FragmentLocationBinding binding;
+        private RecyclerView locationRecyclerView;
+        private String chatKey;
+        LocationAdapter adapter;
+
+        public LocationFragment() {
+            // Required empty public constructor
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            // Inflate the layout for this fragment
+
+            binding = FragmentLocationBinding.inflate(inflater, container, false);
+//        View view = inflater.inflate(R.layout.fragment_location, container, false);
+//        RecyclerView recyclerView = (RecyclerView) view;
+            locationRecyclerView = binding.locationRecyclerView;
+            locationRecyclerView.setHasFixedSize(true);
+            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+            System.out.println(appUser.getAppUser().getUid());
+            adapter = new LocationAdapter(this);
+            locationRecyclerView.setAdapter(adapter);
+            return binding.getRoot();
+        }
+
+        @Override
+        public void onItemClick(int position) {
+//        Bundle bundle = new Bundle();
+//        LocationData location = adapter.getItem(position);
+//        bundle.putSerializable("location", location);
+//        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_locationFragment2_to_chatBoxFragment);
+
+            getParentFragment().getContext().binding.locationFragment.setVisibility(View.VISIBLE);
+
+        }
+
+    }
 
 }
