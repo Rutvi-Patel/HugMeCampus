@@ -1,5 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus;
 
+import android.Manifest;
 import android.content.Intent;
 import static android.content.ContentValues.TAG;
 
