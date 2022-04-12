@@ -6,8 +6,7 @@
     android:name="com.diamondTierHuggers.hugMeCampus.location.locationFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:background="#9AFFFFFF"
     app:layoutManager="LinearLayoutManager"
     tools:context=".location.LocationFragment"
     tools:listitem="@layout/fragment_location_item" />

@@ -68,19 +68,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             }
         });
 
-//        for (String uid : appUser.getAppUser().friend_list.keySet()) {
-//            if (appUser.savedHugMeUsers.containsKey(uid)) {
-//                addItem(appUser.savedHugMeUsers.get(uid));
-//            }
-//            else {
-//                readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
-//                    @Override
-//                    public void onSuccess(String dataSnapshotValue) {
-//                        MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
-//                    }
-//                });
-//            }
-//        }
     }
 
     public void readData(Query ref, final OnGetDataListener listener) {
@@ -152,15 +139,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         private LinearLayout oppoLayout, myLayout;
         private TextView oppoMsg, myMsg, lastMessage;
-        private TextView oppoTime, myTime;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.myLayout = itemView.findViewById(R.id.myLayout);
             this.oppoLayout = itemView.findViewById(R.id.oppLayout);
             this.oppoMsg = itemView.findViewById(R.id.opponentMsg);
             this.myMsg = itemView.findViewById(R.id.myMsg);
-//            this.myTime = itemView.findViewById(R.id.myTime);
-//            this.oppoTime = itemView.findViewById(R.id.oppTime);
             this.lastMessage = itemView.findViewById(R.id.last_message);
         }
     }
