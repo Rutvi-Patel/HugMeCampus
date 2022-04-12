@@ -32,24 +32,51 @@
                 android:id="@+id/viewImage"
                 android:layout_width="346dp"
                 android:layout_height="200dp"
-                android:layout_marginTop="4dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/ic_baseline_add_a_photo_24" />
 
-            <Button
-                android:id="@+id/upload_Button"
+            <ImageView
+                android:id="@+id/viewImage2"
                 android:layout_width="346dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/viewImage"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_baseline_add_a_photo_24"
+                />
+
+            <ImageView
+                android:id="@+id/viewImage3"
+                android:layout_width="346dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/viewImage2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
-                android:text="@string/upload" />
+                android:src="@drawable/ic_baseline_add_a_photo_24"/>
+
+            <ImageView
+                android:id="@+id/viewImage4"
+                android:layout_width="346dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/viewImage3"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_baseline_add_a_photo_24"/>
+<!--            <Button-->
+<!--                android:id="@+id/upload_Button"-->
+<!--                android:layout_width="346dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/viewImage"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:text="@string/upload" />-->
 
             <EditText
                 android:id="@+id/edit_firstName"
                 android:layout_width="346dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/upload_Button"
+                android:layout_below="@+id/viewImage4"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_bg"

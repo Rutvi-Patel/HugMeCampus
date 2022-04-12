@@ -2,6 +2,7 @@ package com.diamondTierHuggers.hugMeCampus;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,16 +41,19 @@ import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.prefs.PreferenceChangeEvent;
 
 
@@ -66,6 +70,7 @@ public class EditProfile extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+    private StorageReference storageReference;
     private String mParam1;
     private String mParam2;
     private String myUID = appUser.getAppUser().getUid();
@@ -82,8 +87,8 @@ public class EditProfile extends Fragment {
             "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92",
             "93", "94", "95", "96", "97", "98", "99"};
     private Button uploadBtn, saveEditBtn;
-    private ImageView imageView;
-    private Uri imageUri;
+    private ImageView imageView, imageView2, imageView3, imageView4;
+    private Uri imageUri, imageUri2, imageUri3, imageUri4;
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
     private CheckBox shortHug,mediumHug,longHug, quiet,talkative,celebratory,
@@ -148,7 +153,7 @@ public class EditProfile extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //Save and Upload buttons
-        uploadBtn = view.findViewById(R.id.upload_Button);
+//        uploadBtn = view.findViewById(R.id.upload_Button);
         saveEditBtn = view.findViewById(R.id.save_edits);
         //User information
         firstName = view.findViewById(R.id.edit_firstName);
@@ -157,6 +162,10 @@ public class EditProfile extends Fragment {
         editGender = (Spinner)view.findViewById(R.id.editGender);
         editAge = (Spinner)view.findViewById(R.id.edit_age);
         imageView = view.findViewById(R.id.viewImage);
+        imageView2 = view.findViewById(R.id.viewImage2);
+        imageView3 = view.findViewById(R.id.viewImage3);
+        imageView4 = view.findViewById(R.id.viewImage4);
+
         //Hug Preferences
         shortHug = view.findViewById(R.id.shortHug);
         mediumHug = view.findViewById(R.id.mediumHug);
@@ -170,6 +179,8 @@ public class EditProfile extends Fragment {
         male = view.findViewById(R.id.male);
         female = view.findViewById(R.id.female);
         nonbinary = view.findViewById(R.id.nonBinary);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         //Set first and last name for editing
         firstName.setText(appUser.getAppUser().getFirst_name());
@@ -218,6 +229,41 @@ public class EditProfile extends Fragment {
             }
         });
 
+        //set profile pictures/current pictures
+        StorageReference profileRef = storageReference.child("profile Images/" + myUID + "profilePic_1" + ".jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imageView);
+            }
+        });
+
+        //set profile pictures/current pictures
+        StorageReference profileRef2 = storageReference.child("profile Images/" + myUID + "profilePic_2" + ".jpg");
+        profileRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imageView2);
+            }
+        });
+        //set profile pictures/current pictures
+        StorageReference profileRef3 = storageReference.child("profile Images/" + myUID + "profilePic_3" + ".jpg");
+        profileRef3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imageView3);
+            }
+        });
+        //set profile pictures/current pictures
+        StorageReference profileRef4 = storageReference.child("profile Images/" + myUID + "profilePic_4" + ".jpg");
+        profileRef4.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imageView4);
+            }
+        });
+        
+
         //Image Button
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,23 +274,59 @@ public class EditProfile extends Fragment {
                 startActivityForResult(galleryIntent, 2);
             }
         });
-        //Upload Button
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imageUri != null) {
-                    uploadToFirebase(imageUri);
-                }
-                else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Please Select Image", Toast.LENGTH_SHORT).show();
-                }
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 2);
             }
         });
+
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 2);
+            }
+        });
+
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 2);
+            }
+        });
+//        //Upload Button
+//        uploadBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (imageUri != null) {
+//                    uploadToFirebase(imageUri);
+//                }
+//                else {
+//                    Toast.makeText(getActivity().getApplicationContext(), "Please Select Image", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         //Save Button
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //save pictures
+                uploadPicture1();
+                uploadPicture2();
+                uploadPicture3();
+                uploadPicture4();
+
                 //User info to String
                 String firstNameToString = firstName.getText().toString();
                 String lastNameToString = lastName.getText().toString();
@@ -338,7 +420,13 @@ public class EditProfile extends Fragment {
                 NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
 
             }
+
+
+
         });
+        
+        
+
 
 
         //Keep checkbox state
@@ -359,6 +447,82 @@ public class EditProfile extends Fragment {
 
         loadInitialValues(checkBoxMap);
         setupCheckedChangeListener(checkBoxMap);
+    }
+
+    private void uploadPicture1() {
+        if(imageUri != null){
+
+            StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_1" + ".jpg");
+            riversRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void uploadPicture2() {
+        if(imageUri2 != null){
+
+            StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_2" + ".jpg");
+            riversRef.putFile(imageUri2)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void uploadPicture3() {
+        if(imageUri3 != null){
+
+            StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_3" + ".jpg");
+            riversRef.putFile(imageUri3)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void uploadPicture4() {
+        if(imageUri4 != null){
+
+            StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_4" + ".jpg");
+            riversRef.putFile(imageUri4)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
     //function for loading values into hashmap
@@ -389,42 +553,47 @@ public class EditProfile extends Fragment {
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+            imageView2.setImageURI(imageUri2);
+            imageView2.setImageURI(imageUri3);
+            imageView2.setImageURI(imageUri4);
         }
     }
 
-    private void uploadToFirebase(Uri uri) {
-        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Model model = new Model(uri.toString());
-                        String modelID = root.push().getKey();
-                        root.child(modelID).setValue(model);
-                        Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-//        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+
+//    private void uploadToFirebase(Uri uri) {
+//        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+//        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //            @Override
-//            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-//
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        Model model = new Model(uri.toString());
+//                        String modelID = root.push().getKey();
+//                        root.child(modelID).setValue(model);
+//                        Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 //            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), "Uploading Failed!", Toast.LENGTH_SHORT).show();
-            }
-        });
+////        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+////            @Override
+////            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+////
+////            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getActivity().getApplicationContext(), "Uploading Failed!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
-    }
-
-    private String getFileExtension(Uri mUri) {
-        ContentResolver cr = getContext().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(mUri));
-    }
+//    private String getFileExtension(Uri mUri) {
+//        ContentResolver cr = getContext().getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(cr.getType(mUri));
+//    }
 
 }
