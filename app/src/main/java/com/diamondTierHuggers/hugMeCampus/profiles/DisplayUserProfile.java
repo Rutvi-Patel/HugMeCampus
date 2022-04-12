@@ -164,45 +164,45 @@ public class DisplayUserProfile extends Fragment {
         if (!mHugMeUser.getUid().equals(appUser.getAppUser().getUid())) {
             if (mHugMeUser.getHug_preferences().get("short") && appUser.getAppUser().getHug_preferences().get("short")) {
                 ((CardView) getView().findViewById(R.id.shortHug)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.shortText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.shortText)).setTextColor(0xff34223b);
             }
             if (mHugMeUser.getHug_preferences().get("medium") && appUser.getAppUser().getHug_preferences().get("medium")) {
                 ((CardView) getView().findViewById(R.id.mediumHug)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.mediumText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.mediumText)).setTextColor(0xff34223b);
             }
             if (mHugMeUser.getHug_preferences().get("long") && appUser.getAppUser().getHug_preferences().get("long")) {
                 ((CardView) getView().findViewById(R.id.longHug)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.longText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.longText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get("celebratory") && appUser.getAppUser().getHug_preferences().get("celebratory")) {
                 ((CardView) getView().findViewById(R.id.celebratory)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.celebratoryText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.celebratoryText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get("emotional") && appUser.getAppUser().getHug_preferences().get("emotional")) {
                 ((CardView) getView().findViewById(R.id.emotional)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.emotionalText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.emotionalText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get("happy") && appUser.getAppUser().getHug_preferences().get("happy")) {
                 ((CardView) getView().findViewById(R.id.happy)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.happyText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.happyText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get("quiet") && appUser.getAppUser().getHug_preferences().get("quiet")) {
                 ((CardView) getView().findViewById(R.id.quiet)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.quietText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.quietText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get("sad") && appUser.getAppUser().getHug_preferences().get("sad")) {
                 ((CardView) getView().findViewById(R.id.sad)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.sadText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.sadText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get("talkative") && appUser.getAppUser().getHug_preferences().get("talkative")) {
                 ((CardView) getView().findViewById(R.id.talkative)).setCardBackgroundColor(0xff03dac5);
-                ((TextView)getView().findViewById(R.id.talkativeText)).setTextColor(0xff34223b);
+                ((TextView) getView().findViewById(R.id.talkativeText)).setTextColor(0xff34223b);
             }
 
             if (mHugMeUser.getHug_preferences().get(appUser.getAppUser().getGenderString()) && appUser.getAppUser().getHug_preferences().get(mHugMeUser.getGenderString())) {
@@ -251,6 +251,8 @@ public class DisplayUserProfile extends Fragment {
 
 
         }));
+
+        System.out.println(mHugMeUser.getPictures().toString());
 
         List<CarouselItem> list = new ArrayList<>();
         list.add(

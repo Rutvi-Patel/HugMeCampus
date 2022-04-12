@@ -37,8 +37,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.diamondTierHuggers.hugMeCampus.entity.Model;
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.entity.UserPictures;
-import com.diamondTierHuggers.hugMeCampus.queryDB.AppUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

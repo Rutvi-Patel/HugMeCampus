@@ -2,24 +2,12 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 public class UserPictures {
 
-    public String profile;
     public String picture_1;
     public String picture_2;
     public String picture_3;
+    public String picture_4;
 
     public UserPictures() {
-    }
-
-    public UserPictures(String profile) {
-        this.profile = profile;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
     }
 
     public String getPicture_1() {
@@ -46,13 +34,21 @@ public class UserPictures {
         this.picture_3 = picture_3;
     }
 
+    public String getPicture_4() {
+        return picture_4;
+    }
+
+    public void setPicture_4(String picture_4) {
+        this.picture_4 = picture_4;
+    }
+
     @Override
     public String toString() {
         return "UserPictures{" +
-                "profile='" + profile + '\'' +
-                ", picture_1='" + picture_1 + '\'' +
+                "picture_1='" + picture_1 + '\'' +
                 ", picture_2='" + picture_2 + '\'' +
                 ", picture_3='" + picture_3 + '\'' +
+                ", picture_4='" + picture_4 + '\'' +
                 '}';
     }
 }
