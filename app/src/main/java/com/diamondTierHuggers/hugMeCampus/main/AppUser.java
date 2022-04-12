@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
 import com.diamondTierHuggers.hugMeCampus.matchmaking.MatchMakingQueue;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AppUser {
@@ -18,6 +20,7 @@ public class AppUser {
     private HugMeUser appUser;
     public static MatchMakingQueue mq;
     public static HashMap<String, HugMeUser> savedHugMeUsers = new HashMap<>();
+    public static ArrayList<HugRating> savedHugRatings = new ArrayList<>();
     public static AcceptListModel acceptListModel = new AcceptListModel();
 
     public AppUser(){

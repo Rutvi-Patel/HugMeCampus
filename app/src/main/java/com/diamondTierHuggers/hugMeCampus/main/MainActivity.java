@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.editUserProfile, R.id.nav_matchmaking, R.id.nav_list_tabs, R.id.nav_search, R.id.nav_chat)
+//                R.id.nav_home, R.id.nav_matchmaking, R.id.nav_profile, R.id.nav_list_tabs)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_profile);
@@ -80,6 +81,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

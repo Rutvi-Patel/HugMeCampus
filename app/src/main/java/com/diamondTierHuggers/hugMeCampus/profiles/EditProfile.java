@@ -116,7 +116,7 @@ public class EditProfile extends Fragment {
                 myRef.child("users").child(myUID).child("last_name").setValue(lastNameToString);
                 myRef.child("users").child(myUID).child("bio").setValue(bioToString);
 
-                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
+                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editUserProfile_to_EditProfile);
 
                 System.out.println(appUser.getAppUser().getUid());
             }
