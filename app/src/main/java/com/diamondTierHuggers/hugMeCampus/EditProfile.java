@@ -13,6 +13,7 @@ import android.os.Bundle;
 import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
 
 import static com.diamondTierHuggers.hugMeCampus.MainActivity.myRef;
+import static com.google.common.io.Files.getFileExtension;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,8 +72,6 @@ public class EditProfile extends Fragment {
 
     // TODO: Rename and change types of parameters
     private StorageReference storageReference;
-    private String mParam1;
-    private String mParam2;
     private String myUID = appUser.getAppUser().getUid();
     private EditText firstName, lastName, bio;
     private Spinner editGender;
@@ -127,8 +126,6 @@ public class EditProfile extends Fragment {
     public static EditProfile newInstance(String param1, String param2) {
         EditProfile fragment = new EditProfile();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -138,8 +135,6 @@ public class EditProfile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -326,10 +321,10 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 //save pictures
-                uploadPicture1();
-                uploadPicture2();
-                uploadPicture3();
-                uploadPicture4();
+//                uploadPicture1();
+//                uploadPicture2();
+//                uploadPicture3();
+//                uploadPicture4();
 
                 //User info to String
                 String firstNameToString = firstName.getText().toString();
@@ -351,77 +346,102 @@ public class EditProfile extends Fragment {
                 //Hug Preferences updated to database
                 if (shortHug.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("short", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("short", false);
                 }
 
                 if (mediumHug.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("medium", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("medium", false);
                 }
 
                 if (longHug.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("long", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("long", false);
                 }
 
                 if (quiet.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("quiet", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("quiet", false);
                 }
 
                 if (talkative.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("talkative", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("talkative", false);
                 }
 
                 if (celebratory.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("celebratory", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("celebratory", false);
                 }
 
                 if (happy.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("happy", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("happy", false);
                 }
 
                 if (emotional.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("emotional", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("emotional", false);
                 }
 
                 if (sad.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("sad", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("sad", false);
                 }
 
                 if (male.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("male", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("male", false);
                 }
 
                 if (female.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("female", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("female", false);
                 }
 
                 if (nonbinary.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
+                    appUser.getAppUser().getHug_preferences().put("nonbinary", true);
                 } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
+                    appUser.getAppUser().getHug_preferences().put("nonbinary", false);
                 }
                 //moved to profile view after Save button has been hit
-                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
+//                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
+                uploadPicture1();
 
             }
 
@@ -450,6 +470,7 @@ public class EditProfile extends Fragment {
     }
 
     private void uploadPicture1() {
+        Toast.makeText(getActivity().getApplicationContext(), "Saving Changes...", Toast.LENGTH_SHORT).show();
         if (imageUri != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_1" + ".jpg");
@@ -457,75 +478,99 @@ public class EditProfile extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                            uploadToFirebase(imageUri, "picture1");
+                            uploadPicture2();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                            uploadPicture2();
                         }
                     });
+        }
+        else {
+            uploadPicture2();
         }
     }
 
     private void uploadPicture2() {
-        if (imageUri != null) {
+        if (imageUri2 != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_2" + ".jpg");
-            riversRef.putFile(imageUri)
+            riversRef.putFile(imageUri2)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                            uploadToFirebase(imageUri2, "picture2");
+                            uploadPicture3();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                            uploadPicture3();
                         }
                     });
+        }
+        else {
+            uploadPicture3();
         }
     }
 
     private void uploadPicture3() {
-        if (imageUri != null) {
+        if (imageUri3 != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_3" + ".jpg");
-            riversRef.putFile(imageUri)
+            riversRef.putFile(imageUri3)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                            uploadToFirebase(imageUri3, "picture3");
+                            uploadPicture4();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                            uploadPicture4();
                         }
                     });
+        }
+        else {
+            uploadPicture4();
         }
     }
 
     private void uploadPicture4() {
-        if (imageUri != null) {
+        if (imageUri4 != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_4" + ".jpg");
-            riversRef.putFile(imageUri)
+            riversRef.putFile(imageUri4)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                            uploadToFirebase(imageUri4, "picture4");
+                            NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             Toast.makeText(getActivity().getApplicationContext(), "Upload Failed!", Toast.LENGTH_SHORT).show();
+                            NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
                         }
                     });
+        }
+        else {
+            NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
         }
     }
 
@@ -556,55 +601,53 @@ public class EditProfile extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-//            imageUri2 = data.getData();
-//            imageUri3 = data.getData();
-//            imageUri4 = data.getData();
             if (imageChanged == 0) {
+                imageUri = data.getData();
                 imageView.setImageURI(imageUri);
             } else if (imageChanged == 1) {
-                imageView2.setImageURI(imageUri);
+                imageUri2 = data.getData();
+                imageView2.setImageURI(imageUri2);
             } else if (imageChanged == 2) {
-                imageView3.setImageURI(imageUri);
+                imageUri3 = data.getData();
+                imageView3.setImageURI(imageUri3);
             } else if (imageChanged == 3) {
-                imageView4.setImageURI(imageUri);
+                imageUri4 = data.getData();
+                imageView4.setImageURI(imageUri4);
             }
         }
+    }
 
-
-//    private void uploadToFirebase(Uri uri) {
-//        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
-//        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        Model model = new Model(uri.toString());
-//                        String modelID = root.push().getKey();
-//                        root.child(modelID).setValue(model);
+    private void uploadToFirebase(Uri uri, String picNum) {
+        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Model model = new Model(uri.toString());
+                        System.out.println(model);
+                        myRef.child("users").child(myUID).child("pictures").child(picNum).setValue(model);
+                        String modelID = root.push().getKey();
+                        root.child(modelID).setValue(model);
+                        System.out.println(modelID);
+                        System.out.println(model);
 //                        Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-////        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-////            @Override
-////            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-////
-////            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(getActivity().getApplicationContext(), "Uploading Failed!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity().getApplicationContext(), "Uploading Failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-//    private String getFileExtension(Uri mUri) {
-//        ContentResolver cr = getContext().getContentResolver();
-//        MimeTypeMap mime = MimeTypeMap.getSingleton();
-//        return mime.getExtensionFromMimeType(cr.getType(mUri));
-//    }
+    }
+
+    private String getFileExtension(Uri mUri) {
+        ContentResolver cr = getContext().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(mUri));
     }
 }
