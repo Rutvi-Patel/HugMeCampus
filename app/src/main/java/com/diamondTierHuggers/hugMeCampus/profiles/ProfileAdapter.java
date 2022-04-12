@@ -1,5 +1,7 @@
 package com.diamondTierHuggers.hugMeCampus.profiles;
 
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.viewbinding.ViewBinding;
 
 import com.diamondTierHuggers.hugMeCampus.R;
@@ -112,6 +115,118 @@ public class ProfileAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.name)).setText(item.first_name + " " + item.last_name);
         ((TextView) view.findViewById(R.id.info)).setText(item.age + ", " + gender[item.gender] + ", " + emoji[item.hug_count/50]);
         ((TextView) view.findViewById(R.id.bio)).setText(item.bio);
+
+
+
+        // hug prefs
+
+        if (!item.getHug_preferences().get("short")) {
+            view.findViewById(R.id.shortHug).setVisibility(View.GONE);
+        }
+        if (!item.getHug_preferences().get("medium")) {
+            view.findViewById(R.id.mediumHug).setVisibility(View.GONE);
+        }
+        if (!item.getHug_preferences().get("long")) {
+            view.findViewById(R.id.longHug).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("celebratory")) {
+            view.findViewById(R.id.celebratory).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("emotional")) {
+            view.findViewById(R.id.emotional).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("happy")) {
+            view.findViewById(R.id.happy).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("quiet")) {
+            view.findViewById(R.id.quiet).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("sad")) {
+            view.findViewById(R.id.sad).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("talkative")) {
+            view.findViewById(R.id.talkative).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("male")) {
+            view.findViewById(R.id.male).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("female")) {
+            view.findViewById(R.id.female).setVisibility(View.GONE);
+        }
+
+        if (!item.getHug_preferences().get("nonbinary")) {
+            view.findViewById(R.id.nonbinary).setVisibility(View.GONE);
+        }
+
+        if (!item.getUid().equals(appUser.getAppUser().getUid())) {
+            if (item.getHug_preferences().get("short") && appUser.getAppUser().getHug_preferences().get("short")) {
+                ((CardView) view.findViewById(R.id.shortHug)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.shortText)).setTextColor(0xff34223b);
+            }
+            if (item.getHug_preferences().get("medium") && appUser.getAppUser().getHug_preferences().get("medium")) {
+                ((CardView) view.findViewById(R.id.mediumHug)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.mediumText)).setTextColor(0xff34223b);
+            }
+            if (item.getHug_preferences().get("long") && appUser.getAppUser().getHug_preferences().get("long")) {
+                ((CardView) view.findViewById(R.id.longHug)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.longText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get("celebratory") && appUser.getAppUser().getHug_preferences().get("celebratory")) {
+                ((CardView) view.findViewById(R.id.celebratory)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.celebratoryText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get("emotional") && appUser.getAppUser().getHug_preferences().get("emotional")) {
+                ((CardView) view.findViewById(R.id.emotional)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.emotionalText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get("happy") && appUser.getAppUser().getHug_preferences().get("happy")) {
+                ((CardView) view.findViewById(R.id.happy)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.happyText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get("quiet") && appUser.getAppUser().getHug_preferences().get("quiet")) {
+                ((CardView) view.findViewById(R.id.quiet)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.quietText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get("sad") && appUser.getAppUser().getHug_preferences().get("sad")) {
+                ((CardView) view.findViewById(R.id.sad)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.sadText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get("talkative") && appUser.getAppUser().getHug_preferences().get("talkative")) {
+                ((CardView) view.findViewById(R.id.talkative)).setCardBackgroundColor(0xff03dac5);
+                ((TextView)view.findViewById(R.id.talkativeText)).setTextColor(0xff34223b);
+            }
+
+            if (item.getHug_preferences().get(appUser.getAppUser().getGenderString()) && appUser.getAppUser().getHug_preferences().get(item.getGenderString())) {
+                if (appUser.getAppUser().getGender() == 0) {
+                    ((CardView) view.findViewById(R.id.male)).setCardBackgroundColor(0xff03dac5);
+                    ((TextView) view.findViewById(R.id.maleText)).setTextColor(0xff34223b);
+                }
+                else if (appUser.getAppUser().getGender() == 1) {
+                    ((CardView) view.findViewById(R.id.female)).setCardBackgroundColor(0xff03dac5);
+                    ((TextView) view.findViewById(R.id.femaleText)).setTextColor(0xff34223b);
+                }
+                else {
+                    ((CardView) view.findViewById(R.id.nonbinary)).setCardBackgroundColor(0xff03dac5);
+                    ((TextView) view.findViewById(R.id.nonbinaryText)).setTextColor(0xff34223b);
+                }
+            }
+
+        }
+
 
         binding.carousel4.setCarouselListener((CarouselListener) (new CarouselListener() {
             @Override

@@ -36,8 +36,12 @@ public class HugMeUser implements Serializable {
     public HugMeUser() {
     }
 
+    public String getGenderString() {
+        return genderArray[gender];
+    }
+
     public void calculateMatchScore(HashMap<String, Boolean> appUserPreferences) {
-        if (appUserPreferences.get(genderArray[this.gender])) {
+        if (appUserPreferences.get(genderArray[this.gender]) && this.hug_preferences.get(genderArray[appUser.getAppUser().getGender()])) {
             matchScore += 5;
         }
         else {

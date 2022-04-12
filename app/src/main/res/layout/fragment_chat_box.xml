@@ -19,7 +19,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:layout_toEndOf="@+id/backbtn"
             android:src="@drawable/bryce_canyon" />
 
         <LinearLayout
