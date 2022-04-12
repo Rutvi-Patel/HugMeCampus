@@ -80,7 +80,7 @@ public class EditProfile extends Fragment {
     private static final String[] paths = {"Male", "Female", "Non-binary"};
     private Spinner editAge;
     private int ageChoice;
-    private static final String[] ages ={"17","18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
+    private static final String[] ages = {"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28",
             "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44",
             "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60",
             "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76",
@@ -91,10 +91,10 @@ public class EditProfile extends Fragment {
     private Uri imageUri, imageUri2, imageUri3, imageUri4;
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
-    private CheckBox shortHug,mediumHug,longHug, quiet,talkative,celebratory,
-            happy,emotional,sad,male,female,nonbinary;
+    private CheckBox shortHug, mediumHug, longHug, quiet, talkative, celebratory,
+            happy, emotional, sad, male, female, nonbinary;
     //CheckBox Keys
-    boolean myBoolVariable =false;
+    boolean myBoolVariable = false;
     private static final String shortHugKey = "shortHugKey";
     private static final String mediumHugKey = "mediumHugKey";
     private static final String longHugKey = "longHugKey";
@@ -159,8 +159,8 @@ public class EditProfile extends Fragment {
         firstName = view.findViewById(R.id.edit_firstName);
         lastName = view.findViewById(R.id.edit_lastName);
         bio = view.findViewById(R.id.edit_bio);
-        editGender = (Spinner)view.findViewById(R.id.editGender);
-        editAge = (Spinner)view.findViewById(R.id.edit_age);
+        editGender = (Spinner) view.findViewById(R.id.editGender);
+        editAge = (Spinner) view.findViewById(R.id.edit_age);
         imageView = view.findViewById(R.id.viewImage);
         imageView2 = view.findViewById(R.id.viewImage2);
         imageView3 = view.findViewById(R.id.viewImage3);
@@ -189,7 +189,7 @@ public class EditProfile extends Fragment {
         bio.setText(appUser.getAppUser().getBio());
 
         //Edit Gender dropdown setup
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item,paths);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(editGender.getContext(), android.R.layout.simple_spinner_item, paths);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editGender.setAdapter(adapter);
         //Set gender for editing
@@ -209,7 +209,7 @@ public class EditProfile extends Fragment {
         });
 
         //Edit Age dropdown setup
-        ArrayAdapter<String>adapter_2 = new ArrayAdapter<String>(editAge.getContext(), android.R.layout.simple_spinner_item,ages);
+        ArrayAdapter<String> adapter_2 = new ArrayAdapter<String>(editAge.getContext(), android.R.layout.simple_spinner_item, ages);
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editAge.setAdapter(adapter_2);
         //Set age for editing
@@ -262,7 +262,7 @@ public class EditProfile extends Fragment {
                 Picasso.get().load(uri).into(imageView4);
             }
         });
-        
+
 
         //Image Button
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -349,75 +349,75 @@ public class EditProfile extends Fragment {
                 myRef.child("users").child(myUID).child("age").setValue(ageChoice);
 
                 //Hug Preferences updated to database
-                if(shortHug.isChecked()){
+                if (shortHug.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(false);
                 }
 
-                if(mediumHug.isChecked()){
+                if (mediumHug.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(false);
                 }
 
-                if(longHug.isChecked()){
+                if (longHug.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(false);
                 }
 
-                if(quiet.isChecked()){
+                if (quiet.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(false);
                 }
 
-                if(talkative.isChecked()){
+                if (talkative.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(false);
                 }
 
-                if(celebratory.isChecked()){
+                if (celebratory.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
                 }
 
-                if(happy.isChecked()){
+                if (happy.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(false);
                 }
 
-                if(emotional.isChecked()){
+                if (emotional.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
                 }
 
-                if(sad.isChecked()){
+                if (sad.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(false);
                 }
 
-                if(male.isChecked()){
+                if (male.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
                 }
 
-                if(female.isChecked()){
+                if (female.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
                 }
 
-                if(nonbinary.isChecked()){
+                if (nonbinary.isChecked()) {
                     myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
-                }else{
+                } else {
                     myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
                 }
                 //moved to profile view after Save button has been hit
@@ -426,42 +426,39 @@ public class EditProfile extends Fragment {
             }
 
 
-
         });
-        
-        
-
 
 
         //Keep checkbox state
         sharedPref = getActivity().getSharedPreferences("allCheckBoxes", Context.MODE_PRIVATE);
-        Map<String,CheckBox> checkBoxMap = new HashMap<>();
-        checkBoxMap.put(shortHugKey,shortHug);
-        checkBoxMap.put(mediumHugKey,mediumHug);
-        checkBoxMap.put(longHugKey,longHug);
-        checkBoxMap.put(quietHugKey,quiet);
-        checkBoxMap.put(talkativeHugKey,talkative);
-        checkBoxMap.put(celebratoryHugKey,celebratory);
-        checkBoxMap.put(happyHugKey,happy);
-        checkBoxMap.put(emotionalHugKey,emotional);
-        checkBoxMap.put(sadHugKey,sad);
-        checkBoxMap.put(maleHugKey,male);
-        checkBoxMap.put(femaleHugKey,female);
-        checkBoxMap.put(nonbinaryHugKey,nonbinary);
+        Map<String, CheckBox> checkBoxMap = new HashMap<>();
+        checkBoxMap.put(shortHugKey, shortHug);
+        checkBoxMap.put(mediumHugKey, mediumHug);
+        checkBoxMap.put(longHugKey, longHug);
+        checkBoxMap.put(quietHugKey, quiet);
+        checkBoxMap.put(talkativeHugKey, talkative);
+        checkBoxMap.put(celebratoryHugKey, celebratory);
+        checkBoxMap.put(happyHugKey, happy);
+        checkBoxMap.put(emotionalHugKey, emotional);
+        checkBoxMap.put(sadHugKey, sad);
+        checkBoxMap.put(maleHugKey, male);
+        checkBoxMap.put(femaleHugKey, female);
+        checkBoxMap.put(nonbinaryHugKey, nonbinary);
 
         loadInitialValues(checkBoxMap);
         setupCheckedChangeListener(checkBoxMap);
     }
 
     private void uploadPicture1() {
-        if(imageUri != null){
+        if (imageUri != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_1" + ".jpg");
             riversRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -473,14 +470,15 @@ public class EditProfile extends Fragment {
     }
 
     private void uploadPicture2() {
-        if(imageUri2 != null){
+        if (imageUri != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_2" + ".jpg");
-            riversRef.putFile(imageUri2)
+            riversRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -492,14 +490,15 @@ public class EditProfile extends Fragment {
     }
 
     private void uploadPicture3() {
-        if(imageUri3 != null){
+        if (imageUri != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_3" + ".jpg");
-            riversRef.putFile(imageUri3)
+            riversRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -511,14 +510,15 @@ public class EditProfile extends Fragment {
     }
 
     private void uploadPicture4() {
-        if(imageUri4 != null){
+        if (imageUri != null) {
 
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_4" + ".jpg");
-            riversRef.putFile(imageUri4)
+            riversRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();                        }
+                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -530,15 +530,16 @@ public class EditProfile extends Fragment {
     }
 
     //function for loading values into hashmap
-    public void loadInitialValues(Map<String,CheckBox> checkBoxMap){
-        for(Map.Entry<String,CheckBox> checkBoxEntry: checkBoxMap.entrySet()){
-            Boolean checked = sharedPref.getBoolean(checkBoxEntry.getKey(),false);
+    public void loadInitialValues(Map<String, CheckBox> checkBoxMap) {
+        for (Map.Entry<String, CheckBox> checkBoxEntry : checkBoxMap.entrySet()) {
+            Boolean checked = sharedPref.getBoolean(checkBoxEntry.getKey(), false);
             checkBoxEntry.getValue().setChecked(checked);
         }
     }
+
     //function for checkbox Listener
-    public void setupCheckedChangeListener(Map<String,CheckBox> checkBoxMap){
-        for(final Map.Entry<String,CheckBox> checkBoxEntry: checkBoxMap.entrySet()){
+    public void setupCheckedChangeListener(Map<String, CheckBox> checkBoxMap) {
+        for (final Map.Entry<String, CheckBox> checkBoxEntry : checkBoxMap.entrySet()) {
             checkBoxEntry.getValue().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -556,15 +557,19 @@ public class EditProfile extends Fragment {
 
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
+//            imageUri2 = data.getData();
+//            imageUri3 = data.getData();
+//            imageUri4 = data.getData();
             if (imageChanged == 0) {
                 imageView.setImageURI(imageUri);
-            }
-            else if (imageChanged == 1) {
+            } else if (imageChanged == 1) {
                 imageView2.setImageURI(imageUri);
+            } else if (imageChanged == 2) {
+                imageView3.setImageURI(imageUri);
+            } else if (imageChanged == 3) {
+                imageView4.setImageURI(imageUri);
             }
         }
-    }
-
 
 
 //    private void uploadToFirebase(Uri uri) {
@@ -601,5 +606,5 @@ public class EditProfile extends Fragment {
 //        MimeTypeMap mime = MimeTypeMap.getSingleton();
 //        return mime.getExtensionFromMimeType(cr.getType(mUri));
 //    }
-
+    }
 }
