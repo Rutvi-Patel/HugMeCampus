@@ -32,9 +32,5 @@
             android:id="@+id/viewhugs"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="View hug" />
-        <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_menu_chat"
-            android:title="@string/menu_chat" />
     </group>
 </menu>

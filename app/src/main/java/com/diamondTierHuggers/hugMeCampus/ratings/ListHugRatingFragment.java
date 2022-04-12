@@ -1,5 +1,5 @@
-package com.diamondTierHuggers.hugMeCampus;
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+package com.diamondTierHuggers.hugMeCampus.ratings;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,16 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.diamondTierHuggers.hugMeCampus.data.HugRatingDataCallback;
-import com.diamondTierHuggers.hugMeCampus.data.HugRatingModel;
-import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
-
-import java.util.ArrayList;
+import com.diamondTierHuggers.hugMeCampus.R;
 
 public class ListHugRatingFragment extends Fragment  {
 

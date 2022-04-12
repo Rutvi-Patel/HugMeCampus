@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_nav_other_profile_to_chatBoxFragment"
             app:destination="@id/chatBoxFragment" />
+        <action
+            android:id="@+id/action_nav_other_profile_to_viewhugs"
+            app:destination="@id/viewhugs" />
     </fragment>
 
     <fragment
@@ -84,4 +87,14 @@
             android:id="@+id/action_locationFragment2_to_chatBoxFragment"
             app:destination="@id/chatBoxFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/hugratings"
+        android:name="com.diamondTierHuggers.hugMeCampus.ratings.HugRatings"
+        android:label="fragment_hugratings"
+        tools:layout="@layout/fragment_hugratings" />
+    <fragment
+        android:id="@+id/viewhugs"
+        android:name="com.diamondTierHuggers.hugMeCampus.ratings.ListHugRatingFragment"
+        android:label="fragment_view_hugrating"
+        tools:layout="@layout/fragment_view_hugrating" />
 </navigation>

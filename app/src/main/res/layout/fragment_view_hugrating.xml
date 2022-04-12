@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ListHugRatingFragment"
+    tools:context=".ratings.ListHugRatingFragment"
     tools:listitem="@layout/fragment_view_hugrating_item"
     android:clipChildren="false"/>

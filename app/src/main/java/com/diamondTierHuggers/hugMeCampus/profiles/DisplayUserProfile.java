@@ -12,8 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.diamondTierHuggers.hugMeCampus.R;
@@ -25,6 +24,7 @@ import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import org.imaginativeworld.whynotimagecarousel.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class DisplayUserProfile extends Fragment {
     private final String[] gender = {"Male", "Female"};
     private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
 
-    private TextView name, info, bio;
+    private TextView name, info, bio, rating;
 
     private final HugMeUser mHugMeUser;
 
@@ -87,6 +87,27 @@ public class DisplayUserProfile extends Fragment {
         this.name = getView().findViewById(R.id.name);
         this.info = getView().findViewById(R.id.info);
         this.bio = getView().findViewById(R.id.bio);
+        this.rating = getView().findViewById(R.id.averageRating);
+
+        if(mHugMeUser.num_reviews <= 0)
+        {
+            rating.setText("");
+            rating.setClickable(false);
+        }
+        else
+        {
+            DecimalFormat df = new DecimalFormat("#.0");
+            String avgRatingText = "★ " + df.format(mHugMeUser.total_rating / (float)mHugMeUser.num_reviews);
+            rating.setText(avgRatingText);
+            rating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("uid", mHugMeUser.getUid());
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_viewhugs, bundle);
+                }
+            });
+        }
 
         name.setText(h.first_name + " " + h.last_name);
         info.setText(h.age + ", " + gender[h.gender] + ", " + emoji[h.hug_count/50]);

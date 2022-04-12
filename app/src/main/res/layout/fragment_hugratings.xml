@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:windowSoftInputMode="adjustPan"
-    tools:context=".HugRatings">
+    tools:context=".ratings.HugRatings">
 
     <ScrollView
         android:id="@+id/HugRatingScroller"

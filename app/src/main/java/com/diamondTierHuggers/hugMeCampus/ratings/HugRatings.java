@@ -1,7 +1,7 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.ratings;
 
 import android.os.Bundle;
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingDataCallback;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugRating;

@@ -1,6 +1,6 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.ratings;
 
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingDataCallback;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
