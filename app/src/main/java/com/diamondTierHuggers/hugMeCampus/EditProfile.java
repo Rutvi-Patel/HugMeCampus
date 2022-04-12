@@ -76,7 +76,7 @@ public class EditProfile extends Fragment {
     private String myUID = appUser.getAppUser().getUid();
     private EditText firstName, lastName, bio;
     private Spinner editGender;
-    private int genderChoice;
+    private int genderChoice, imageChanged;
     private static final String[] paths = {"Male", "Female", "Non-binary"};
     private Spinner editAge;
     private int ageChoice;
@@ -269,6 +269,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent();
+                imageChanged = 0;
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, 2);
@@ -279,6 +280,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent();
+                imageChanged = 1;
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, 2);
@@ -289,6 +291,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent();
+                imageChanged = 2;
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, 2);
@@ -299,6 +302,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent();
+                imageChanged = 3;
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, 2);
@@ -552,10 +556,12 @@ public class EditProfile extends Fragment {
 
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-            imageView2.setImageURI(imageUri2);
-            imageView2.setImageURI(imageUri3);
-            imageView2.setImageURI(imageUri4);
+            if (imageChanged == 0) {
+                imageView.setImageURI(imageUri);
+            }
+            else if (imageChanged == 1) {
+                imageView2.setImageURI(imageUri);
+            }
         }
     }
 
