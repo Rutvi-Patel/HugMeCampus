@@ -1,12 +1,24 @@
 package com.diamondTierHuggers.hugMeCampus.main;
 
+import android.Manifest;
+import android.content.Intent;
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
+import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
+import android.util.Log;
+import android.view.View;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -16,6 +28,7 @@ import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.HashSet;
 
 public class LoginRegisterActivity extends AppCompatActivity {
 
@@ -81,10 +94,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
-
-
 
     @Override
     public boolean onSupportNavigateUp() {

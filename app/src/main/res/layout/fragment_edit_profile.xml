@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/editUserProfileFragment"
@@ -9,258 +9,284 @@
     tools:context=".profiles.DisplayUserProfile"
     tools:ignore="ExtraText">
 
-
-    <ImageView
-        android:id="@+id/viewImage"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_baseline_add_a_photo_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/edit_gender"
-        android:layout_width="181dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="348dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/gender"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/edit_age"
-        android:layout_width="181dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="348dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/age"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/edit_bio"
-        android:layout_width="362dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/bio"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="362dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="492dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/hug_preferences"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/shortHug"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="516dp"
-        android:text="@string/Short"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/mediumHug"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="516dp"
-        android:text="@string/Medium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/longHug"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="516dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/Long"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/quiet"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="551dp"
-        android:text="@string/Quiet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/talkative"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="551dp"
-        android:text="@string/Talkative"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/celebratory"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="551dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/Celebratory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <CheckBox
-        android:id="@+id/happy"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="588dp"
-        android:text="@string/happy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/emotional"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="588dp"
-        android:text="@string/Emotional"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/sad"
-        android:layout_width="120.66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="588dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/Sad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/edit_lastName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/lastname"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/edit_firstName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="252dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/input_bg"
-        android:drawableStart="@drawable/ic_baseline_edit_24"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:fontFamily="casual"
-        android:hint="@string/firstname"
-        android:minHeight="48dp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/upload_Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="@string/upload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/save_edits"
-        android:layout_width="76dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="630dp"
-        android:text="@string/save"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:backgroundTint="#22FFFFFF">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/viewImage"
+                android:layout_width="346dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_add_a_photo_24" />
+
+            <ImageView
+                android:id="@+id/viewImage2"
+                android:layout_width="346dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/viewImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_add_a_photo_24" />
+
+            <ImageView
+                android:id="@+id/viewImage3"
+                android:layout_width="346dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/viewImage2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_add_a_photo_24" />
+
+            <ImageView
+                android:id="@+id/viewImage4"
+                android:layout_width="346dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/viewImage3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_add_a_photo_24" />
+            <!--            <Button-->
+            <!--                android:id="@+id/upload_Button"-->
+            <!--                android:layout_width="346dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@+id/viewImage"-->
+            <!--                android:layout_centerHorizontal="true"-->
+            <!--                android:layout_marginTop="2dp"-->
+            <!--                android:text="@string/upload" />-->
+
+            <EditText
+                android:id="@+id/edit_firstName"
+                android:layout_width="346dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewImage4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/firstname"
+                android:minHeight="48dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColorHint="@color/black" />
+
+
+            <EditText
+                android:id="@+id/edit_lastName"
+                android:layout_width="346dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_firstName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/lastname"
+                android:minHeight="48dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColorHint="@color/black" />
+
+
+            <Spinner
+                android:id="@+id/edit_age"
+                android:layout_width="173dp"
+                android:layout_height="52dp"
+                android:layout_below="@+id/edit_lastName"
+                android:layout_alignStart="@+id/edit_lastName"
+                android:spinnerMode="dropdown" />
+
+            <Spinner
+                android:id="@+id/editGender"
+                android:layout_width="173dp"
+                android:layout_height="52dp"
+                android:layout_below="@id/edit_lastName"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/edit_age"
+                android:spinnerMode="dropdown" />
+
+
+            <EditText
+                android:id="@+id/edit_bio"
+                android:layout_width="346dp"
+                android:layout_height="91dp"
+                android:layout_below="@+id/edit_age"
+                android:layout_alignStart="@+id/edit_firstName"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/input_bg"
+                android:drawableStart="@drawable/ic_baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/bio"
+                android:maxLength="140"
+                android:minHeight="48dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColorHint="@color/black" />
+
+            <TextView
+                android:id="@+id/hugPreferences_hint"
+                android:layout_width="346dp"
+                android:layout_height="24dp"
+                android:layout_below="@+id/edit_bio"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:text="@string/hug_preferences"
+                android:textAlignment="center" />
+
+            <CheckBox
+                android:id="@+id/shortHug"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hugPreferences_hint"
+                android:layout_alignStart="@+id/hugPreferences_hint"
+                android:layout_marginTop="2dp"
+                android:text="@string/Short" />
+
+            <CheckBox
+                android:id="@+id/mediumHug"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hugPreferences_hint"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/shortHug"
+                android:text="@string/Medium" />
+
+            <CheckBox
+                android:id="@+id/longHug"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hugPreferences_hint"
+                android:layout_alignEnd="@+id/hugPreferences_hint"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/mediumHug"
+                android:text="@string/Long" />
+
+            <CheckBox
+                android:id="@+id/quiet"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shortHug"
+                android:layout_alignStart="@+id/shortHug"
+                android:layout_marginTop="2dp"
+                android:text="@string/Quiet" />
+
+            <CheckBox
+                android:id="@+id/talkative"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mediumHug"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/quiet"
+                android:text="@string/Talkative" />
+
+
+            <CheckBox
+                android:id="@+id/celebratory"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/longHug"
+                android:layout_alignEnd="@+id/longHug"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/talkative"
+                android:text="@string/Celebratory" />
+
+            <CheckBox
+                android:id="@+id/emotional"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quiet"
+                android:layout_alignStart="@+id/quiet"
+                android:layout_marginTop="2dp"
+                android:text="@string/Emotional" />
+
+            <CheckBox
+                android:id="@+id/happy"
+                android:layout_width="115dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/talkative"
+                android:layout_alignStart="@id/talkative"
+                android:layout_marginTop="2dp"
+                android:text="@string/happy" />
+
+            <CheckBox
+                android:id="@+id/sad"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/celebratory"
+                android:layout_alignStart="@id/celebratory"
+                android:layout_alignEnd="@id/celebratory"
+                android:layout_marginTop="2dp"
+                android:text="@string/Sad" />
+
+            <CheckBox
+                android:id="@+id/male"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emotional"
+                android:layout_alignStart="@+id/emotional"
+                android:layout_marginTop="2dp"
+                android:text="Male" />
+
+            <CheckBox
+                android:id="@+id/female"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/happy"
+                android:layout_alignStart="@+id/happy"
+                android:layout_marginTop="2dp"
+                android:text="Female" />
+
+            <CheckBox
+                android:id="@+id/nonBinary"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sad"
+                android:layout_alignStart="@id/sad"
+                android:layout_alignEnd="@id/sad"
+                android:layout_marginTop="2dp"
+                android:text="Nonbinary" />
+
+
+            <Button
+                android:id="@+id/save_edits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/female"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="@string/save" />
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>
