@@ -1,7 +1,8 @@
 package com.diamondTierHuggers.hugMeCampus.entity;
 
-import static com.diamondTierHuggers.hugMeCampus.LoginFragment.appUser;
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -12,19 +13,24 @@ public class HugMeUser implements Serializable {
 
     private String uid;
     public int age;
+    public String token;
     public String bio;
     public String first_name;
+    public String email;
     public int hug_count;
     public String last_name;
     public HashMap<String, Boolean> hug_preferences;
     public UserPictures pictures;
     public int gender;
+    public int total_rating;
+    public int num_reviews;
     public HashMap<String, Boolean> rejected_list;
     public HashMap<String, Boolean> accepted_list;
     public HashMap<String, Boolean> blocked_list;
     public HashMap<String, Boolean> friend_list;
     public HashMap<String, Boolean> request_list;
     public HashMap<String, Boolean> pending_list;
+    public HashMap<String, String> message_list;
 
     private int matchScore = 0;
 
@@ -33,8 +39,12 @@ public class HugMeUser implements Serializable {
     public HugMeUser() {
     }
 
+    public String getGenderString() {
+        return genderArray[gender];
+    }
+
     public void calculateMatchScore(HashMap<String, Boolean> appUserPreferences) {
-        if (appUserPreferences.get(genderArray[this.gender])) {
+        if (appUserPreferences.get(genderArray[this.gender]) && this.hug_preferences.get(genderArray[appUser.getAppUser().getGender()])) {
             matchScore += 5;
         }
         else {
@@ -116,6 +126,25 @@ public class HugMeUser implements Serializable {
             return 3;
         }
     }
+    public int getTotal_rating() {
+        return total_rating;
+    }
+
+    public void setTotal_rating(int total_rating) {
+        this.total_rating = total_rating;
+    }
+
+    public int getNum_reviews() {
+        return num_reviews;
+    }
+
+    public void setNum_reviews(int num_reviews) {
+        this.num_reviews = num_reviews;
+    }
+
+    public String getToken() {
+        return token;
+    }
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -140,6 +169,8 @@ public class HugMeUser implements Serializable {
     public String getBio() {
         return bio;
     }
+
+    public String getEmail(){return email;}
 
     public void setBio(String bio) {
         this.bio = bio;
@@ -241,6 +272,12 @@ public class HugMeUser implements Serializable {
         this.pending_list = pending_list;
     }
 
+    public HashMap<String, String> getMessage_list() {
+        return message_list;
+    }
+
+
+
     public void setMatchScore(int matchScore) {
         this.matchScore = matchScore;
     }
@@ -253,6 +290,7 @@ public class HugMeUser implements Serializable {
     public String toString() {
         return "HugMeUser{" +
                 "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
                 ", age=" + age +
                 ", bio='" + bio + '\'' +
                 ", first_name='" + first_name + '\'' +

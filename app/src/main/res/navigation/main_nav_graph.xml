@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/editUserProfile">
+
+    <fragment
+        android:id="@+id/nav_matchmaking"
+        android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.MatchMakingFragment"
+        android:label="@string/menu_matchmaking"
+        tools:layout="@layout/fragment_match_making" />
+
+    <fragment
+        android:id="@+id/editUserProfile"
+        android:name="com.diamondTierHuggers.hugMeCampus.profiles.EditUserProfile"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_edit_user_profile" >
+        <action
+            android:id="@+id/editUserProfile_to_EditProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.diamondTierHuggers.hugMeCampus.profiles.EditProfile"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" >
+    <action
+        android:id="@+id/editProfile_to_editUserProfile"
+        app:destination="@id/editUserProfile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_list_tabs"
+        android:name="com.diamondTierHuggers.hugMeCampus.friendList.ListTabsFragment"
+        android:label="@string/menu_list"
+        tools:layout="@layout/fragment_list_tabs" >
+        <action
+            android:id="@+id/action_nav_list_tabs_to_nav_other_profile"
+            app:destination="@id/nav_other_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.diamondTierHuggers.hugMeCampus.search.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_other_profile"
+        android:name="com.diamondTierHuggers.hugMeCampus.profiles.ViewOtherProfileFragment"
+        android:label="Other Profile"
+        tools:layout="@layout/fragment_view_other_profile" >
+        <action
+            android:id="@+id/action_nav_other_profile_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+        <action
+            android:id="@+id/action_nav_other_profile_to_viewhugs"
+            app:destination="@id/viewhugs" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.diamondTierHuggers.hugMeCampus.messages.MessagesFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_messages" >
+        <action
+            android:id="@+id/action_nav_chat_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatBoxFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.chatBox.ChatBoxFragment"
+        android:label="fragment_chat_box"
+        tools:layout="@layout/fragment_chat_box" >
+        <action
+            android:id="@+id/action_chatBoxFragment_to_locationFragment2"
+            app:destination="@id/locationFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment2"
+        android:name="com.diamondTierHuggers.hugMeCampus.location.LocationFragment"
+        android:label="Location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment2_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hugratings"
+        android:name="com.diamondTierHuggers.hugMeCampus.ratings.HugRatings"
+        android:label="fragment_hugratings"
+        tools:layout="@layout/fragment_hugratings" />
+    <fragment
+        android:id="@+id/viewhugs"
+        android:name="com.diamondTierHuggers.hugMeCampus.ratings.ListHugRatingFragment"
+        android:label="fragment_view_hugrating"
+        tools:layout="@layout/fragment_view_hugrating" />
+</navigation>

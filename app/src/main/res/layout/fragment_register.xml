@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".loginRegisterForgot.LoginFragment">
 
 
     <View
@@ -31,7 +31,7 @@
             android:backgroundTint="#22FFFFFF">
 
             <TextView
-                android:id="@+id/textview_Register"
+                android:id="@+id/textview_Rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
@@ -64,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_Register"
+                app:layout_constraintTop_toBottomOf="@+id/textview_Rating"
                 tools:ignore="MissingConstraints" />
 
             <EditText
