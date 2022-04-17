@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.location.LocationFragment;
@@ -39,7 +40,7 @@ import java.util.List;
  * Use the {@link ChatBoxFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChatBoxFragment extends Fragment {
+public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter.OnItemListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -120,7 +121,7 @@ public class ChatBoxFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setStackFromEnd(true);
         chatRecyclerView.setLayoutManager(linearLayoutManager);
-        chatAdapter = new ChatAdapter(chatKey);
+        chatAdapter = new ChatAdapter(chatKey, this);
         chatRecyclerView.setAdapter(chatAdapter);
         chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
 
@@ -150,10 +151,10 @@ public class ChatBoxFragment extends Fragment {
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putString("messageID", messageID);
-                LocationFragment lf = new LocationFragment(messageID);
-                binding.locationFragment.getFragment().equals(lf);
+                LocationFragment lf = new LocationFragment();
+                lf.setMessageID(messageID);
+
+                getFragmentManager().beginTransaction().add(R.id.locationFragment, lf).commit();
                 binding.locationFragment.setVisibility(View.VISIBLE);
             }
         });
@@ -224,4 +225,8 @@ public class ChatBoxFragment extends Fragment {
 
     }
 
+    @Override
+    public void onItemClick(int position) {
+        System.out.println("Rutvi Patel test 50");
+    }
 }

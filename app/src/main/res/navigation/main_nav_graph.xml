@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/chatBoxFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.chatBox.ChatBoxFragment"
-        android:label="fragment_chat_box"
+        android:label="ChatBox"
         tools:layout="@layout/fragment_chat_box" >
         <action
             android:id="@+id/action_chatBoxFragment_to_locationFragment2"

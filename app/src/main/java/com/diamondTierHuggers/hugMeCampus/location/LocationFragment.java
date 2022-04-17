@@ -1,4 +1,5 @@
 package com.diamondTierHuggers.hugMeCampus.location;
+
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentLocationBinding;
+
+import java.util.HashMap;
 
 /**
  * A fragment representing a list of Items.
@@ -29,11 +32,6 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
 
     public LocationFragment() {
         // Required empty public constructor
-    }
-    public LocationFragment(String message) {
-        // Required empty public constructor
-        messageID = message;
-        System.out.println(messageID);
     }
 
     @Override
@@ -65,14 +63,21 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
     @Override
     public void onItemClick(int position) {
 
-        getParentFragment().getView().findViewById(R.id.locationFragment).setVisibility(View.GONE);
-
         String currentTime = String.valueOf(System.currentTimeMillis()).substring(0, 10);
         System.out.println(messageID);
         System.out.println(currentTime);
         System.out.println(adapter.getItem(position).getClass());
         System.out.println(adapter.getItem(position));
-        database.getReference().child("chat").child(messageID).child(currentTime).setValue(adapter.getItem(position).getClass());
+
+        HashMap<String, String> ld = new HashMap<>();
+        ld.put("sender",adapter.getItem(position).sender);
+        ld.put("name",adapter.getItem(position).name);
+        ld.put("coord",adapter.getItem(position).coord);
+        ld.put("img",adapter.getItem(position).image);
+        System.out.println(ld);
+        database.getReference().child("chat").child(messageID).child(currentTime).setValue(ld);
+        getParentFragment().getView().findViewById(R.id.locationFragment).setVisibility(View.GONE);
+
 
     }
 

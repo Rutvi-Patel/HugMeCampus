@@ -6,6 +6,7 @@ import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.data
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,8 +29,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
 
     private List<ChatItem> chatItems = new ArrayList<>();
+    private OnItemListener mOnItemListener;
 
-    public ChatAdapter(String chatKey) {
+    public ChatAdapter(String chatKey, OnItemListener onItemListener) {
 //        readData(database.getReference("chat").orderByKey().equalTo(chatKey), new OnGetDataListener() {
 //            @Override
 //            public void onSuccess(String dataSnapshotValue) {
@@ -68,6 +70,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             }
         });
 
+        mOnItemListener = onItemListener;
+
     }
 
     public void readData(Query ref, final OnGetDataListener listener) {
@@ -104,24 +108,51 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.chatbox_adapter_layout, parent, false));
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.chatbox_adapter_layout, parent, false), mOnItemListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ChatItem list2 = chatItems.get(position);
-
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
-            holder.myLayout.setVisibility(View.VISIBLE);
-            holder.oppoLayout.setVisibility((View.GONE));
-            holder.myMsg.setText(list2.getData());
-//            holder.myTime.setText(list2.getTime());
+            if (list2.coord != null){
+                holder.opplocationlay.setVisibility(View.GONE);
+                holder.oppoLayout.setVisibility((View.GONE));
+                holder.myLayout.setVisibility(View.GONE);
+
+                String link = "http://www.google.com/maps/place/"+list2.getCoord();
+                holder.location_text.setText(list2.getName());
+                holder.link.setText(link);
+                holder.mylocationlay.setVisibility(View.VISIBLE);
+
+            }else {
+                holder.opplocationlay.setVisibility(View.GONE);
+                holder.mylocationlay.setVisibility(View.GONE);
+                holder.oppoLayout.setVisibility((View.GONE));
+
+                holder.myLayout.setVisibility(View.VISIBLE);
+                holder.myMsg.setText(list2.getData());
+            }
         }
         else{
-            holder.myLayout.setVisibility(View.GONE);
-            holder.oppoLayout.setVisibility(View.VISIBLE);
-            holder.oppoMsg.setText(list2.getData());
-//            holder.oppoTime.setText(list2.getTime());
+            if (list2.coord != null){
+                holder.mylocationlay.setVisibility(View.GONE);
+                holder.oppoLayout.setVisibility((View.GONE));
+                holder.myLayout.setVisibility(View.GONE);
+
+                String link = "http://www.google.com/maps/place/"+list2.getCoord();
+                holder.location_text.setText(list2.getName());
+                holder.link.setText(link);
+                holder.opplocationlay.setVisibility(View.VISIBLE);
+            }
+            else {
+                holder.opplocationlay.setVisibility(View.GONE);
+                holder.mylocationlay.setVisibility(View.GONE);
+                holder.myLayout.setVisibility(View.GONE);
+
+                holder.oppoLayout.setVisibility(View.VISIBLE);
+                holder.oppoMsg.setText(list2.getData());
+            }
         }
 //        holder.lastMessage.setText(list2.getData());
     }
@@ -136,17 +167,37 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 //        notifyDataSetChanged();
 //    }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
-        private LinearLayout oppoLayout, myLayout;
-        private TextView oppoMsg, myMsg, lastMessage;
-        public MyViewHolder(@NonNull View itemView) {
+    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private LinearLayout oppoLayout, myLayout, mylocationlay, opplocationlay;
+        private TextView oppoMsg, myMsg, lastMessage, location_text, link;
+        private ImageView location_img;
+        public OnItemListener onItemListener;
+
+        public MyViewHolder(@NonNull View itemView, ChatAdapter.OnItemListener onItemListener) {
             super(itemView);
             this.myLayout = itemView.findViewById(R.id.myLayout);
             this.oppoLayout = itemView.findViewById(R.id.oppLayout);
             this.oppoMsg = itemView.findViewById(R.id.opponentMsg);
             this.myMsg = itemView.findViewById(R.id.myMsg);
             this.lastMessage = itemView.findViewById(R.id.last_message);
+            this.location_text = itemView.findViewById(R.id.location_textView);
+            this.link = itemView.findViewById(R.id.link);
+            this.location_img = itemView.findViewById(R.id.location_image);
+            this.mylocationlay = itemView.findViewById(R.id.mylocationLayout);
+            this.opplocationlay= itemView.findViewById(R.id.oppLocationLayout);
+            this.onItemListener = onItemListener;
+            itemView.getRootView().setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemListener.onItemClick(getAdapterPosition());
+        }
+
+        }
+
+    public interface OnItemListener {
+        void onItemClick(int position);
     }
 
 }
