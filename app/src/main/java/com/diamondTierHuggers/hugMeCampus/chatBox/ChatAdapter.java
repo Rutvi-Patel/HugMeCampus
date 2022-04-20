@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
@@ -30,6 +31,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     private List<ChatItem> chatItems = new ArrayList<>();
     private OnItemListener mOnItemListener;
+
+    public List<ChatItem> getChatItems() {
+        return chatItems;
+    }
 
     public ChatAdapter(String chatKey, OnItemListener onItemListener) {
 //        readData(database.getReference("chat").orderByKey().equalTo(chatKey), new OnGetDataListener() {
@@ -115,42 +120,44 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ChatItem list2 = chatItems.get(position);
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
+            holder.oppoMsg.setVisibility(View.GONE);
             if (list2.coord != null){
-                holder.opplocationlay.setVisibility(View.GONE);
-                holder.oppoLayout.setVisibility((View.GONE));
-                holder.myLayout.setVisibility(View.GONE);
-
+                holder.locationViewOpp.setVisibility(View.GONE);
+//                holder.oppoLayout.setVisibility((View.GONE));
+//                holder.myLayout.setVisibility(View.GONE);
+                holder.myMsg.setText(list2.getName());
                 String link = "http://www.google.com/maps/place/"+list2.getCoord();
-                holder.location_text.setText(list2.getName());
-                holder.link.setText(link);
-                holder.mylocationlay.setVisibility(View.VISIBLE);
+//                holder.location_text.setText(list2.getName());
+//                holder.link.setText(link);
+//                holder.mylocationlay.setVisibility(View.VISIBLE);
 
             }else {
-                holder.opplocationlay.setVisibility(View.GONE);
-                holder.mylocationlay.setVisibility(View.GONE);
-                holder.oppoLayout.setVisibility((View.GONE));
+                holder.locationViewOpp.setVisibility(View.GONE);
+                holder.locationView.setVisibility(View.GONE);
+//                holder.oppoLayout.setVisibility((View.GONE));
 
-                holder.myLayout.setVisibility(View.VISIBLE);
+//                holder.myLayout.setVisibility(View.VISIBLE);
                 holder.myMsg.setText(list2.getData());
             }
         }
         else{
+            holder.myMsg.setVisibility(View.GONE);
             if (list2.coord != null){
-                holder.mylocationlay.setVisibility(View.GONE);
-                holder.oppoLayout.setVisibility((View.GONE));
-                holder.myLayout.setVisibility(View.GONE);
-
+                holder.locationView.setVisibility(View.GONE);
+//                holder.oppoLayout.setVisibility((View.GONE));
+//                holder.myLayout.setVisibility(View.GONE);
+                holder.oppoMsg.setText(list2.getName());
                 String link = "http://www.google.com/maps/place/"+list2.getCoord();
-                holder.location_text.setText(list2.getName());
-                holder.link.setText(link);
-                holder.opplocationlay.setVisibility(View.VISIBLE);
+//                holder.location_text.setText(list2.getName());
+//                holder.link.setText(link);
+//                holder.opplocationlay.setVisibility(View.VISIBLE);
             }
             else {
-                holder.opplocationlay.setVisibility(View.GONE);
-                holder.mylocationlay.setVisibility(View.GONE);
-                holder.myLayout.setVisibility(View.GONE);
+                holder.locationViewOpp.setVisibility(View.GONE);
+                holder.locationView.setVisibility(View.GONE);
+//                holder.myLayout.setVisibility(View.GONE);
 
-                holder.oppoLayout.setVisibility(View.VISIBLE);
+//                holder.oppoLayout.setVisibility(View.VISIBLE);
                 holder.oppoMsg.setText(list2.getData());
             }
         }
@@ -171,20 +178,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         private LinearLayout oppoLayout, myLayout, mylocationlay, opplocationlay;
         private TextView oppoMsg, myMsg, lastMessage, location_text, link;
         private ImageView location_img;
+        private CardView locationView, locationViewOpp;
         public OnItemListener onItemListener;
 
         public MyViewHolder(@NonNull View itemView, ChatAdapter.OnItemListener onItemListener) {
             super(itemView);
-            this.myLayout = itemView.findViewById(R.id.myLayout);
-            this.oppoLayout = itemView.findViewById(R.id.oppLayout);
-            this.oppoMsg = itemView.findViewById(R.id.opponentMsg);
+//            this.myLayout = itemView.findViewById(R.id.myLayout);
+//            this.oppoLayout = itemView.findViewById(R.id.oppLayout);
+            this.oppoMsg = itemView.findViewById(R.id.myMsg_opp);
             this.myMsg = itemView.findViewById(R.id.myMsg);
             this.lastMessage = itemView.findViewById(R.id.last_message);
             this.location_text = itemView.findViewById(R.id.location_textView);
             this.link = itemView.findViewById(R.id.link);
             this.location_img = itemView.findViewById(R.id.location_image);
-            this.mylocationlay = itemView.findViewById(R.id.mylocationLayout);
-            this.opplocationlay= itemView.findViewById(R.id.oppLocationLayout);
+            this.locationView = itemView.findViewById(R.id.location_view);
+            this.locationViewOpp = itemView.findViewById(R.id.location_view_opp);
+
+//            this.mylocationlay = itemView.findViewById(R.id.mylocationLayout);
+//            this.opplocationlay= itemView.findViewById(R.id.oppLocationLayout);
             this.onItemListener = onItemListener;
             itemView.getRootView().setOnClickListener(this);
         }

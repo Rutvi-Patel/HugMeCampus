@@ -3,6 +3,8 @@ package com.diamondTierHuggers.hugMeCampus.chatBox;
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -227,6 +229,17 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
     @Override
     public void onItemClick(int position) {
+
+        String url = "https://www.google.com/maps/dir/?api=1&destination=" + chatAdapter.getChatItems().get(position).getCoord() + "&travelmode=walking";
+//        Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
+//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//        startActivity(intent);
+
+        Uri gmmIntentUri = Uri.parse(url);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+
         System.out.println("Rutvi Patel test 50");
     }
 }
