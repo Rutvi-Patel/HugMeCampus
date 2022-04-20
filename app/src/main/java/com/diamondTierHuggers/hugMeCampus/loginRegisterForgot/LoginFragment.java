@@ -149,15 +149,15 @@ public class LoginFragment extends Fragment {
                                 System.out.println("created HugMeUser for app user");
 
                                 //TODO move this to on click from navigation then start loading screen
-                                mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-                                    @Override
-                                    public void onSuccess(String dataSnapshotValue) {
-                                        System.out.println("finished loading mq");
-                                        Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+//                                mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
+//                                    @Override
+//                                    public void onSuccess(String dataSnapshotValue) {
+//                                        System.out.println("finished loading mq");
+//                                        Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                         NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
                                         StoreToken();
-                                    }
-                                });
+//                                    }
+//                                });
                             }
                         });
                         //task.getResult().getUser();

@@ -124,7 +124,7 @@ public class ChatBoxFragment extends Fragment{
 
         chatAdapter = new ChatAdapter(chatKey);
         chatRecyclerView.setAdapter(chatAdapter);
-        chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
+        chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
 //        final String getProfilePic = mHugmeUser.getPictures().profile;
 
 //        ImageView backbtn = binding.backbtn;
@@ -170,6 +170,8 @@ public class ChatBoxFragment extends Fragment{
                     sendMessages(cl);//,chatKey);
                 }
                 messageEditText.setText("");
+
+                chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
 
             }
         });
