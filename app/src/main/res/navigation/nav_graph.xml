@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+<!--    <fragment-->
+<!--        android:id="@+id/FirstFragment"-->
+<!--        android:name="com.diamondTierHuggers.hugMeCampus.RegisterFragment"-->
+<!--        android:label="Register Account"-->
+<!--        tools:layout="@layout/fragment_register">-->
+<!--        <action-->
+<!--            android:id="@+id/action_FirstFragment_to_SecondFragment"-->
+<!--            app:destination="@id/SecondFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/SecondFragment"-->
+<!--        android:name="com.diamondTierHuggers.hugMeCampus.LoginFragment"-->
+<!--        android:label="Login"-->
+<!--        tools:layout="@layout/fragment_login">-->
+<!--        <action-->
+<!--            android:id="@+id/action_SecondFragment_to_FirstFragment"-->
+<!--            app:destination="@id/FirstFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_SecondFragment_to_forgotFragment"-->
+<!--            app:destination="@id/forgotFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_SecondFragment_self"-->
+<!--            app:destination="@id/SecondFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_SecondFragment_to_profileActivity"-->
+<!--            app:destination="@id/profileActivity" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/forgotFragment"-->
+<!--        android:name="com.diamondTierHuggers.hugMeCampus.ForgotFragment"-->
+<!--        android:label="Forgot Password"-->
+<!--        tools:layout="@layout/fragment_forgot" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_forgotFragment_to_SecondFragment"-->
+<!--            app:destination="@id/SecondFragment" />-->
+<!--    </fragment>-->
+<!--    <activity-->
+<!--        android:id="@+id/profileActivity"-->
+<!--        android:name="com.diamondTierHuggers.hugMeCampus.ProfileActivity"-->
+<!--        android:label="app_bar_profile"-->
+<!--        tools:layout="@layout/app_bar_profile" />-->
+
+
+</navigation>

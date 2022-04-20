@@ -72,7 +72,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     if (snapshot.exists()){
                             String uid = snapshot.getKey();
-                            System.out.println(uid);
+//                            System.out.println(uid);
                             if (appUser.savedHugMeUsers.containsKey(uid)) {
                                 addItem(appUser.savedHugMeUsers.get(uid));
                                 MessagesAdapter.super.notifyDataSetChanged();
@@ -114,6 +114,53 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
         mOnItemListener = onItemListener;
     }
+
+//    @Override
+//    public void onViewAttachedToWindow(ViewHolder holder) {
+//        database.getReference().child("messages").child(appUser.getAppUser().getUid()).addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                if (snapshot.exists()){
+//                    String uid = snapshot.getKey();
+////                            System.out.println(uid);
+//                    if (appUser.savedHugMeUsers.containsKey(uid)) {
+//                        addItem(appUser.savedHugMeUsers.get(uid));
+//                    }
+//                    else {
+//                        readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
+//                            @Override
+//                            public void onSuccess(String dataSnapshotValue) {
+//                                MessagesAdapter.super.notifyDataSetChanged();
+//                            }
+//                        });
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        System.out.println(mValues);
+//    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

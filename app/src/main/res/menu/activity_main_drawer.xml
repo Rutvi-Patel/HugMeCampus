@@ -24,5 +24,13 @@
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_menu_chat"
             android:title="@string/menu_chat" />
+        <item
+            android:id="@+id/hugratings"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Hug Ratings" />
+        <item
+            android:id="@+id/viewhugs"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="View hug" />
     </group>
 </menu>
