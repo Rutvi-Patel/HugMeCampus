@@ -48,7 +48,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         database.getReference("chat").child(chatKey).orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                System.out.println(snapshot);
                 ChatItem c = snapshot.getValue(ChatItem.class);
                 chatItems.add(c);
                 ChatAdapter.super.notifyDataSetChanged();

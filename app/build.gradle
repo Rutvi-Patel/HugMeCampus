@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 //plugins {
 //    id 'com.android.application'
@@ -68,6 +69,3 @@ dependencies {
     implementation "com.squareup.picasso:picasso:2.71828"
     implementation 'com.android.volley:volley:1.1.0'
 }
-
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'

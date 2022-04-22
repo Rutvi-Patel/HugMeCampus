@@ -190,6 +190,8 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
                 }
                 messageEditText.setText("");
 
+                chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
+
             }
         });
 

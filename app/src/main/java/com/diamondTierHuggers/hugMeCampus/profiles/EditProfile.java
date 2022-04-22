@@ -2,7 +2,6 @@ package com.diamondTierHuggers.hugMeCampus.profiles;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
-import static com.google.common.io.Files.getFileExtension;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.myRef;
 
 import androidx.annotation.NonNull;
@@ -36,27 +34,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.diamondTierHuggers.hugMeCampus.entity.Model;
 import com.diamondTierHuggers.hugMeCampus.R;
-import com.diamondTierHuggers.hugMeCampus.entity.UserPictures;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.prefs.PreferenceChangeEvent;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -321,6 +310,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 //save pictures
+                saveEditBtn.setClickable(false);
 //                uploadPicture1();
 //                uploadPicture2();
 //                uploadPicture3();
@@ -480,6 +470,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri, "picture1");
+                            appUser.getAppUser().setPicture("picture1", imageUri.toString());
                             uploadPicture2();
                         }
                     })
@@ -506,6 +497,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri2, "picture2");
+                            appUser.getAppUser().setPicture("picture2", imageUri2.toString());
                             uploadPicture3();
                         }
                     })
@@ -532,6 +524,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri3, "picture3");
+                            appUser.getAppUser().setPicture("picture3", imageUri3.toString());
                             uploadPicture4();
                         }
                     })
@@ -558,6 +551,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri4, "picture4");
+                            appUser.getAppUser().setPicture("picture4", imageUri4.toString());
                             NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
                         }
                     })
@@ -625,14 +619,7 @@ public class EditProfile extends Fragment {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Model model = new Model(uri.toString());
-                        System.out.println(model);
-                        myRef.child("users").child(myUID).child("pictures").child(picNum).setValue(model);
-                        String modelID = root.push().getKey();
-                        root.child(modelID).setValue(model);
-                        System.out.println(modelID);
-                        System.out.println(model);
-//                        Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        myRef.child("users").child(myUID).child("pictures").child(picNum).setValue(uri.toString());
                     }
                 });
             }

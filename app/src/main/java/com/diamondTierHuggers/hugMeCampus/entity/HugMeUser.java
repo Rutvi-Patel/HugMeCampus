@@ -20,7 +20,7 @@ public class HugMeUser implements Serializable {
     public int hug_count;
     public String last_name;
     public HashMap<String, Boolean> hug_preferences;
-    public UserPictures pictures;
+    public HashMap<String, String> pictures;
     public int gender;
     public int total_rating;
     public int num_reviews;
@@ -208,12 +208,16 @@ public class HugMeUser implements Serializable {
         this.hug_preferences = hug_preferences;
     }
 
-    public UserPictures getPictures() {
+    public String getPicture(String picNum) {
+        return pictures.get(picNum);
+    }
+
+    public HashMap<String, String> getPictures() {
         return pictures;
     }
 
-    public void setPictures(UserPictures pictures) {
-        this.pictures = pictures;
+    public void setPicture(String picNum, String uri) {
+        pictures.put(picNum, uri);
     }
 
     public int getGender() {
@@ -275,8 +279,6 @@ public class HugMeUser implements Serializable {
     public HashMap<String, String> getMessage_list() {
         return message_list;
     }
-
-
 
     public void setMatchScore(int matchScore) {
         this.matchScore = matchScore;

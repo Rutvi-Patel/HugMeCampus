@@ -11,7 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.diamondTierHuggers.hugMeCampus.R;
@@ -23,6 +26,7 @@ import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import org.imaginativeworld.whynotimagecarousel.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +40,9 @@ public class ProfileAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private final Context mContext;
     private final String[] gender = {"Male", "Female"};
-    private final String[] emoji = {"poop", "coal", "bronze", "silver", "gold", "platinum", "diamond"};
+    private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
     private boolean mNotifyOnChange = true;
+    private TextView rating;
 
     public ProfileAdapter(Context context, ArrayList<HugMeUser> objects) {
         mContext = context;
@@ -117,7 +122,27 @@ public class ProfileAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.bio)).setText(item.bio);
 
 
+        this.rating = view.findViewById(R.id.averageRating);
 
+        if(item.num_reviews <= 0)
+        {
+            rating.setText("");
+            rating.setClickable(false);
+        }
+        else
+        {
+            DecimalFormat df = new DecimalFormat("#.0");
+            String avgRatingText = "★ " + df.format(item.total_rating / (float)item.num_reviews);
+            rating.setText(avgRatingText);
+//            rating.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("uid", item.getUid());
+//                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_viewhugs, bundle);
+//                }
+//            });
+        }
         // hug prefs
 
         if (!item.getHug_preferences().get("short")) {

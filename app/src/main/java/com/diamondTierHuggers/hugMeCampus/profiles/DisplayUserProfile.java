@@ -252,29 +252,39 @@ public class DisplayUserProfile extends Fragment {
 
         }));
 
-        System.out.println(mHugMeUser.getPictures().toString());
+
+//        System.out.println(mHugMeUser.getPictures());
 
         List<CarouselItem> list = new ArrayList<>();
-        list.add(
-                new CarouselItem(
-                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.bryce_canyon
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.cathedral_rock
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.death_valley
-                )
-        );
+
+        for (String pic : mHugMeUser.getPictures().keySet()) {
+            list.add(
+                    new CarouselItem(
+                            mHugMeUser.getPicture(pic)
+                    )
+            );
+        }
+
+//        list.add(
+//                new CarouselItem(
+//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.bryce_canyon
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.cathedral_rock
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.death_valley
+//                )
+//        );
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);
