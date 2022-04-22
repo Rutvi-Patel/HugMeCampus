@@ -1,7 +1,16 @@
 package com.diamondTierHuggers.hugMeCampus.main;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
+import com.diamondTierHuggers.hugMeCampus.GpsTracker;
 import com.diamondTierHuggers.hugMeCampus.data.AcceptListModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
@@ -14,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AppUser {
 
@@ -22,10 +32,11 @@ public class AppUser {
     public static HashMap<String, HugMeUser> savedHugMeUsers = new HashMap<>();
     public static ArrayList<HugRating> savedHugRatings = new ArrayList<>();
     public static AcceptListModel acceptListModel = new AcceptListModel();
+    public static Double lat, lng;
+
 
     public AppUser(){
     }
-
 
     public void readData(Query ref, final OnGetDataListener listener) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -54,4 +65,5 @@ public class AppUser {
     public HugMeUser getAppUser() {
         return appUser;
     }
+
 }

@@ -1,10 +1,11 @@
 package com.diamondTierHuggers.hugMeCampus.chatBox;
 
+import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lat;
+import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lng;
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
+import static com.diamondTierHuggers.hugMeCampus.main.MainActivity.gpsTracker;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.diamondTierHuggers.hugMeCampus.GpsTracker;
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
@@ -56,9 +59,6 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
     private RecyclerView chatRecyclerView;
     private List<ChatItem> chatItems = new ArrayList<>();
     String messageID;
-
-
-//    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private FragmentChatBoxBinding binding;
@@ -98,6 +98,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
         }
         meUser = appUser.getAppUser();
+        getLocation();
 
         setMessageID(new OnGetDataListener() {
             @Override
@@ -110,6 +111,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         binding = FragmentChatBoxBinding.inflate(inflater, container, false);
         final String getName = mHugmeUser.getFirst_name() + " " + mHugmeUser.getLast_name();
@@ -230,16 +232,21 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
     @Override
     public void onItemClick(int position) {
 
-        String url = "https://www.google.com/maps/dir/?api=1&destination=" + chatAdapter.getChatItems().get(position).getCoord() + "&travelmode=walking";
 //        Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
 //        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //        startActivity(intent);
 
-        Uri gmmIntentUri = Uri.parse(url);
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
+        NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_mapsFragment);
 
-        System.out.println("Rutvi Patel test 50");
+    }
+
+    public void getLocation(){
+        gpsTracker = new GpsTracker(getActivity());
+        if(gpsTracker.canGetLocation()){
+            lat = gpsTracker.getLatitude();
+            lng = gpsTracker.getLongitude();
+        }else{
+            gpsTracker.showSettingsAlert();
+        }
     }
 }

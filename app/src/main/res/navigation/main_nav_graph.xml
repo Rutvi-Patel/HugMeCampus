@@ -30,7 +30,6 @@
         android:id="@+id/editProfile_to_editUserProfile"
         app:destination="@id/editUserProfile" />
     </fragment>
-
     <fragment
         android:id="@+id/nav_list_tabs"
         android:name="com.diamondTierHuggers.hugMeCampus.friendList.ListTabsFragment"
@@ -73,11 +72,14 @@
     <fragment
         android:id="@+id/chatBoxFragment"
         android:name="com.diamondTierHuggers.hugMeCampus.chatBox.ChatBoxFragment"
-        android:label="ChatBox"
+        android:label="fragment_chat_box"
         tools:layout="@layout/fragment_chat_box" >
         <action
             android:id="@+id/action_chatBoxFragment_to_locationFragment2"
             app:destination="@id/locationFragment2" />
+        <action
+            android:id="@+id/action_chatBoxFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment2"
@@ -98,4 +100,10 @@
         android:name="com.diamondTierHuggers.hugMeCampus.ratings.ListHugRatingFragment"
         android:label="fragment_view_hugrating"
         tools:layout="@layout/fragment_view_hugrating" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
+
 </navigation>

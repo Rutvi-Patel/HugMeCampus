@@ -1,17 +1,25 @@
 package com.diamondTierHuggers.hugMeCampus.main;
 
+import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lat;
+import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lng;
+
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.diamondTierHuggers.hugMeCampus.GpsTracker;
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.diamondTierHuggers.hugMeCampus.options.SettingsActivity;
@@ -21,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    public static GpsTracker gpsTracker;
 
 
     @Override
@@ -29,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }
+            getLocation();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         setSupportActionBar(binding.appBarProfile.toolbar);
 //        binding.appBarProfile.fab.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +98,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getLocation(){
+        gpsTracker = new GpsTracker(MainActivity.this);
+        if(gpsTracker.canGetLocation()){
+            lat = gpsTracker.getLatitude();
+            lng = gpsTracker.getLongitude();
+        }else{
+            gpsTracker.showSettingsAlert();
+        }
     }
 
 }
