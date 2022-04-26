@@ -39,7 +39,7 @@ public class ProfileAdapter extends BaseAdapter {
     private ArrayList<HugMeUser> mObjects;
     private final LayoutInflater mInflater;
     private final Context mContext;
-    private final String[] gender = {"Male", "Female"};
+    private final String[] gender = {"Male", "Female", "Non-Binary"};
     private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
     private boolean mNotifyOnChange = true;
     private TextView rating;
@@ -279,29 +279,38 @@ public class ProfileAdapter extends BaseAdapter {
 
         // TODO set user pictures here
         List<CarouselItem> list = new ArrayList<>();
-        list.add(
-                new CarouselItem(
-//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.14.13%20PM.png?alt=media&token=ffc414fb-0524-404a-988a-61c5ede309f6"
-                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
 
+        for (String pic : item.getPictures().keySet()) {
+            list.add(
+                    new CarouselItem(
+                            item.getPicture(pic)
+                    )
+            );
+        }
+
+//        list.add(
+//                new CarouselItem(
+////                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.14.13%20PM.png?alt=media&token=ffc414fb-0524-404a-988a-61c5ede309f6"
+//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
+//
+////                        R.drawable.bryce_canyon
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
 //                        R.drawable.bryce_canyon
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.bryce_canyon
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.cathedral_rock
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.death_valley
-                )
-        );
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.cathedral_rock
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.death_valley
+//                )
+//        );
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);

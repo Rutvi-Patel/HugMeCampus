@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class DisplayUserProfile extends Fragment {
 
-    private final String[] gender = {"Male", "Female"};
+    private final String[] gender = {"Male", "Female", "Non-Binary"};
     private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
 
     private TextView name, info, bio, rating;

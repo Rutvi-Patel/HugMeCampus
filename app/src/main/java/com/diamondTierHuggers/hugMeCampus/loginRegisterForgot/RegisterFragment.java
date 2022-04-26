@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,6 +65,7 @@ public class RegisterFragment extends Fragment {
         sendDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sendDBButton.setClickable(false);
                 if (inputValidation()) {
 
                         createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
@@ -72,6 +74,7 @@ public class RegisterFragment extends Fragment {
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(), "All values required", Toast.LENGTH_SHORT).show();
                 }
+                sendDBButton.setClickable(true);
             }
         });
 
@@ -96,8 +99,8 @@ public class RegisterFragment extends Fragment {
                         // Get new FCM registration token
                         String token = task.getResult();
                         System.out.println("TOKEN>>>>:" + token);
-                        System.out.println(appUser.getAppUser().getUid());
-                        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
+                        System.out.println(auth.getUid());
+                        database.getReference().child("users").child(auth.getUid()).child("token").setValue(token);
                     }
                 });
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
@@ -132,6 +135,7 @@ public class RegisterFragment extends Fragment {
         myRef.child("users").child(auth.getUid()).child("hug_preferences").child("sad").setValue(false);
         myRef.child("users").child(auth.getUid()).child("hug_preferences").child("short").setValue(false);
         myRef.child("users").child(auth.getUid()).child("hug_preferences").child("talkative").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("pictures").child("picture1").setValue("https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/blank-profile-photo.jpeg?alt=media&token=93d6e31c-f7e5-4423-b40a-e6cae3e32d06");
     }
 
     private void sendEmailVerification() {
@@ -175,7 +179,6 @@ public class RegisterFragment extends Fragment {
 
     private boolean createUserAccount(String email, String pwd) {
         final boolean[] success = {false};
-
         if(Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             if(email.toLowerCase().endsWith("@student.csulb.edu")) {
 
@@ -206,7 +209,9 @@ public class RegisterFragment extends Fragment {
                                 emailInput.setError("User already exists under this email.");
                                 Toast.makeText(getActivity().getApplicationContext(), "Error: User already exists.", Toast.LENGTH_LONG).show();
                             }
+
                             catch (Exception e) {
+                                System.out.println(e);
                                 Toast.makeText(getActivity().getApplicationContext(), "Error: Could not create account.", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -221,7 +226,6 @@ public class RegisterFragment extends Fragment {
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error: Incorrect email format.", Toast.LENGTH_LONG).show();
         }
-
         return success[0];
     }
 

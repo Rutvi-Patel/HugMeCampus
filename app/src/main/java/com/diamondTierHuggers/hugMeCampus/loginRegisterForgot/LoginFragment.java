@@ -1,6 +1,5 @@
 package com.diamondTierHuggers.hugMeCampus.loginRegisterForgot;
 
-import static com.diamondTierHuggers.hugMeCampus.main.AppUser.mq;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
 import android.app.ProgressDialog;
@@ -71,14 +70,14 @@ public class LoginFragment extends Fragment {
                         System.out.println("created HugMeUser for app user");
                         appUser.getAppUser().setUid("uid123");
                         // TODO move this to on click from navigation then start loading screen
-                        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-                            @Override
-                            public void onSuccess(String dataSnapshotValue) {
-                                System.out.println("finished loading mq");
-                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
+//                        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
+//                            @Override
+//                            public void onSuccess(String dataSnapshotValue) {
+//                                System.out.println("finished loading mq");
+                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
 
-                            }
-                        });
+//                            }
+//                        });
                     }
                 });
             }
@@ -140,24 +139,15 @@ public class LoginFragment extends Fragment {
                         inputEmail.setError("Verify your email");
                         mAuth.signOut();
                     } else {
-                        //TODO move to after logging in, queries for the app users data in db, needed for matchmaking and displaying users profile
                         FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
                         FirebaseAuth auth = FirebaseAuth.getInstance();
                         appUser.readData(database.getReference("users").child(auth.getUid()), new OnGetDataListener() {
                             @Override
                             public void onSuccess(String dataSnapshotValue) {
                                 System.out.println("created HugMeUser for app user");
-
-                                //TODO move this to on click from navigation then start loading screen
-//                                mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-//                                    @Override
-//                                    public void onSuccess(String dataSnapshotValue) {
-//                                        System.out.println("finished loading mq");
-//                                        Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
-                                        StoreToken();
-//                                    }
-//                                });
+                                Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
+                                StoreToken();
                             }
                         });
                         //task.getResult().getUser();

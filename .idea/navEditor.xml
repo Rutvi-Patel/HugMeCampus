@@ -263,13 +263,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="nav_load_mq">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="nav_matchmaking">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-12" />
-                            <option name="y" value="-129" />
+                            <option name="x" value="-353" />
+                            <option name="y" value="-103" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -118,16 +118,6 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 //        final String getProfilePic = mHugmeUser.getPictures().profile;
         binding.name.setText(getName);
 
-//        attaching adapter
-        chatRecyclerView = binding.recyclerView;
-        chatRecyclerView.setNestedScrollingEnabled(false);
-        chatRecyclerView.setHasFixedSize(false);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        linearLayoutManager.setStackFromEnd(true);
-        chatRecyclerView.setLayoutManager(linearLayoutManager);
-        chatAdapter = new ChatAdapter(chatKey, this);
-        chatRecyclerView.setAdapter(chatAdapter);
-        chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
 
         if (chatKey == null) {
             System.out.println("chatkey is null");
@@ -139,6 +129,18 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
         } else {
             chatRef = database.getReference().child("chat").child(chatKey);
         }
+
+//        attaching adapter
+        chatRecyclerView = binding.recyclerView;
+        chatRecyclerView.setNestedScrollingEnabled(false);
+        chatRecyclerView.setHasFixedSize(false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        linearLayoutManager.setStackFromEnd(true);
+        chatRecyclerView.setLayoutManager(linearLayoutManager);
+        chatAdapter = new ChatAdapter(chatKey, this);
+        chatRecyclerView.setAdapter(chatAdapter);
+        chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
+
 
 //        final String getProfilePic = mHugmeUser.getPictures().profile;
 
@@ -238,6 +240,8 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 //        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //        startActivity(intent);
 
+
+        //TODO if statement if location object or smth if has coords.
         NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_mapsFragment);
 
     }

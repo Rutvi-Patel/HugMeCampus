@@ -12,6 +12,16 @@
         tools:layout="@layout/fragment_match_making" />
 
     <fragment
+        android:id="@+id/nav_load_mq"
+        android:name="com.diamondTierHuggers.hugMeCampus.LoadMQFragment"
+        android:label="@string/menu_matchmaking"
+        tools:layout="@layout/fragment_load_m_q" >
+        <action
+            android:id="@+id/action_nav_load_mq_to_nav_matchmaking"
+            app:destination="@id/nav_matchmaking" />
+    </fragment>
+
+    <fragment
         android:id="@+id/editUserProfile"
         android:name="com.diamondTierHuggers.hugMeCampus.profiles.EditUserProfile"
         android:label="@string/menu_profile"
