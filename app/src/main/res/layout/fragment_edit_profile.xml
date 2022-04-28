@@ -35,7 +35,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_add_a_photo_24" />
+                android:src="@drawable/blank_profile_photo" />
 
             <ImageView
                 android:id="@+id/viewImage2"
@@ -45,7 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_add_a_photo_24" />
+                android:src="@drawable/blank_profile_photo" />
 
             <ImageView
                 android:id="@+id/viewImage3"
@@ -55,7 +55,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_add_a_photo_24" />
+                android:src="@drawable/blank_profile_photo" />
 
             <ImageView
                 android:id="@+id/viewImage4"
@@ -65,7 +65,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_add_a_photo_24" />
+                android:src="@drawable/blank_profile_photo" />
             <!--            <Button-->
             <!--                android:id="@+id/upload_Button"-->
             <!--                android:layout_width="346dp"-->

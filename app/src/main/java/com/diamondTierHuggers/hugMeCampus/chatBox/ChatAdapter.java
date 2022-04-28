@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +193,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             this.location_img = itemView.findViewById(R.id.location_image);
             this.locationView = itemView.findViewById(R.id.location_view);
             this.locationViewOpp = itemView.findViewById(R.id.location_view_opp);
-
 //            this.mylocationlay = itemView.findViewById(R.id.mylocationLayout);
 //            this.opplocationlay= itemView.findViewById(R.id.oppLocationLayout);
             this.onItemListener = onItemListener;

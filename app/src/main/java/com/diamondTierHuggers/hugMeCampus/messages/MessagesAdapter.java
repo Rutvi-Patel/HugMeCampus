@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,53 +116,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         mOnItemListener = onItemListener;
     }
 
-//    @Override
-//    public void onViewAttachedToWindow(ViewHolder holder) {
-//        database.getReference().child("messages").child(appUser.getAppUser().getUid()).addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                if (snapshot.exists()){
-//                    String uid = snapshot.getKey();
-////                            System.out.println(uid);
-//                    if (appUser.savedHugMeUsers.containsKey(uid)) {
-//                        addItem(appUser.savedHugMeUsers.get(uid));
-//                    }
-//                    else {
-//                        readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
-//                            @Override
-//                            public void onSuccess(String dataSnapshotValue) {
-//                                MessagesAdapter.super.notifyDataSetChanged();
-//                            }
-//                        });
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//        System.out.println(mValues);
-//    }
-
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(FragmentMessagesAdapterLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnItemListener);
@@ -172,6 +126,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         HugMeUser user = mValues.get(position);
         String stri = user.first_name + " " + user.last_name;
         holder.mProfileName.setText(stri);
+        Picasso.get().load(user.getPicture("picture1")).into(holder.mProfilePic);
 //        final String ProfilePic = user.getPictures().profile;
 
     }
@@ -185,7 +140,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         public TextView mProfileName, lastMessage;
         public HugMeUser mItem;
         public OnItemListener onItemListener;
-        ImageView mProfilePic;
+        public ImageView mProfilePic;
 //        private LinearLayout rootLayout;
 
         public ViewHolder(FragmentMessagesAdapterLayoutBinding binding, OnItemListener onItemListener) {

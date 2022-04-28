@@ -30,12 +30,19 @@ public class MatchMakingQueue {
                     for (DataSnapshot user : dataSnapshot.getChildren()) {
                         HugMeUser h = user.getValue(HugMeUser.class);
                         String hUid = user.getKey();
-                        if (!appUserUid.equals(hUid) && !appUser.getAppUser().rejected_list.containsKey(hUid) && !appUser.getAppUser().accepted_list.containsKey(hUid) && !appUser.getAppUser().blocked_list.containsKey(hUid)
-                                && !appUser.getAppUser().request_list.containsKey(hUid) && !appUser.getAppUser().pending_list.containsKey(hUid) && !h.rejected_list.containsKey(appUserUid) && !h.blocked_list.containsKey(appUserUid)) {
-                            h.setUid(hUid);
-                            h.calculateMatchScore(appUser.getAppUser().hug_preferences);
-                            mQueue.add(h);
-                            System.out.println("added " + h);
+                        try {
+                            if (!appUserUid.equals(hUid) && !appUser.getAppUser().rejected_list.containsKey(hUid) && !appUser.getAppUser().accepted_list.containsKey(hUid) && !appUser.getAppUser().blocked_list.containsKey(hUid)
+                                    && !appUser.getAppUser().request_list.containsKey(hUid) && !appUser.getAppUser().pending_list.containsKey(hUid) && !h.rejected_list.containsKey(appUserUid) && !h.blocked_list.containsKey(appUserUid)) {
+                                h.setUid(hUid);
+                                h.calculateMatchScore(appUser.getAppUser().hug_preferences);
+                                mQueue.add(h);
+                                System.out.println("added " + h);
+                            }
+                        }
+                        catch (Exception e) {
+                            System.out.println(e);
+                            System.out.println(appUserUid);
+                            System.out.println(hUid);
                         }
                     }
                 }

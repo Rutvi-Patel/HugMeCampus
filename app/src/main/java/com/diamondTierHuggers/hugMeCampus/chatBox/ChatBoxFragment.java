@@ -33,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -119,6 +120,10 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
         binding.name.setText(getName);
 
 
+        Picasso.get().load(mHugmeUser.getPicture("picture1")).into(binding.chatProfilePicture);
+
+
+
         if (chatKey == null) {
             System.out.println("chatkey is null");
             chatRef = database.getReference().child("chat").push();
@@ -146,7 +151,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
 //        ImageView backbtn = binding.backbtn;
         EditText messageEditText = binding.messageEditText;
-        ImageView profilePic = binding.profilePic;
+//        ImageView profilePic = binding.profilePic;
         Button sendBtn = binding.sendbtn;
         Button locationBtn = binding.locationbtn;
 
