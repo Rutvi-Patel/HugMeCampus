@@ -178,7 +178,7 @@ public class EditProfile extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("age", (String) parent.getItemAtPosition(position));
                 ageChoice = Integer.parseInt((String) editAge.getItemAtPosition(position));
-                System.out.println(ageChoice);
+//                System.out.println(ageChoice);
             }
 
             @Override

@@ -62,22 +62,11 @@ public class LoginFragment extends Fragment {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
-                FirebaseAuth auth = FirebaseAuth.getInstance();
                 appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
                     @Override
                     public void onSuccess(String dataSnapshotValue) {
-                        System.out.println("created HugMeUser for app user");
                         appUser.getAppUser().setUid("uid123");
-                        // TODO move this to on click from navigation then start loading screen
-//                        mq.readData(database.getReference("users").orderByChild("online").equalTo(true), new OnGetDataListener() {
-//                            @Override
-//                            public void onSuccess(String dataSnapshotValue) {
-//                                System.out.println("finished loading mq");
                         NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
-
-//                            }
-//                        });
                     }
                 });
             }
@@ -139,19 +128,15 @@ public class LoginFragment extends Fragment {
                         inputEmail.setError("Verify your email");
                         mAuth.signOut();
                     } else {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
                         FirebaseAuth auth = FirebaseAuth.getInstance();
                         appUser.readData(database.getReference("users").child(auth.getUid()), new OnGetDataListener() {
                             @Override
                             public void onSuccess(String dataSnapshotValue) {
-                                System.out.println("created HugMeUser for app user");
                                 Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                 NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
                                 StoreToken();
                             }
                         });
-                        //task.getResult().getUser();
-
                     }
 
                 } else {
@@ -181,8 +166,8 @@ public class LoginFragment extends Fragment {
 
                         // Get new FCM registration token
                         String token = task.getResult();
-                        System.out.println("TOKEN>>>>:" + token);
-                        System.out.println(appUser.getAppUser().getUid());
+//                        System.out.println("TOKEN>>>>:" + token);
+//                        System.out.println(appUser.getAppUser().getUid());
                         database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
                     }
                 });

@@ -49,7 +49,7 @@ public class MessagesFragment extends Fragment implements com.diamondTierHuggers
 
         messagesRecyclerView.setHasFixedSize(true);
         messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        System.out.println(appUser.getAppUser().getUid());
+//        System.out.println(appUser.getAppUser().getUid());
 
 //        Set<String> messagesLists = appUser.getAppUser().getFriend_list().keySet();
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());

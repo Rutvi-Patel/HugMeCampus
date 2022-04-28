@@ -22,7 +22,7 @@ public class MatchMakingQueue {
     private FirebaseDatabase database = FirebaseDatabase.getInstance("https://hugmecampus-dff8c-default-rtdb.firebaseio.com/");
 
     public void readData(Query ref, final OnGetDataListener listener) {
-        System.out.println(appUser.getAppUser());
+//        System.out.println(appUser.getAppUser());
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -36,7 +36,7 @@ public class MatchMakingQueue {
                                 h.setUid(hUid);
                                 h.calculateMatchScore(appUser.getAppUser().hug_preferences);
                                 mQueue.add(h);
-                                System.out.println("added " + h);
+//                                System.out.println("added " + h);
                             }
                         }
                         catch (Exception e) {

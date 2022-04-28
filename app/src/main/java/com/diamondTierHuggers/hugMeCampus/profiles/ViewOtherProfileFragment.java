@@ -123,7 +123,7 @@ public class ViewOtherProfileFragment extends Fragment {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        System.out.println(item.getNumericShortcut());
+//                        System.out.println(item.getNumericShortcut());
                         if (item.getNumericShortcut() == '0') {
                             // TODO notify other user to remove this user from any lists/messages
                             //block user

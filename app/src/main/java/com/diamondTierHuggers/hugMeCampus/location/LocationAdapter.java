@@ -87,7 +87,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     public LocationAdapter(OnItemListener onItemListener){
         setupLocations();
-        System.out.println(mValues);
+//        System.out.println(mValues);
         mOnItemListener = onItemListener;
     }
 

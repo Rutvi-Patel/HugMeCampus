@@ -98,8 +98,8 @@ public class RegisterFragment extends Fragment {
 
                         // Get new FCM registration token
                         String token = task.getResult();
-                        System.out.println("TOKEN>>>>:" + token);
-                        System.out.println(auth.getUid());
+//                        System.out.println("TOKEN>>>>:" + token);
+//                        System.out.println(auth.getUid());
                         database.getReference().child("users").child(auth.getUid()).child("token").setValue(token);
                     }
                 });

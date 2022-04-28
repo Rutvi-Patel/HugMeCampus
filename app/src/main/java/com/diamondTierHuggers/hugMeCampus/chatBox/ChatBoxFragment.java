@@ -94,8 +94,6 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
         if (getArguments() != null) {
             mHugmeUser = (HugMeUser) getArguments().getSerializable(ARG_PARAM1);
             chatKey = getArguments().getString("chatKey");
-//            locationData = (LocationData) getArguments().getSerializable("location");
-
         }
         meUser = appUser.getAppUser();
         getLocation();
@@ -115,7 +113,6 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
         // Inflate the layout for this fragment
         binding = FragmentChatBoxBinding.inflate(inflater, container, false);
         final String getName = mHugmeUser.getFirst_name() + " " + mHugmeUser.getLast_name();
-//        final String getProfilePic = mHugmeUser.getPictures().profile;
         binding.name.setText(getName);
 
 
@@ -124,7 +121,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
 
         if (chatKey == null) {
-            System.out.println("chatkey is null");
+//            System.out.println("chatkey is null");
             chatRef = database.getReference().child("chat").push();
             chatKey = chatRef.getRef().toString().split("/")[4];
             DatabaseReference messageRef = database.getReference().child("messages");
@@ -144,19 +141,10 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
         chatAdapter = new ChatAdapter(chatKey, this);
         chatRecyclerView.setAdapter(chatAdapter);
         chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
-
-
-//        final String getProfilePic = mHugmeUser.getPictures().profile;
-
-//        ImageView backbtn = binding.backbtn;
         EditText messageEditText = binding.messageEditText;
-//        ImageView profilePic = binding.profilePic;
         Button sendBtn = binding.sendbtn;
         Button locationBtn = binding.locationbtn;
-
         binding.name.setText(getName);
-//        Picasso.get().load(getProfilePic).into(profilePic);
-
 
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +166,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd hh:mm aa");
                 Date resultdate = new Date(yourmilliseconds);
                 String currentTimeStamp = sdf.format(resultdate);
-                System.out.println(currentTimeStamp);
+//                System.out.println(currentTimeStamp);
 
                 final String getmyName = meUser.getFirst_name() + " " + meUser.getLast_name();
 
@@ -214,7 +202,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
     private void sendMessages(ChatItem cl) {
 //        ChatList cl = new ChatList(sender, receiver, time, data);
-        System.out.println(chatRef);
+//        System.out.println(chatRef);
         chatRef.child(String.valueOf(System.currentTimeMillis()).substring(0, 10)).setValue(cl);
     }
 
@@ -223,7 +211,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    System.out.println(snapshot.getValue().toString());
+//                    System.out.println(snapshot.getValue().toString());
                     messageID = snapshot.getValue().toString();
                     listener.onSuccess("");
                 }

@@ -39,7 +39,7 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             messageID = savedInstanceState.getString("messageID");
-            System.out.println(messageID);
+//            System.out.println(messageID);
         }
     }
 
@@ -54,7 +54,7 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
         locationRecyclerView = binding.locationRecyclerView;
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        System.out.println(appUser.getAppUser().getUid());
+//        System.out.println(appUser.getAppUser().getUid());
         adapter = new LocationAdapter(this);
         locationRecyclerView.setAdapter(adapter);
         return binding.getRoot();

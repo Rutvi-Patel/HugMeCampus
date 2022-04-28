@@ -120,7 +120,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ChatItem list2 = chatItems.get(position);
-        System.out.println(list2.toString());
+//        System.out.println(list2.toString());
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
             holder.oppoMsg.setVisibility(View.GONE);
             if (list2.lat != null){

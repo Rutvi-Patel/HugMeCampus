@@ -197,7 +197,7 @@ public class MapsFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println(routes);
+//            System.out.println(routes);
             return routes;
         }
 

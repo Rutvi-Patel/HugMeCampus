@@ -53,7 +53,7 @@ public class ListHugRatingFragment extends Fragment  {
             mMyListItemRecyclerViewAdapter = new HugRatingRecyclerViewAdapter(uid);
             recyclerView.setAdapter(mMyListItemRecyclerViewAdapter);
 
-            System.out.println("Attaching ADAPTER!");
+//            System.out.println("Attaching ADAPTER!");
         }
         return view;
     }
