@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_load_mq"
-        android:name="com.diamondTierHuggers.hugMeCampus.LoadMQFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.LoadMQFragment"
         android:label="@string/menu_matchmaking"
         tools:layout="@layout/fragment_load_m_q" >
         <action
@@ -112,7 +112,7 @@
         tools:layout="@layout/fragment_view_hugrating" />
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.diamondTierHuggers.hugMeCampus.MapsFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.directions.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
 

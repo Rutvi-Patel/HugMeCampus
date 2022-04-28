@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.directions;
 
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lat;
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lng;

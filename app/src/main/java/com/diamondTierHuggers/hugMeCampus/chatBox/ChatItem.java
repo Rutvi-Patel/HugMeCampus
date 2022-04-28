@@ -1,10 +1,12 @@
 package com.diamondTierHuggers.hugMeCampus.chatBox;
 
+import android.net.Uri;
+
 public class ChatItem {
     public String sender;
     public String data;
-    public String coord;
-    public String img;
+    public Double lat, lng;
+    public String image;
     public String name;
 
     public ChatItem(){
@@ -15,10 +17,11 @@ public class ChatItem {
         this.sender = sender;
         this.data = data;
     }
-    public ChatItem(String coord, String img, String name, String sender) {
+    public ChatItem(Double lat, Double lng, String img, String name, String sender) {
         this.sender = sender;
-        this.coord = coord;
-        this.img = img;
+        this.lat = lat;
+        this.lng = lng;
+        this.image = img;
         this.name = name;
     }
 
@@ -26,24 +29,48 @@ public class ChatItem {
         return sender;
     }
 
-    public String getData() {
-        return data;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public String getName() {
-        return name;
+    public String getData() {
+        return data;
     }
 
     public void setData(String data) {
         this.data = data;
     }
 
-    public String getCoord() {
-        return coord;
+    public Double getLat() {
+        return lat;
     }
 
-    public String getImg() {
-        return img;
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -51,6 +78,10 @@ public class ChatItem {
         return "ChatItem{" +
                 "sender='" + sender + '\'' +
                 ", data='" + data + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                ", image=" + image +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

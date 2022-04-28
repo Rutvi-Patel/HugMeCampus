@@ -1,9 +1,7 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.matchmaking;
 
-import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,20 +13,9 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.MediaController;
 
-import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
-import com.diamondTierHuggers.hugMeCampus.entity.HugMeUserComparator;
-import com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment;
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
-import com.diamondTierHuggers.hugMeCampus.matchmaking.MatchMakingQueue;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.PriorityQueue;
 
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;

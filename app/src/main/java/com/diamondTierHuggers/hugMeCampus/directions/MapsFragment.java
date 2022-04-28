@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.directions;
 
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lat;
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lng;
@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.diamondTierHuggers.hugMeCampus.BuildConfig;
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,7 +31,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
@@ -47,9 +48,24 @@ import java.util.List;
 
 public class MapsFragment extends Fragment {
     LatLng dest = new LatLng(30.705493, 76.801256);
+    Double destLat, destLng;
     LatLng csulb = new LatLng(33.77490865020179, -118.12386059997482);
     ProgressDialog progressDialog;
     GoogleMap mGoogleMap;
+
+    private static final String ARG_PARAM1 = "lat";
+    private static final String ARG_PARAM2 = "lng";
+
+    public static MapsFragment newInstance(Double param1, Double param2) {
+        MapsFragment fragment = new MapsFragment();
+        Bundle args = new Bundle();
+        args.putDouble(ARG_PARAM1, param1);
+        args.putDouble(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -68,7 +84,7 @@ public class MapsFragment extends Fragment {
 
             mGoogleMap.addGroundOverlay(new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory.fromResource(R.drawable.csulbmap)).anchor(0, 1)
-                    .position(csulb, 1500f, 1550f));
+                    .position(csulb, 1475f, 1550f));
 
             //Initialize Google Play Services
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -81,7 +97,7 @@ public class MapsFragment extends Fragment {
                 mGoogleMap.setMyLocationEnabled(true);
             }
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(lat, lng))      // Sets the center of the map to Mountain View
+                    .target(new LatLng(lat, lng))
                     .zoom(17)                   // Sets the zoom
                     .build();                   // Creates a CameraPosition from the builder
             mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -89,6 +105,15 @@ public class MapsFragment extends Fragment {
         }
 
     };
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            destLat = getArguments().getDouble(ARG_PARAM1);
+            destLng = getArguments().getDouble(ARG_PARAM2);
+        }
+    }
 
     @Nullable
     @Override
@@ -118,7 +143,7 @@ public class MapsFragment extends Fragment {
 
         // Checks, whether start and end locations are captured
         // Getting URL to the Google Directions API
-        String url = getDirectionsUrl(dest);
+        String url = getDirectionsUrl();
         DownloadTask downloadTask = new DownloadTask();
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
@@ -212,8 +237,8 @@ public class MapsFragment extends Fragment {
         }
     }
 
-    private String getDirectionsUrl(LatLng dest) {
-        String url = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=" + BuildConfig.OPEN_ROUTE_SERVICE_KEY + "&start=" + Double.toString(lng) + "," + Double.toString(lat) + "&end=-118.11235321060803,33.781350858495934";
+    private String getDirectionsUrl() {
+        String url = "https://api.openrouteservice.org/v2/directions/foot-walking?api_key=" + BuildConfig.OPEN_ROUTE_SERVICE_KEY + "&start=" + Double.toString(lng) + "," + Double.toString(lat) + "&end=" + destLng + "," + destLat;
         return url;
     }
 

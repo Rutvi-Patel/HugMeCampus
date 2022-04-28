@@ -64,18 +64,18 @@ public class LocationFragment extends Fragment implements com.diamondTierHuggers
     public void onItemClick(int position) {
 
         String currentTime = String.valueOf(System.currentTimeMillis()).substring(0, 10);
-        System.out.println(messageID);
-        System.out.println(currentTime);
-        System.out.println(adapter.getItem(position).getClass());
-        System.out.println(adapter.getItem(position));
+//        System.out.println(messageID);
+//        System.out.println(currentTime);
+//        System.out.println(adapter.getItem(position).getClass());
+//        System.out.println(adapter.getItem(position));
 
-        HashMap<String, String> ld = new HashMap<>();
-        ld.put("sender",adapter.getItem(position).sender);
-        ld.put("name",adapter.getItem(position).name);
-        ld.put("coord",adapter.getItem(position).coord);
-        ld.put("img",adapter.getItem(position).image);
-        System.out.println(ld);
-        database.getReference().child("chat").child(messageID).child(currentTime).setValue(ld);
+//        HashMap<String, String> ld = new HashMap<>();
+//        ld.put("sender",adapter.getItem(position).sender);
+//        ld.put("name",adapter.getItem(position).name);
+//        ld.put("coord",adapter.getItem(position).coord);
+//        ld.put("img", adapter.getItem(position).image);
+//        System.out.println(ld);
+        database.getReference().child("chat").child(messageID).child(currentTime).setValue(adapter.getItem(position));
         getParentFragment().getView().findViewById(R.id.locationFragment).setVisibility(View.GONE);
 
 

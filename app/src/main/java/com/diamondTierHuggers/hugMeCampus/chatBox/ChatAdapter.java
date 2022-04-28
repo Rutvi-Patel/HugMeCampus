@@ -3,6 +3,7 @@ package com.diamondTierHuggers.hugMeCampus.chatBox;
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,49 +120,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ChatItem list2 = chatItems.get(position);
+        System.out.println(list2.toString());
         if (list2.getSender().equals(appUser.getAppUser().getUid())){
             holder.oppoMsg.setVisibility(View.GONE);
-            if (list2.coord != null){
+            if (list2.lat != null){
                 holder.locationViewOpp.setVisibility(View.GONE);
-//                holder.oppoLayout.setVisibility((View.GONE));
-//                holder.myLayout.setVisibility(View.GONE);
                 holder.myMsg.setText(list2.getName());
-                String link = "http://www.google.com/maps/place/"+list2.getCoord();
-//                holder.location_text.setText(list2.getName());
-//                holder.link.setText(link);
-//                holder.mylocationlay.setVisibility(View.VISIBLE);
-
+                holder.location_img.setImageURI(Uri.parse(list2.getImage()));
             }else {
                 holder.locationViewOpp.setVisibility(View.GONE);
                 holder.locationView.setVisibility(View.GONE);
-//                holder.oppoLayout.setVisibility((View.GONE));
-
-//                holder.myLayout.setVisibility(View.VISIBLE);
                 holder.myMsg.setText(list2.getData());
             }
         }
         else{
             holder.myMsg.setVisibility(View.GONE);
-            if (list2.coord != null){
+            if (list2.lat != null){
                 holder.locationView.setVisibility(View.GONE);
-//                holder.oppoLayout.setVisibility((View.GONE));
-//                holder.myLayout.setVisibility(View.GONE);
                 holder.oppoMsg.setText(list2.getName());
-                String link = "http://www.google.com/maps/place/"+list2.getCoord();
-//                holder.location_text.setText(list2.getName());
-//                holder.link.setText(link);
-//                holder.opplocationlay.setVisibility(View.VISIBLE);
+                holder.location_img_oppo.setImageURI(Uri.parse(list2.getImage()));
             }
             else {
                 holder.locationViewOpp.setVisibility(View.GONE);
                 holder.locationView.setVisibility(View.GONE);
-//                holder.myLayout.setVisibility(View.GONE);
-
-//                holder.oppoLayout.setVisibility(View.VISIBLE);
                 holder.oppoMsg.setText(list2.getData());
             }
         }
-//        holder.lastMessage.setText(list2.getData());
     }
 
     @Override
@@ -177,7 +161,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private LinearLayout oppoLayout, myLayout, mylocationlay, opplocationlay;
         private TextView oppoMsg, myMsg, lastMessage, location_text, link;
-        private ImageView location_img;
+        private ImageView location_img, location_img_oppo;
         private CardView locationView, locationViewOpp;
         public OnItemListener onItemListener;
 
@@ -191,6 +175,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             this.location_text = itemView.findViewById(R.id.location_textView);
             this.link = itemView.findViewById(R.id.link);
             this.location_img = itemView.findViewById(R.id.location_image);
+            this.location_img_oppo = itemView.findViewById(R.id.location_image_opp);
             this.locationView = itemView.findViewById(R.id.location_view);
             this.locationViewOpp = itemView.findViewById(R.id.location_view_opp);
 //            this.mylocationlay = itemView.findViewById(R.id.mylocationLayout);

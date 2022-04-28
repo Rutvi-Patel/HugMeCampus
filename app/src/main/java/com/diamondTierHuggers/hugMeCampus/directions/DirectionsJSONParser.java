@@ -1,4 +1,4 @@
-package com.diamondTierHuggers.hugMeCampus;
+package com.diamondTierHuggers.hugMeCampus.directions;
 
 import org.json.JSONArray;
 import org.json.JSONException;

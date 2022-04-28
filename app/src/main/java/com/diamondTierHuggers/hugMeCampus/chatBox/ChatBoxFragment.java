@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,9 +21,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.diamondTierHuggers.hugMeCampus.GpsTracker;
-import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
+import com.diamondTierHuggers.hugMeCampus.directions.GpsTracker;
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.location.LocationFragment;
 import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
@@ -240,15 +239,13 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
     @Override
     public void onItemClick(int position) {
-
-//        Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
-//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//        startActivity(intent);
-
-
-        //TODO if statement if location object or smth if has coords.
-        NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_mapsFragment);
-
+        if (chatAdapter.getChatItems().get(position).getLat() != null) {
+            Bundle bundle = new Bundle();
+            bundle.putDouble("lat", chatAdapter.getChatItems().get(position).getLat());
+            bundle.putDouble("lng", chatAdapter.getChatItems().get(position).getLng());
+            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_chatBoxFragment_to_mapsFragment, bundle);
+//            NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_mapsFragment);
+        }
     }
 
     public void getLocation(){
