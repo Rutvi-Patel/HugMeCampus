@@ -32,6 +32,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     private List<HugMeUser> mValues = new ArrayList<>();
     private OnItemListener mOnItemListener;
     private int position = 0;
+    public String chatID;
+    public String lastMessage;
 
     public HugMeUser getItem(int i) {
         return mValues.get(i);
@@ -51,6 +53,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                         HugMeUser h = user.getValue(HugMeUser.class);
                         h.setUid(uid);
                         appUser.savedHugMeUsers.put(uid, h);
+                        h.setLastMessage(lastMessage);
                         addItem(h);
                     }
                 }
@@ -73,19 +76,78 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     if (snapshot.exists()){
                             String uid = snapshot.getKey();
-//                            System.out.println(uid);
-                            if (appUser.savedHugMeUsers.containsKey(uid)) {
-                                addItem(appUser.savedHugMeUsers.get(uid));
-                                MessagesAdapter.super.notifyDataSetChanged();
-                            }
-                            else {
-                                readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
-                                    @Override
-                                    public void onSuccess(String dataSnapshotValue) {
-                                        MessagesAdapter.super.notifyDataSetChanged();
+                            chatID = (String) snapshot.getValue();
+//                            mlastMessage(chatID);
+                        database.getReference().child("chat").child(chatID).limitToLast(1).addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                System.out.println("test6"+snapshot);
+                                for (DataSnapshot val: snapshot.getChildren()){
+                                    System.out.println("test8"+val);
+                                    if (val.getKey().equals("data")){
+                                        lastMessage = (String) snapshot.child("data").getValue();
+                                    }else{
+                                        lastMessage = (String) snapshot.child("name").getValue();
+
                                     }
-                                });
+                                    break;
+                                }
+
+                                if (appUser.savedHugMeUsers.containsKey(uid)) {
+                                    System.out.println("Test10"+lastMessage);
+                                    appUser.savedHugMeUsers.get(uid).setLastMessage(lastMessage);
+                                    addItem(appUser.savedHugMeUsers.get(uid));
+                                    MessagesAdapter.super.notifyDataSetChanged();
+                                }
+                                else {
+                                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
+                                        @Override
+                                        public void onSuccess(String dataSnapshotValue) {
+                                            MessagesAdapter.super.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
                             }
+
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        System.out.println("test7"+lastMessage);
+
+
+
+//                            System.out.println(uid);
+//                            if (appUser.savedHugMeUsers.containsKey(uid)) {
+//                                System.out.println("Test10"+lastMessage);
+//                                appUser.savedHugMeUsers.get(uid).setLastMessage(lastMessage);
+//                                addItem(appUser.savedHugMeUsers.get(uid));
+//                                MessagesAdapter.super.notifyDataSetChanged();
+//                            }
+//                            else {
+//                                readData(database.getReference("users").orderByKey().equalTo(uid), uid, 0, new OnGetDataListener() {
+//                                    @Override
+//                                    public void onSuccess(String dataSnapshotValue) {
+//                                        MessagesAdapter.super.notifyDataSetChanged();
+//                                    }
+//                                });
+//                            }
                     }
 
                 }
@@ -127,8 +189,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         String stri = user.first_name + " " + user.last_name;
         holder.mProfileName.setText(stri);
         Picasso.get().load(user.getPicture("picture1")).into(holder.mProfilePic);
-//        final String ProfilePic = user.getPictures().profile;
-
+        holder.lastMessage.setText(user.getLastMessage());
     }
 
     @Override
@@ -162,6 +223,33 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     public interface OnItemListener {
         void onItemClick(int position);
+    }
+
+    public void mlastMessage(String chatID){
+//        database.getReference().child("chat").child(chatID).limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()){
+//                    for (DataSnapshot val: snapshot.getChildren()){
+//                        for (DataSnapshot dat: val.getChildren()){
+//                            if (dat.getKey().equals("data")){
+//                                lastMessage = (String) val.child("data").getValue();
+//                            }else{
+//                                lastMessage = (String) val.child("name").getValue();
+//
+//                            }
+//                            break;
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
 }
