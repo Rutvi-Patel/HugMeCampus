@@ -2,7 +2,6 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -31,6 +30,7 @@ public class HugMeUser implements Serializable {
     public HashMap<String, Boolean> request_list;
     public HashMap<String, Boolean> pending_list;
     public HashMap<String, String> message_list;
+    public String lastMessage;
 
     private int matchScore = 0;
 
@@ -226,6 +226,14 @@ public class HugMeUser implements Serializable {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 
     public HashMap<String, Boolean> getRejected_list() {
