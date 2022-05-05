@@ -87,11 +87,35 @@ public class ViewOtherProfileFragment extends Fragment {
         });
     }
 
+    private static boolean isFABOpen = false;
+    private void showFABMenu(FloatingActionButton fab1, FloatingActionButton fab2){
+        isFABOpen=true;
+        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_1));
+        fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_2));
+    }
+
+    private void closeFABMenu(FloatingActionButton fab1, FloatingActionButton fab2){
+        isFABOpen=false;
+        fab1.animate().translationY(0);
+        fab2.animate().translationY(0);
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FloatingActionButton button = getView().findViewById(R.id.userButton);
         FloatingActionButton messageButton = getView().findViewById(R.id.messageButton);
-
+        FloatingActionButton rateUserButton = getView().findViewById(R.id.rateUserButton);
+        FloatingActionButton fab = getView().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isFABOpen){
+                    showFABMenu(rateUserButton, button);
+                }else{
+                    closeFABMenu(rateUserButton, button);
+                }
+            }
+        });
         if (mHugMeUser.getFriendRequestPending() >= 1) {
             messageButton.setVisibility(View.GONE);
         }
@@ -110,6 +134,16 @@ public class ViewOtherProfileFragment extends Fragment {
             }
         });
 
+        rateUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("hugMeUser", mHugMeUser);
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_hugratings, bundle);
+
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,9 +154,11 @@ public class ViewOtherProfileFragment extends Fragment {
                     popupMenu.getMenu().findItem(R.id.add_friend).setVisible(false);
                 }
 
+
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
 //                        System.out.println(item.getNumericShortcut());
                         if (item.getNumericShortcut() == '0') {
                             // TODO notify other user to remove this user from any lists/messages
@@ -162,6 +198,8 @@ public class ViewOtherProfileFragment extends Fragment {
                     }
                 });
                 popupMenu.show();
+
+
             }
         });
     }

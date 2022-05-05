@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingDataCallback;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingModel;
+import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
 
 import java.util.ArrayList;
@@ -36,9 +38,9 @@ public class HugRatings extends Fragment {
     private Button submitButton;
     private RatingBar ratingBar;
     private EditText textBox;
+    private TextView usertxt;
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private HugMeUser mHugMeUser;
 
     public HugRatings() {
         // Required empty public constructor
@@ -66,8 +68,7 @@ public class HugRatings extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mHugMeUser = (HugMeUser) getArguments().getSerializable("hugMeUser");
         }
     }
 
@@ -85,6 +86,9 @@ public class HugRatings extends Fragment {
         submitButton = (Button) view.findViewById(R.id.btnSubmit);
         ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
         textBox = (EditText) view.findViewById(R.id.RatingNotes);
+        usertxt = (TextView) view.findViewById(R.id.textview_User);
+
+        usertxt.setText(mHugMeUser.first_name);
 
         this.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +121,7 @@ public class HugRatings extends Fragment {
                     HugRating newRating = new HugRating();
                     newRating.stars = (int) ratingBar.getRating();
                     newRating.reviewer = appUser.getAppUser().first_name + " " + appUser.getAppUser().last_name;
-                    newRating.reviewee = "uid192";
+                    newRating.reviewee = mHugMeUser.getUid();
                     newRating.desc = textBox.getText().toString();
 
                     HugRatingModel.addHugRating(newRating);

@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_nav_other_profile_to_viewhugs"
             app:destination="@id/viewhugs" />
+        <action
+            android:id="@+id/action_nav_other_profile_to_hugratings"
+            app:destination="@id/hugratings" />
     </fragment>
 
     <fragment
