@@ -1,5 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus.main;
 
+import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lat;
 import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lng;
 
@@ -8,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,6 +26,7 @@ import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.ActivityMainBinding;
 import com.diamondTierHuggers.hugMeCampus.options.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
 //        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        ImageView imageview = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        Picasso.get().load(appUser.getAppUser().getPicture("picture1")).into(imageview);
+        TextView textv = navigationView.getHeaderView(0).findViewById(R.id.textView);
+        textv.setText(appUser.getAppUser().email.split("@")[0]);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
@@ -81,6 +82,11 @@ public class MapsFragment extends Fragment {
             mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
             mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
             mGoogleMap.getUiSettings().setCompassEnabled(true);
+
+            LatLng destination = new LatLng(destLat, destLng);
+            mGoogleMap.addMarker(new MarkerOptions()
+                .position(destination)
+            );
 
             mGoogleMap.addGroundOverlay(new GroundOverlayOptions()
                     .image(BitmapDescriptorFactory.fromResource(R.drawable.csulbmap)).anchor(0, 1)

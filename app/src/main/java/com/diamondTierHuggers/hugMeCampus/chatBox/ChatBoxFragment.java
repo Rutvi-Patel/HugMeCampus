@@ -227,13 +227,13 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
 
     @Override
     public void onItemClick(int position) {
-        if (chatAdapter.getChatItems().get(position).getLat() != null) {
-            Bundle bundle = new Bundle();
-            bundle.putDouble("lat", chatAdapter.getChatItems().get(position).getLat());
-            bundle.putDouble("lng", chatAdapter.getChatItems().get(position).getLng());
-            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_chatBoxFragment_to_mapsFragment, bundle);
+//        if (chatAdapter.getChatItems().get(position).getLat() != null) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lat", chatAdapter.getChatItems().get(position).getLat());
+        bundle.putDouble("lng", chatAdapter.getChatItems().get(position).getLng());
+        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_chatBoxFragment_to_mapsFragment, bundle);
 //            NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_mapsFragment);
-        }
+//        }
     }
 
     public void getLocation(){

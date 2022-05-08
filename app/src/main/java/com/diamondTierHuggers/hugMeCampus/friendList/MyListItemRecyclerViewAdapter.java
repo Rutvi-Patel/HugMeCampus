@@ -11,14 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
+import com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter;
+import com.diamondTierHuggers.hugMeCampus.chatBox.ChatItem;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentItemBinding;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -84,21 +88,63 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
                     });
                 }
             }
+
+            database.getReference("users").child(appUser.getAppUser().getUid()).child("friend_list").orderByKey().addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    System.out.println(snapshot.getKey());
+                    String uid = snapshot.getKey();
+                    if (!appUser.getAppUser().friend_list.containsKey(uid)) {
+                        if (appUser.savedHugMeUsers.containsKey(uid)) {
+                            appUser.getAppUser().friend_list.put(uid, true);
+                            addItem(appUser.savedHugMeUsers.get(uid));
+                        } else if (!uid.equals("DO_NOT_DELETE")) {
+                            appUser.getAppUser().friend_list.put(uid, true);
+                            readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
+                                @Override
+                                public void onSuccess(String dataSnapshotValue) {
+                                    MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
         else {
-            for (String uid : appUser.getAppUser().request_list.keySet()) {
-                if (appUser.savedHugMeUsers.containsKey(uid)) {
-                    addItem(appUser.savedHugMeUsers.get(uid));
-                }
-                else {
-                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
-                        @Override
-                        public void onSuccess(String dataSnapshotValue) {
-                            MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }
+//            for (String uid : appUser.getAppUser().request_list.keySet()) {
+//                if (appUser.savedHugMeUsers.containsKey(uid)) {
+//                    addItem(appUser.savedHugMeUsers.get(uid));
+//                }
+//                else {
+//                    readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
+//                        @Override
+//                        public void onSuccess(String dataSnapshotValue) {
+//                            MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+//                        }
+//                    });
+//                }
+//            }
             for (String uid : appUser.getAppUser().pending_list.keySet()) {
                 if (appUser.savedHugMeUsers.containsKey(uid)) {
                     addItem(appUser.savedHugMeUsers.get(uid));
@@ -112,6 +158,51 @@ public class MyListItemRecyclerViewAdapter extends RecyclerView.Adapter<MyListIt
                     });
                 }
             }
+
+            database.getReference("users").child(appUser.getAppUser().getUid()).child("request_list").orderByKey().addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    ChatItem c = snapshot.getValue(ChatItem.class);
+//                    chatItems.add(c);
+//                    ChatAdapter.super.notifyDataSetChanged();
+                    String uid = snapshot.getKey();
+                    if (appUser.savedHugMeUsers.containsKey(uid)) {
+                        appUser.getAppUser().request_list.put(uid, true);
+                        addItem(appUser.savedHugMeUsers.get(uid));
+                    }
+                    else if (!uid.equals("DO_NOT_DELETE")) {
+                        appUser.getAppUser().request_list.put(uid, true);
+                        readData(database.getReference("users").orderByKey().equalTo(uid), uid, new OnGetDataListener() {
+                            @Override
+                            public void onSuccess(String dataSnapshotValue) {
+                                MyListItemRecyclerViewAdapter.super.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
         }
         mOnItemListener = onItemListener;
     }

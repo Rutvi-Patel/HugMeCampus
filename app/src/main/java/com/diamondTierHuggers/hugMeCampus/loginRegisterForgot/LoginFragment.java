@@ -149,6 +149,7 @@ public class LoginFragment extends Fragment {
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "" + task.getException(), Toast.LENGTH_SHORT).show();
                     }
+                    System.out.println(task.getException());
                 }
             }
         });

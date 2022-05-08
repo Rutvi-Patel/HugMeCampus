@@ -69,6 +69,8 @@ public class ListFriendRequestFragment extends Fragment implements MyListItemRec
         return view;
     }
 
+
+
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
