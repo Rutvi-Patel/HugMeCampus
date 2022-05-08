@@ -11,7 +11,6 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#23000000"
         app:layout_constraintTop_toTopOf="@+id/scrollView2"
         tools:ignore="UnknownId" />
 
@@ -35,12 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
-                android:fontFamily="casual"
                 android:text="Register"
                 android:textColor="@color/black"
                 android:textColorHint="@color/white"
                 android:textSize="44sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,10 +51,10 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/input_bg"
                 android:drawableStart="@drawable/ic_baseline_email_24"
-                android:drawablePadding="10dp"
+                android:drawablePadding="15dp"
                 android:ems="10"
-                android:fontFamily="casual"
                 android:hint="Email"
+                android:textSize="20dp"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:textColorHint="@color/black"
@@ -76,10 +73,10 @@
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/input_bg"
                 android:drawableLeft="@drawable/ic_baseline_security_24"
-                android:drawablePadding="10dp"
+                android:drawablePadding="15dp"
                 android:ems="10"
-                android:fontFamily="casual"
                 android:hint="Password"
+                android:textSize="20dp"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
                 android:textColorHint="@color/black"
@@ -96,10 +93,9 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg"
                 android:ems="10"
-                android:fontFamily="casual"
                 android:hint="First name"
                 android:inputType="textPersonName"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
                 app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
                 app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
@@ -111,16 +107,16 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg"
                 android:ems="10"
-                android:fontFamily="casual"
                 android:hint="Last name"
                 android:inputType="textPersonName"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/textViewFirstName"
                 app:layout_constraintStart_toStartOf="@+id/textViewFirstName"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFirstName" />
 
             <RadioGroup
                 android:id="@+id/radioGroup2"
+                android:textSize="20dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -137,17 +133,21 @@
                     android:id="@+id/radioFemale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FFEB3B"
                     android:text="Female" />
 
                 <RadioButton
                     android:id="@+id/radioMale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#8BC34A"
-                    android:backgroundTint="#8BC34A"
                     android:text="Male" />
+
+                <RadioButton
+                    android:id="@+id/radioNonbinary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nonbinary" />
             </RadioGroup>
+
 
             <Button
                 android:id="@+id/btnSignup"
@@ -156,10 +156,8 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/input_bg"
                 android:backgroundTint="#97FFEB3B"
-                android:fontFamily="casual"
                 android:text="Signup"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
@@ -170,11 +168,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="casual"
                 android:text="Already have an account?"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/btnSignup"
                 app:layout_constraintStart_toStartOf="@+id/btnSignup"
                 app:layout_constraintTop_toBottomOf="@+id/btnSignup" />

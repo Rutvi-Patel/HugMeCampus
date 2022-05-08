@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -143,7 +144,7 @@ public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.
         chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
         EditText messageEditText = binding.messageEditText;
         Button sendBtn = binding.sendbtn;
-        Button locationBtn = binding.locationbtn;
+        ImageButton locationBtn = binding.locationbtn;
         binding.name.setText(getName);
 
         locationBtn.setOnClickListener(new View.OnClickListener() {

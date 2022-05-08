@@ -1,6 +1,5 @@
 package com.diamondTierHuggers.hugMeCampus.loginRegisterForgot;
 
-import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.myRef;
 
@@ -24,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +36,7 @@ public class RegisterFragment extends Fragment {
     EditText pwdInput;
     Button sendDBButton;
     TextView login;
-    Integer gender;
+    int gender;
 
     private View view;
     @Override
@@ -107,11 +105,11 @@ public class RegisterFragment extends Fragment {
     }
 
 
-    private void setBioValues(String email, String firstName, String lastName, Integer Gender){
+    private void setBioValues(String email, String firstName, String lastName){
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
         StoreToken();
-        myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
+        myRef.child("users").child(auth.getUid()).child("gender").setValue(gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
         myRef.child("users").child(auth.getUid()).child("total_rating").setValue(0);
         myRef.child("users").child(auth.getUid()).child("num_reviews").setValue(0);
@@ -191,11 +189,14 @@ public class RegisterFragment extends Fragment {
                                 sendEmailVerification();
                             if (binding.radioFemale.isSelected()){
                                 gender = 1;
-                            }else{
+                            }else if (binding.radioMale.isSelected()){
                                 gender = 0;
                             }
+                            else {
+                                gender = 2;
+                            }
 
-                            setBioValues(binding.editTextTextEmailAddress.getText().toString(), binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender);
+                            setBioValues(binding.editTextTextEmailAddress.getText().toString(), binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString());
                             NavHostFragment.findNavController(RegisterFragment.this)
                                     .navigate(R.id.loginFragment);
                         } else {

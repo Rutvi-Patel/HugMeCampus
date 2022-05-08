@@ -9,17 +9,16 @@
         android:id="@+id/nav_matchmaking"
         android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.MatchMakingFragment"
         android:label="@string/menu_matchmaking"
-        tools:layout="@layout/fragment_match_making" />
-
-    <fragment
-        android:id="@+id/nav_load_mq"
-        android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.LoadMQFragment"
-        android:label="@string/menu_matchmaking"
-        tools:layout="@layout/fragment_load_m_q" >
-        <action
-            android:id="@+id/action_nav_load_mq_to_nav_matchmaking"
-            app:destination="@id/nav_matchmaking" />
-    </fragment>
+        tools:layout="@layout/fragment_match_making"/>
+<!--    <fragment-->
+<!--        android:id="@+id/nav_load_mq"-->
+<!--        android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.LoadMQFragment"-->
+<!--        android:label="@string/menu_matchmaking"-->
+<!--        tools:layout="@layout/fragment_load_m_q" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_nav_load_mq_to_nav_matchmaking"-->
+<!--            app:destination="@id/nav_matchmaking" />-->
+<!--    </fragment>-->
 
     <fragment
         android:id="@+id/editUserProfile"

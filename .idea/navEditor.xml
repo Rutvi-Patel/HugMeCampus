@@ -108,6 +108,11 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="action_nav_load_mq_to_nav_matchmaking">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                   <entry key="chatBoxFragment">
                     <value>
                       <LayoutPositions>
@@ -272,6 +277,15 @@
                             <option name="y" value="12" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_nav_load_mq_to_nav_matchmaking">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -299,6 +313,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_nav_other_profile_to_chatBoxFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nav_other_profile_to_hugratings">
                               <value>
                                 <LayoutPositions />
                               </value>
