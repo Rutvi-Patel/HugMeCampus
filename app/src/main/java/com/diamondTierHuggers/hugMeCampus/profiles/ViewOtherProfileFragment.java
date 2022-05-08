@@ -44,6 +44,8 @@ public class ViewOtherProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "hugMeUser";
     private HugMeUser mHugMeUser;
 
+    private DisplayUserProfile displayUserProfile;
+
     public ViewOtherProfileFragment() {
         // Required empty public constructor
     }
@@ -139,6 +141,7 @@ public class ViewOtherProfileFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hugMeUser", mHugMeUser);
+                bundle.putSerializable("userprofile", displayUserProfile);
                 NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_hugratings, bundle);
 
             }
@@ -211,7 +214,8 @@ public class ViewOtherProfileFragment extends Fragment {
 
         View binding = inflater.inflate(R.layout.fragment_view_other_profile, container, false);
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view, new DisplayUserProfile(mHugMeUser));
+        displayUserProfile = new DisplayUserProfile(mHugMeUser);
+        fragmentTransaction.replace(R.id.fragment_container_view, displayUserProfile);
         fragmentTransaction.commit();
         return binding;
     }

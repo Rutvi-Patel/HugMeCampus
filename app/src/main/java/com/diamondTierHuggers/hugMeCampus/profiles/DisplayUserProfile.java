@@ -24,6 +24,7 @@ import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import org.imaginativeworld.whynotimagecarousel.utils.Utils;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  * Use the {@link DisplayUserProfile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DisplayUserProfile extends Fragment {
+public class DisplayUserProfile extends Fragment implements Serializable {
 
     private final String[] gender = {"Male", "Female", "Non-Binary"};
     private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
@@ -81,6 +82,14 @@ public class DisplayUserProfile extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDisplayUserProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    public void UpdateProfileRating(int newRating)
+    {
+        DecimalFormat df = new DecimalFormat("#.0");
+        mHugMeUser.total_rating += newRating;
+        String avgRatingText = "★ " + df.format(mHugMeUser.total_rating / (float)++mHugMeUser.num_reviews);
+        rating.setText(avgRatingText);
     }
 
     public void setProfile(HugMeUser h) {
