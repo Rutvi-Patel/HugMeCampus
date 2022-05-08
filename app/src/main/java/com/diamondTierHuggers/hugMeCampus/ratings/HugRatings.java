@@ -20,6 +20,7 @@ import com.diamondTierHuggers.hugMeCampus.data.HugRatingDataCallback;
 import com.diamondTierHuggers.hugMeCampus.data.HugRatingModel;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
 import com.diamondTierHuggers.hugMeCampus.entity.HugRating;
+import com.diamondTierHuggers.hugMeCampus.profiles.DisplayUserProfile;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,7 @@ public class HugRatings extends Fragment {
     private TextView usertxt;
     // TODO: Rename and change types of parameters
     private HugMeUser mHugMeUser;
+    private DisplayUserProfile userProfile;
 
     public HugRatings() {
         // Required empty public constructor
@@ -69,6 +71,7 @@ public class HugRatings extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mHugMeUser = (HugMeUser) getArguments().getSerializable("hugMeUser");
+            userProfile = (DisplayUserProfile) getArguments().getSerializable("userprofile");
         }
     }
 
@@ -125,7 +128,7 @@ public class HugRatings extends Fragment {
                     newRating.desc = textBox.getText().toString();
 
                     HugRatingModel.addHugRating(newRating);
-
+                    userProfile.UpdateProfileRating(newRating.stars);
                     getActivity().onBackPressed();
                 }
             }
