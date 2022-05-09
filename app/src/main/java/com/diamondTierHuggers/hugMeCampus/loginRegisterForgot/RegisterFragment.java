@@ -187,9 +187,9 @@ public class RegisterFragment extends Fragment {
                                 Toast.makeText(getActivity().getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                                 success[0] = true;
                                 sendEmailVerification();
-                            if (binding.radioFemale.isSelected()){
+                            if (binding.radioFemale.isChecked()){
                                 gender = 1;
-                            }else if (binding.radioMale.isSelected()){
+                            }else if (binding.radioMale.isChecked()){
                                 gender = 0;
                             }
                             else {

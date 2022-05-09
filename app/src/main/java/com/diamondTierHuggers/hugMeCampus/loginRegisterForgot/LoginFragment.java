@@ -33,7 +33,7 @@ public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     TextView createNewAccount, forgotPassword;
     EditText inputPassword, inputEmail;
-    Button loginBtn,  profileBtn;
+    Button loginBtn;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     ProgressDialog progressDialog;
@@ -56,21 +56,21 @@ public class LoginFragment extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         forgotPassword = view.findViewById(R.id.textViewForgotPassword);
         mUser = mAuth.getCurrentUser();
-        profileBtn = view.findViewById(R.id.profile);
-
-
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
-                    @Override
-                    public void onSuccess(String dataSnapshotValue) {
-                        appUser.getAppUser().setUid("uid123");
-                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
-                    }
-                });
-            }
-        });
+//        profileBtn = view.findViewById(R.id.profile);
+//
+//
+//        profileBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                appUser.readData(database.getReference("users").child("uid123"), new OnGetDataListener() {  //.child(auth.getUid()), new OnGetDataListener() {
+//                    @Override
+//                    public void onSuccess(String dataSnapshotValue) {
+//                        appUser.getAppUser().setUid("uid123");
+//                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
+//                    }
+//                });
+//            }
+//        });
 
         createNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
