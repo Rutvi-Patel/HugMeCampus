@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Forget Password"
+        android:text="Forgot Password"
         android:textColor="#000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,38 +32,66 @@
             android:focusableInTouchMode="true"
             >
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_email"
-                android:layout_width="0dp"
-                app:layout_constraintWidth_percent="0.7"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="50dp"
-                android:textColorHint="#808080"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/layout_email"-->
+<!--                android:layout_width="0dp"-->
+<!--                app:layout_constraintWidth_percent="0.7"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:textColorHint="#808080"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                >-->
 
                 <EditText
                     android:id="@+id/et_email"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:gravity="center"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="15dp"
+                    android:ems="10"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                    android:textColorHint="@color/black"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText-->
+<!--                android:id="@+id/editTextTextEmailAddress"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="25dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginEnd="25dp"-->
+<!--                android:drawableStart="@drawable/ic_baseline_email_24"-->
+<!--                android:drawablePadding="15dp"-->
+<!--                android:ems="10"-->
+<!--                android:hint="Email"-->
+<!--                android:inputType="textEmailAddress"-->
+<!--                android:minHeight="48dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.496"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textview_Rating"-->
+<!--                tools:ignore="MissingConstraints" />-->
+
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
 
             <Button
                 android:id="@+id/bt_forget"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                app:layout_constraintTop_toBottomOf="@+id/layout_email"
+                app:layout_constraintTop_toBottomOf="@+id/et_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="Continue"
@@ -95,7 +123,7 @@
                     android:id="@+id/tv_already_have_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remember Password!"
+                    android:text="Remembered Password!"
                     android:textColor="#000"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
