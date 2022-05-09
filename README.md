@@ -1,6 +1,6 @@
 # hugMeCampus
 Deploy Project Instructions:\
-HugMe Campus\
+HugMe Campus
 
 Prepared by:\
 Diamond Tier Huggers:\
@@ -8,7 +8,7 @@ Steven Barberi\
 Ryan Cavanagh\
 Min Kyaw\
 Rutvi Patel\
-Rithrangsey Suon\
+Rithrangsey Suon
 
 
 Steps:\
@@ -23,7 +23,7 @@ Open the app\
 Create an account using a student.csulb.edu email address\
 Verify the account through the email address\
 Login and use HugMe Campus\
-Enable location services while using the app\
+Enable location services while using the app
 
 
 
