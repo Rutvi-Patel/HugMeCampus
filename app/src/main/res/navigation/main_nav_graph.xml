@@ -32,6 +32,9 @@
         <action
             android:id="@+id/editUserProfile_to_EditProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_editUserProfile_to_viewhugs"
+            app:destination="@id/viewhugs" />
     </fragment>
 
     <fragment
