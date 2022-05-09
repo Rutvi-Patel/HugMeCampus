@@ -113,7 +113,15 @@ public class DisplayUserProfile extends Fragment implements Serializable {
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putString("uid", mHugMeUser.getUid());
-                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_viewhugs, bundle);
+
+                    if(getParentFragment() instanceof EditUserProfile)
+                    {
+                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_editUserProfile_to_viewhugs, bundle);
+                    }
+                    else
+                    {
+                        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_viewhugs, bundle);
+                    }
                 }
             });
         }

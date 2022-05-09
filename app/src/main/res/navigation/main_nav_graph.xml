@@ -9,7 +9,11 @@
         android:id="@+id/nav_matchmaking"
         android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.MatchMakingFragment"
         android:label="@string/menu_matchmaking"
-        tools:layout="@layout/fragment_match_making"/>
+        tools:layout="@layout/fragment_match_making">
+        <action
+            android:id="@+id/action_nav_matchmaking_to_viewhugs"
+            app:destination="@id/viewhugs" />
+    </fragment>
 <!--    <fragment-->
 <!--        android:id="@+id/nav_load_mq"-->
 <!--        android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.LoadMQFragment"-->
@@ -28,6 +32,9 @@
         <action
             android:id="@+id/editUserProfile_to_EditProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_editUserProfile_to_viewhugs"
+            app:destination="@id/viewhugs" />
     </fragment>
 
     <fragment
