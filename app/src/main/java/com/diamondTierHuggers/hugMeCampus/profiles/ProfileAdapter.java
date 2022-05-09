@@ -3,6 +3,7 @@ package com.diamondTierHuggers.hugMeCampus.profiles;
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
@@ -134,14 +136,14 @@ public class ProfileAdapter extends BaseAdapter {
             DecimalFormat df = new DecimalFormat("#.0");
             String avgRatingText = "★ " + df.format(item.total_rating / (float)item.num_reviews);
             rating.setText(avgRatingText);
-//            rating.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("uid", item.getUid());
-//                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_viewhugs, bundle);
-//                }
-//            });
+            rating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("uid", item.getUid());
+                    Navigation.findNavController(view).navigate(R.id.action_nav_matchmaking_to_viewhugs, bundle);
+                }
+            });
         }
         // hug prefs
 
