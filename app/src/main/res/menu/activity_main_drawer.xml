@@ -10,11 +10,11 @@
             android:title="@string/menu_profile" />
         <item
             android:id="@+id/nav_matchmaking"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_baseline_emoji_people_24"
             android:title="@string/menu_matchmaking" />
         <item
             android:id="@+id/nav_list_tabs"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_baseline_people_alt_24"
             android:title="@string/menu_list" />
         <item
             android:id="@+id/nav_search"
@@ -22,15 +22,15 @@
             android:title="@string/menu_search" />
         <item
             android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_menu_chat"
+            android:icon="@drawable/ic_baseline_chat_24"
             android:title="@string/menu_chat" />
-        <item
-            android:id="@+id/hugratings"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Hug Ratings" />
-        <item
-            android:id="@+id/viewhugs"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="View hug" />
+<!--        <item-->
+<!--            android:id="@+id/hugratings"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="Hug Ratings" />-->
+<!--        <item-->
+<!--            android:id="@+id/viewhugs"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="View hug" />-->
     </group>
 </menu>

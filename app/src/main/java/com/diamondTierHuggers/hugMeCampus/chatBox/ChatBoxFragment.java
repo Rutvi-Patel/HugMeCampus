@@ -1,7 +1,10 @@
 package com.diamondTierHuggers.hugMeCampus.chatBox;
 
+import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lat;
+import static com.diamondTierHuggers.hugMeCampus.main.AppUser.lng;
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
+import static com.diamondTierHuggers.hugMeCampus.main.MainActivity.gpsTracker;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,11 +22,18 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentChatBoxBinding;
+import com.diamondTierHuggers.hugMeCampus.directions.GpsTracker;
+import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.entity.HugMeUser;
+import com.diamondTierHuggers.hugMeCampus.location.LocationFragment;
+import com.diamondTierHuggers.hugMeCampus.main.OnGetDataListener;
 import com.diamondTierHuggers.hugMeCampus.messages.FcmNotificationsSender;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -36,7 +46,7 @@ import java.util.List;
  * Use the {@link ChatBoxFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChatBoxFragment extends Fragment{
+public class ChatBoxFragment extends Fragment implements com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter.OnItemListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,8 +59,7 @@ public class ChatBoxFragment extends Fragment{
     ChatItem cl;
     private RecyclerView chatRecyclerView;
     private List<ChatItem> chatItems = new ArrayList<>();
-
-//    private static final String ARG_PARAM2 = "param2";
+    String messageID;
 
     // TODO: Rename and change types of parameters
     private FragmentChatBoxBinding binding;
@@ -64,9 +73,10 @@ public class ChatBoxFragment extends Fragment{
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     * <p>
+     * //     * @param param1 Parameter 1.
+     * //     * @param param2 Parameter 2.
      *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
      * @return A new instance of fragment chatBoxFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -87,18 +97,40 @@ public class ChatBoxFragment extends Fragment{
             chatKey = getArguments().getString("chatKey");
         }
         meUser = appUser.getAppUser();
+        getLocation();
+
+        setMessageID(new OnGetDataListener() {
+            @Override
+            public void onSuccess(String dataSnapshotValue) {
+                messageID = messageID;
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         // Inflate the layout for this fragment
         binding = FragmentChatBoxBinding.inflate(inflater, container, false);
         final String getName = mHugmeUser.getFirst_name() + " " + mHugmeUser.getLast_name();
-//        final String getProfilePic = mHugmeUser.getPictures().profile;
         binding.name.setText(getName);
+
+
+        Picasso.get().load(mHugmeUser.getPicture("picture1")).into(binding.chatProfilePicture);
+
+
+
+        if (chatKey == null) {
+//            System.out.println("chatkey is null");
+            chatRef = database.getReference().child("chat").push();
+            chatKey = chatRef.getRef().toString().split("/")[4];
+            DatabaseReference messageRef = database.getReference().child("messages");
+            messageRef.child(mHugmeUser.getUid()).child(meUser.getUid()).setValue(chatKey);
+            messageRef.child(meUser.getUid()).child(mHugmeUser.getUid()).setValue(chatKey);
+        } else {
+            chatRef = database.getReference().child("chat").child(chatKey);
+        }
 
 //        attaching adapter
         chatRecyclerView = binding.recyclerView;
@@ -107,39 +139,22 @@ public class ChatBoxFragment extends Fragment{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setStackFromEnd(true);
         chatRecyclerView.setLayoutManager(linearLayoutManager);
-//        ChatAdapter chatAdapter = new com.diamondTierHuggers.hugMeCampus.chatBox.ChatAdapter(chatItems);
-//        chatRecyclerView.setAdapter(chatAdapter);
-
-        if (chatKey == null) {
-            System.out.println("chatkey is null");
-            chatRef = database.getReference().child("chat").push();
-            chatKey = chatRef.getRef().toString().split("/")[4];
-            DatabaseReference messageRef = database.getReference().child("messages");
-            messageRef.child(mHugmeUser.getUid()).child(meUser.getUid()).setValue(chatKey);
-            messageRef.child(meUser.getUid()).child(mHugmeUser.getUid()).setValue(chatKey);
-        }
-        else {
-            chatRef = database.getReference().child("chat").child(chatKey);
-        }
-
-        chatAdapter = new ChatAdapter(chatKey);
+        chatAdapter = new ChatAdapter(chatKey, this);
         chatRecyclerView.setAdapter(chatAdapter);
         chatRecyclerView.scrollToPosition(chatAdapter.getItemCount());
-//        final String getProfilePic = mHugmeUser.getPictures().profile;
-
-//        ImageView backbtn = binding.backbtn;
         EditText messageEditText = binding.messageEditText;
-        ImageView profilePic = binding.profilePic;
         Button sendBtn = binding.sendbtn;
-        Button locationBtn = binding.locationbtn;
-
+        ImageButton locationBtn = binding.locationbtn;
         binding.name.setText(getName);
-//        Picasso.get().load(getProfilePic).into(profilePic);
 
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_locationFragment2);
+                LocationFragment lf = new LocationFragment();
+                lf.setMessageID(messageID);
+
+                getFragmentManager().beginTransaction().add(R.id.locationFragment, lf).commit();
+                binding.locationFragment.setVisibility(View.VISIBLE);
             }
         });
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -147,29 +162,30 @@ public class ChatBoxFragment extends Fragment{
             public void onClick(View v) {
                 final String getTextMessage = messageEditText.getText().toString();
 //                get current timestamp
-                final String currentT = String.valueOf(System.currentTimeMillis()).substring(0,10);
+                final String currentT = String.valueOf(System.currentTimeMillis()).substring(0, 10);
                 long yourmilliseconds = Long.parseLong(currentT);
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd hh:mm aa");
                 Date resultdate = new Date(yourmilliseconds);
                 String currentTimeStamp = sdf.format(resultdate);
-                System.out.println(currentTimeStamp);
+//                System.out.println(currentTimeStamp);
 
-                final  String getmyName = meUser.getFirst_name()+ " "+meUser.getLast_name();
+                final String getmyName = meUser.getFirst_name() + " " + meUser.getLast_name();
 
                 if (getTextMessage.equals("")) {
                     Toast.makeText(getContext(), "Enter message", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     try {
                         FcmNotificationsSender sendn = new FcmNotificationsSender(mHugmeUser.getToken(), getmyName, getTextMessage, getContext(), getActivity());
                         sendn.SendNotifications();
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Couldn't send notification or some notification error");
                     }
                     cl = new ChatItem(meUser.getUid(), getTextMessage);
                     sendMessages(cl);//,chatKey);
                 }
                 messageEditText.setText("");
+
+                chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount());
 
             }
         });
@@ -185,25 +201,49 @@ public class ChatBoxFragment extends Fragment{
     }
 
 
-    private void sendMessages(ChatItem cl){
+    private void sendMessages(ChatItem cl) {
 //        ChatList cl = new ChatList(sender, receiver, time, data);
-        System.out.println(chatRef);
-        chatRef.child(String.valueOf(System.currentTimeMillis()).substring(0,10)).setValue(cl);
+//        System.out.println(chatRef);
+        chatRef.child(String.valueOf(System.currentTimeMillis()).substring(0, 10)).setValue(cl);
     }
 
+    public void setMessageID(final OnGetDataListener listener) {
+        database.getReference().child("messages").child(meUser.getUid()).child(mHugmeUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+//                    System.out.println(snapshot.getValue().toString());
+                    messageID = snapshot.getValue().toString();
+                    listener.onSuccess("");
+                }
+            }
 
-//    private void addingToMessageList (){
-//        System.out.println(meUser.getMessage_list());
-//        System.out.println(mHugmeUser.getMessage_list());
-//        database.getReference().child("users").child(meUser.getUid()).child("message_list").setValue(meUser.getMessage_list())
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                    }
-//                });
-//
-//        database.getReference().child("users").child(mHugmeUser.getUid()).child("message_list").setValue(mHugmeUser.getMessage_list());
-//    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
 
+    }
+
+    @Override
+    public void onItemClick(int position) {
+//        if (chatAdapter.getChatItems().get(position).getLat() != null) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lat", chatAdapter.getChatItems().get(position).getLat());
+        bundle.putDouble("lng", chatAdapter.getChatItems().get(position).getLng());
+        NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_chatBoxFragment_to_mapsFragment, bundle);
+//            NavHostFragment.findNavController(ChatBoxFragment.this).navigate(R.id.action_chatBoxFragment_to_mapsFragment);
+//        }
+    }
+
+    public void getLocation(){
+        gpsTracker = new GpsTracker(getActivity());
+        if(gpsTracker.canGetLocation()){
+            lat = gpsTracker.getLatitude();
+            lng = gpsTracker.getLongitude();
+        }else{
+            gpsTracker.showSettingsAlert();
+        }
+    }
 }

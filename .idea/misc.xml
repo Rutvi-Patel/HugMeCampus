@@ -26,8 +26,10 @@
         <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.271" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.16168478260869565" />
+        <entry key="app/src/main/res/layout/chatbox_adapter_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.3695652173913043" />
         <entry key="app/src/main/res/layout/content_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_chat_box.xml" value="0.2550399780273438" />
         <entry key="app/src/main/res/layout/fragment_container.xml" value="0.16168478260869565" />
         <entry key="app/src/main/res/layout/fragment_display_user_profile.xml" value="0.17307692307692307" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.17307692307692307" />
@@ -36,6 +38,7 @@
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.5292510986328127" />
         <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_list_tabs.xml" value="0.32065217391304346" />
+        <entry key="app/src/main/res/layout/fragment_load_m_q.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2857789855072464" />
         <entry key="app/src/main/res/layout/fragment_match_making.xml" value="0.3083816528320313" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1" />

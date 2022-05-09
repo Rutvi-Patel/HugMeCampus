@@ -1,6 +1,5 @@
 package com.diamondTierHuggers.hugMeCampus.loginRegisterForgot;
 
-import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.myRef;
 
@@ -37,7 +36,7 @@ public class RegisterFragment extends Fragment {
     EditText pwdInput;
     Button sendDBButton;
     TextView login;
-    Integer gender;
+    int gender;
 
     private View view;
     @Override
@@ -64,6 +63,7 @@ public class RegisterFragment extends Fragment {
         sendDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sendDBButton.setClickable(false);
                 if (inputValidation()) {
 
                         createUserAccount(emailInput.getText().toString(), pwdInput.getText().toString());
@@ -72,6 +72,7 @@ public class RegisterFragment extends Fragment {
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(), "All values required", Toast.LENGTH_SHORT).show();
                 }
+                sendDBButton.setClickable(true);
             }
         });
 
@@ -95,20 +96,20 @@ public class RegisterFragment extends Fragment {
 
                         // Get new FCM registration token
                         String token = task.getResult();
-                        System.out.println("TOKEN>>>>:" + token);
-                        System.out.println(appUser.getAppUser().getUid());
-                        database.getReference().child("users").child(appUser.getAppUser().getUid()).child("token").setValue(token);
+//                        System.out.println("TOKEN>>>>:" + token);
+//                        System.out.println(auth.getUid());
+                        database.getReference().child("users").child(auth.getUid()).child("token").setValue(token);
                     }
                 });
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
     }
 
 
-    private void setBioValues(String email, String firstName, String lastName, Integer Gender){
+    private void setBioValues(String email, String firstName, String lastName){
         myRef.child("users").child(auth.getUid()).child("last_name").setValue(lastName);
         myRef.child("users").child(auth.getUid()).child("first_name").setValue(firstName);
         StoreToken();
-        myRef.child("users").child(auth.getUid()).child("gender").setValue(Gender);
+        myRef.child("users").child(auth.getUid()).child("gender").setValue(gender);
         myRef.child("users").child(auth.getUid()).child("hug_count").setValue(0);
         myRef.child("users").child(auth.getUid()).child("total_rating").setValue(0);
         myRef.child("users").child(auth.getUid()).child("num_reviews").setValue(0);
@@ -132,6 +133,7 @@ public class RegisterFragment extends Fragment {
         myRef.child("users").child(auth.getUid()).child("hug_preferences").child("sad").setValue(false);
         myRef.child("users").child(auth.getUid()).child("hug_preferences").child("short").setValue(false);
         myRef.child("users").child(auth.getUid()).child("hug_preferences").child("talkative").setValue(false);
+        myRef.child("users").child(auth.getUid()).child("pictures").child("picture1").setValue("https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/blank-profile-photo.jpeg?alt=media&token=93d6e31c-f7e5-4423-b40a-e6cae3e32d06");
     }
 
     private void sendEmailVerification() {
@@ -175,7 +177,6 @@ public class RegisterFragment extends Fragment {
 
     private boolean createUserAccount(String email, String pwd) {
         final boolean[] success = {false};
-
         if(Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             if(email.toLowerCase().endsWith("@student.csulb.edu")) {
 
@@ -188,11 +189,14 @@ public class RegisterFragment extends Fragment {
                                 sendEmailVerification();
                             if (binding.radioFemale.isSelected()){
                                 gender = 1;
-                            }else{
+                            }else if (binding.radioMale.isSelected()){
                                 gender = 0;
                             }
+                            else {
+                                gender = 2;
+                            }
 
-                            setBioValues(binding.editTextTextEmailAddress.getText().toString(), binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString(),gender);
+                            setBioValues(binding.editTextTextEmailAddress.getText().toString(), binding.textViewFirstName.getText().toString(), binding.textviewLastName.getText().toString());
                             NavHostFragment.findNavController(RegisterFragment.this)
                                     .navigate(R.id.loginFragment);
                         } else {
@@ -206,7 +210,9 @@ public class RegisterFragment extends Fragment {
                                 emailInput.setError("User already exists under this email.");
                                 Toast.makeText(getActivity().getApplicationContext(), "Error: User already exists.", Toast.LENGTH_LONG).show();
                             }
+
                             catch (Exception e) {
+                                System.out.println(e);
                                 Toast.makeText(getActivity().getApplicationContext(), "Error: Could not create account.", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -221,7 +227,6 @@ public class RegisterFragment extends Fragment {
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error: Incorrect email format.", Toast.LENGTH_LONG).show();
         }
-
         return success[0];
     }
 

@@ -2,17 +2,13 @@ package com.diamondTierHuggers.hugMeCampus.profiles;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
-import static com.google.common.io.Files.getFileExtension;
 import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.myRef;
 
 import androidx.annotation.NonNull;
@@ -30,33 +26,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.diamondTierHuggers.hugMeCampus.entity.Model;
 import com.diamondTierHuggers.hugMeCampus.R;
-import com.diamondTierHuggers.hugMeCampus.entity.UserPictures;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.prefs.PreferenceChangeEvent;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,12 +50,6 @@ import java.util.prefs.PreferenceChangeEvent;
  */
 public class EditProfile extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private StorageReference storageReference;
     private String myUID = appUser.getAppUser().getUid();
     private EditText firstName, lastName, bio;
@@ -85,30 +64,13 @@ public class EditProfile extends Fragment {
             "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76",
             "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92",
             "93", "94", "95", "96", "97", "98", "99"};
-    private Button uploadBtn, saveEditBtn;
+    private Button saveEditBtn;
     private ImageView imageView, imageView2, imageView3, imageView4;
     private Uri imageUri, imageUri2, imageUri3, imageUri4;
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
     private CheckBox shortHug, mediumHug, longHug, quiet, talkative, celebratory,
             happy, emotional, sad, male, female, nonbinary;
-    //CheckBox Keys
-    boolean myBoolVariable = false;
-    private static final String shortHugKey = "shortHugKey";
-    private static final String mediumHugKey = "mediumHugKey";
-    private static final String longHugKey = "longHugKey";
-    private static final String quietHugKey = "quietHugKey";
-    private static final String talkativeHugKey = "talkativeHugKey";
-    private static final String celebratoryHugKey = "celebratoryHugKey";
-    private static final String happyHugKey = "happyHugKey";
-    private static final String emotionalHugKey = "emotionalHugKey";
-    private static final String sadHugKey = "sadHugKey";
-    private static final String maleHugKey = "maleHugKey";
-    private static final String femaleHugKey = "femaleHugKey";
-    private static final String nonbinaryHugKey = "nonbinaryHugKey";
-    SharedPreferences sharedPref = null;
-    SharedPreferences myPrefs = null;
-
 
     public EditProfile() {
         // Required empty public constructor
@@ -148,7 +110,6 @@ public class EditProfile extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //Save and Upload buttons
-//        uploadBtn = view.findViewById(R.id.upload_Button);
         saveEditBtn = view.findViewById(R.id.save_edits);
         //User information
         firstName = view.findViewById(R.id.edit_firstName);
@@ -174,6 +135,8 @@ public class EditProfile extends Fragment {
         male = view.findViewById(R.id.male);
         female = view.findViewById(R.id.female);
         nonbinary = view.findViewById(R.id.nonBinary);
+
+        shortHug.setChecked(true);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -215,7 +178,7 @@ public class EditProfile extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("age", (String) parent.getItemAtPosition(position));
                 ageChoice = Integer.parseInt((String) editAge.getItemAtPosition(position));
-                System.out.println(ageChoice);
+//                System.out.println(ageChoice);
             }
 
             @Override
@@ -224,40 +187,18 @@ public class EditProfile extends Fragment {
             }
         });
 
-        //set profile pictures/current pictures
-        StorageReference profileRef = storageReference.child("profile Images/" + myUID + "profilePic_1" + ".jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(imageView);
-            }
-        });
-
-        //set profile pictures/current pictures
-        StorageReference profileRef2 = storageReference.child("profile Images/" + myUID + "profilePic_2" + ".jpg");
-        profileRef2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(imageView2);
-            }
-        });
-        //set profile pictures/current pictures
-        StorageReference profileRef3 = storageReference.child("profile Images/" + myUID + "profilePic_3" + ".jpg");
-        profileRef3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(imageView3);
-            }
-        });
-        //set profile pictures/current pictures
-        StorageReference profileRef4 = storageReference.child("profile Images/" + myUID + "profilePic_4" + ".jpg");
-        profileRef4.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(imageView4);
-            }
-        });
-
+        if (appUser.getAppUser().getPicture("picture1") != null) {
+            Picasso.get().load(appUser.getAppUser().getPicture("picture1")).into(imageView);
+        }
+        if (appUser.getAppUser().getPicture("picture2") != null) {
+            Picasso.get().load(appUser.getAppUser().getPicture("picture2")).into(imageView2);
+        }
+        if (appUser.getAppUser().getPicture("picture3") != null) {
+            Picasso.get().load(appUser.getAppUser().getPicture("picture3")).into(imageView3);
+        }
+        if (appUser.getAppUser().getPicture("picture4") != null) {
+            Picasso.get().load(appUser.getAppUser().getPicture("picture4")).into(imageView4);
+        }
 
         //Image Button
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -303,28 +244,13 @@ public class EditProfile extends Fragment {
                 startActivityForResult(galleryIntent, 2);
             }
         });
-//        //Upload Button
-//        uploadBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (imageUri != null) {
-//                    uploadToFirebase(imageUri);
-//                }
-//                else {
-//                    Toast.makeText(getActivity().getApplicationContext(), "Please Select Image", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
 
         //Save Button
         saveEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //save pictures
-//                uploadPicture1();
-//                uploadPicture2();
-//                uploadPicture3();
-//                uploadPicture4();
+                saveEditBtn.setClickable(false);
 
                 //User info to String
                 String firstNameToString = firstName.getText().toString();
@@ -343,136 +269,100 @@ public class EditProfile extends Fragment {
                 myRef.child("users").child(myUID).child("gender").setValue(genderChoice);
                 myRef.child("users").child(myUID).child("age").setValue(ageChoice);
 
+                HashMap<String, Boolean> prefs = appUser.getAppUser().getHug_preferences();
                 //Hug Preferences updated to database
-                if (shortHug.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("short", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("short", false);
+                if (shortHug.isChecked() != prefs.get("short")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("short").setValue(shortHug.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("short", shortHug.isChecked());
                 }
 
-                if (mediumHug.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("medium", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("medium", false);
+                if (mediumHug.isChecked() != prefs.get("medium")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("medium").setValue(mediumHug.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("medium", mediumHug.isChecked());
                 }
 
-                if (longHug.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("long", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("long", false);
+                if (longHug.isChecked() != prefs.get("long")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("long").setValue(longHug.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("long", longHug.isChecked());
                 }
 
-                if (quiet.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("quiet", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("quiet", false);
+                if (quiet.isChecked() != prefs.get("quiet")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("quiet").setValue(quiet.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("quiet", quiet.isChecked());
                 }
 
-                if (talkative.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("talkative", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("talkative", false);
+                if (talkative.isChecked() != prefs.get("talkative")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("talkative").setValue(talkative.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("talkative", talkative.isChecked());
                 }
 
-                if (celebratory.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("celebratory", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("celebratory", false);
+                if (celebratory.isChecked() != prefs.get("celebratory")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("celebratory").setValue(celebratory.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("celebratory", celebratory.isChecked());
                 }
 
-                if (happy.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("happy", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("happy", false);
+                if (happy.isChecked() != prefs.get("happy")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("happy").setValue(happy.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("happy", happy.isChecked());
                 }
 
-                if (emotional.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("emotional", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("emotional", false);
+                if (emotional.isChecked() != prefs.get("emotional")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("emotional").setValue(emotional.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("emotional", emotional.isChecked());
                 }
 
-                if (sad.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("sad", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("sad", false);
+                if (sad.isChecked() != prefs.get("sad")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("sad").setValue(sad.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("sad", sad.isChecked());
                 }
 
-                if (male.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("male", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("male", false);
+                if (male.isChecked() != prefs.get("male")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("male").setValue(male.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("male", male.isChecked());
                 }
 
-                if (female.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("female", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("female", false);
+                if (female.isChecked() != prefs.get("female")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("female").setValue(female.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("female", female.isChecked());
                 }
 
-                if (nonbinary.isChecked()) {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(true);
-                    appUser.getAppUser().getHug_preferences().put("nonbinary", true);
-                } else {
-                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(false);
-                    appUser.getAppUser().getHug_preferences().put("nonbinary", false);
+                if (nonbinary.isChecked() != prefs.get("nonbinary")) {
+                    myRef.child("users").child(myUID).child("hug_preferences").child("nonbinary").setValue(nonbinary.isChecked());
+                    appUser.getAppUser().getHug_preferences().put("nonbinary", nonbinary.isChecked());
                 }
                 //moved to profile view after Save button has been hit
-//                NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
                 uploadPicture1();
-
             }
-
-
         });
 
-
         //Keep checkbox state
-        sharedPref = getActivity().getSharedPreferences("allCheckBoxes", Context.MODE_PRIVATE);
-        Map<String, CheckBox> checkBoxMap = new HashMap<>();
-        checkBoxMap.put(shortHugKey, shortHug);
-        checkBoxMap.put(mediumHugKey, mediumHug);
-        checkBoxMap.put(longHugKey, longHug);
-        checkBoxMap.put(quietHugKey, quiet);
-        checkBoxMap.put(talkativeHugKey, talkative);
-        checkBoxMap.put(celebratoryHugKey, celebratory);
-        checkBoxMap.put(happyHugKey, happy);
-        checkBoxMap.put(emotionalHugKey, emotional);
-        checkBoxMap.put(sadHugKey, sad);
-        checkBoxMap.put(maleHugKey, male);
-        checkBoxMap.put(femaleHugKey, female);
-        checkBoxMap.put(nonbinaryHugKey, nonbinary);
+        HashMap<String, CheckBox> checkBoxMap = new HashMap<>();
+        checkBoxMap.put("short", shortHug);
+        checkBoxMap.put("medium", mediumHug);
+        checkBoxMap.put("long", longHug);
+        checkBoxMap.put("quiet", quiet);
+        checkBoxMap.put("talkative", talkative);
+        checkBoxMap.put("celebratory", celebratory);
+        checkBoxMap.put("happy", happy);
+        checkBoxMap.put("emotional", emotional);
+        checkBoxMap.put("sad", sad);
+        checkBoxMap.put("male", male);
+        checkBoxMap.put("female", female);
+        checkBoxMap.put("nonbinary", nonbinary);
 
-        loadInitialValues(checkBoxMap);
-        setupCheckedChangeListener(checkBoxMap);
+        setupCheckBox(checkBoxMap);
+    }
+
+    private void setupCheckBox(HashMap<String, CheckBox> boxes) {
+        HashMap<String, Boolean> prefs = appUser.getAppUser().getHug_preferences();
+        for (String pref : prefs.keySet()) {
+            boxes.get(pref).setChecked(prefs.get(pref));
+        }
     }
 
     private void uploadPicture1() {
         Toast.makeText(getActivity().getApplicationContext(), "Saving Changes...", Toast.LENGTH_SHORT).show();
         if (imageUri != null) {
-
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_1" + ".jpg");
             riversRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -480,6 +370,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri, "picture1");
+                            appUser.getAppUser().setPicture("picture1", imageUri.toString());
                             uploadPicture2();
                         }
                     })
@@ -498,7 +389,6 @@ public class EditProfile extends Fragment {
 
     private void uploadPicture2() {
         if (imageUri2 != null) {
-
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_2" + ".jpg");
             riversRef.putFile(imageUri2)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -506,6 +396,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri2, "picture2");
+                            appUser.getAppUser().setPicture("picture2", imageUri2.toString());
                             uploadPicture3();
                         }
                     })
@@ -524,7 +415,6 @@ public class EditProfile extends Fragment {
 
     private void uploadPicture3() {
         if (imageUri3 != null) {
-
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_3" + ".jpg");
             riversRef.putFile(imageUri3)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -532,6 +422,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri3, "picture3");
+                            appUser.getAppUser().setPicture("picture3", imageUri3.toString());
                             uploadPicture4();
                         }
                     })
@@ -550,7 +441,6 @@ public class EditProfile extends Fragment {
 
     private void uploadPicture4() {
         if (imageUri4 != null) {
-
             StorageReference riversRef = storageReference.child("profile Images/" + myUID + "profilePic_4" + ".jpg");
             riversRef.putFile(imageUri4)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -558,6 +448,7 @@ public class EditProfile extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                             uploadToFirebase(imageUri4, "picture4");
+                            appUser.getAppUser().setPicture("picture4", imageUri4.toString());
                             NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
                         }
                     })
@@ -571,28 +462,6 @@ public class EditProfile extends Fragment {
         }
         else {
             NavHostFragment.findNavController(EditProfile.this).navigate(R.id.editProfile_to_editUserProfile);
-        }
-    }
-
-    //function for loading values into hashmap
-    public void loadInitialValues(Map<String, CheckBox> checkBoxMap) {
-        for (Map.Entry<String, CheckBox> checkBoxEntry : checkBoxMap.entrySet()) {
-            Boolean checked = sharedPref.getBoolean(checkBoxEntry.getKey(), false);
-            checkBoxEntry.getValue().setChecked(checked);
-        }
-    }
-
-    //function for checkbox Listener
-    public void setupCheckedChangeListener(Map<String, CheckBox> checkBoxMap) {
-        for (final Map.Entry<String, CheckBox> checkBoxEntry : checkBoxMap.entrySet()) {
-            checkBoxEntry.getValue().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    final SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putBoolean(checkBoxEntry.getKey(), isChecked);
-                    editor.apply();
-                }
-            });
         }
     }
 
@@ -625,14 +494,7 @@ public class EditProfile extends Fragment {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Model model = new Model(uri.toString());
-                        System.out.println(model);
-                        myRef.child("users").child(myUID).child("pictures").child(picNum).setValue(model);
-                        String modelID = root.push().getKey();
-                        root.child(modelID).setValue(model);
-                        System.out.println(modelID);
-                        System.out.println(model);
-//                        Toast.makeText(getActivity().getApplicationContext(), "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        myRef.child("users").child(myUID).child("pictures").child(picNum).setValue(uri.toString());
                     }
                 });
             }
@@ -642,7 +504,6 @@ public class EditProfile extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Uploading Failed!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private String getFileExtension(Uri mUri) {

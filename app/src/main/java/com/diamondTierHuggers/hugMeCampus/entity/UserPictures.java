@@ -1,6 +1,8 @@
 package com.diamondTierHuggers.hugMeCampus.entity;
 
-public class UserPictures {
+import java.io.Serializable;
+
+public class UserPictures implements Serializable {
 
     public String picture_1;
     public String picture_2;

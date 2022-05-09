@@ -2,7 +2,6 @@ package com.diamondTierHuggers.hugMeCampus.entity;
 
 import static com.diamondTierHuggers.hugMeCampus.loginRegisterForgot.LoginFragment.appUser;
 
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ public class HugMeUser implements Serializable {
     public int hug_count;
     public String last_name;
     public HashMap<String, Boolean> hug_preferences;
-    public UserPictures pictures;
+    public HashMap<String, String> pictures;
     public int gender;
     public int total_rating;
     public int num_reviews;
@@ -31,6 +30,7 @@ public class HugMeUser implements Serializable {
     public HashMap<String, Boolean> request_list;
     public HashMap<String, Boolean> pending_list;
     public HashMap<String, String> message_list;
+    public String lastMessage;
 
     private int matchScore = 0;
 
@@ -208,12 +208,16 @@ public class HugMeUser implements Serializable {
         this.hug_preferences = hug_preferences;
     }
 
-    public UserPictures getPictures() {
+    public String getPicture(String picNum) {
+        return pictures.get(picNum);
+    }
+
+    public HashMap<String, String> getPictures() {
         return pictures;
     }
 
-    public void setPictures(UserPictures pictures) {
-        this.pictures = pictures;
+    public void setPicture(String picNum, String uri) {
+        pictures.put(picNum, uri);
     }
 
     public int getGender() {
@@ -222,6 +226,14 @@ public class HugMeUser implements Serializable {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 
     public HashMap<String, Boolean> getRejected_list() {
@@ -275,8 +287,6 @@ public class HugMeUser implements Serializable {
     public HashMap<String, String> getMessage_list() {
         return message_list;
     }
-
-
 
     public void setMatchScore(int matchScore) {
         this.matchScore = matchScore;

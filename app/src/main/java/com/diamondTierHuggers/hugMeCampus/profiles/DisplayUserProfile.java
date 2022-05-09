@@ -24,6 +24,7 @@ import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import org.imaginativeworld.whynotimagecarousel.utils.Utils;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,9 @@ import java.util.List;
  * Use the {@link DisplayUserProfile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DisplayUserProfile extends Fragment {
+public class DisplayUserProfile extends Fragment implements Serializable {
 
-    private final String[] gender = {"Male", "Female"};
+    private final String[] gender = {"Male", "Female", "Non-Binary"};
     private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
 
     private TextView name, info, bio, rating;
@@ -81,6 +82,14 @@ public class DisplayUserProfile extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDisplayUserProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    public void UpdateProfileRating(int newRating)
+    {
+        DecimalFormat df = new DecimalFormat("#.0");
+        mHugMeUser.total_rating += newRating;
+        String avgRatingText = "★ " + df.format(mHugMeUser.total_rating / (float)++mHugMeUser.num_reviews);
+        rating.setText(avgRatingText);
     }
 
     public void setProfile(HugMeUser h) {
@@ -252,29 +261,39 @@ public class DisplayUserProfile extends Fragment {
 
         }));
 
-        System.out.println(mHugMeUser.getPictures().toString());
+
+//        System.out.println(mHugMeUser.getPictures());
 
         List<CarouselItem> list = new ArrayList<>();
-        list.add(
-                new CarouselItem(
-                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.bryce_canyon
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.cathedral_rock
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.death_valley
-                )
-        );
+
+        for (String pic : mHugMeUser.getPictures().keySet()) {
+            list.add(
+                    new CarouselItem(
+                            mHugMeUser.getPicture(pic)
+                    )
+            );
+        }
+
+//        list.add(
+//                new CarouselItem(
+//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.bryce_canyon
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.cathedral_rock
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.death_valley
+//                )
+//        );
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);

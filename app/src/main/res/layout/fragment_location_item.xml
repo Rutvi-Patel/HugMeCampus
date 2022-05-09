@@ -8,40 +8,63 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="110dp"
-        android:layout_gravity="fill_vertical"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="3dp"
-        app:contentPadding="10dp"
-        app:contentPaddingBottom="8dp"
-        app:contentPaddingLeft="8dp"
-        app:contentPaddingRight="8dp"
-        app:contentPaddingTop="8dp">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="110dp"-->
+<!--        android:layout_gravity="fill_vertical"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        app:cardBackgroundColor="#FFFFFF"-->
+<!--        app:cardCornerRadius="15dp"-->
+<!--        app:cardElevation="3dp"-->
+<!--        app:contentPadding="10dp"-->
+<!--        app:contentPaddingBottom="8dp"-->
+<!--        app:contentPaddingLeft="8dp"-->
+<!--        app:contentPaddingRight="8dp"-->
+<!--        app:contentPaddingTop="8dp">-->
 
-        <ImageView
-            android:id="@+id/location_image"
-            android:layout_width="wrap_content"
-            android:layout_height="105dp"
-            android:src="@drawable/cathedral_rock" />
+<!--        <ImageView-->
+<!--            android:id="@+id/location_image"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="105dp"-->
+<!--            android:src="@drawable/cathedral_rock" />-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@id/location_view"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/location_textView"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
+            android:text="Hello World"
+            android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/location_image"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_toEndOf="@id/location_textView"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bryce_canyon" />
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/location_textView"
-        android:layout_width="328dp"
-        android:layout_height="37dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="center"
-        android:text="Hello World"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+
 
 </LinearLayout>

@@ -1,6 +1,6 @@
 package com.diamondTierHuggers.hugMeCampus.location;
-import static com.diamondTierHuggers.hugMeCampus.main.LoginRegisterActivity.database;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.diamondTierHuggers.hugMeCampus.R;
 import com.diamondTierHuggers.hugMeCampus.databinding.FragmentLocationItemBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,33 +27,67 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         return mValues.get(i);
     }
 
-    public void addItem(LocationData l) {
-        mValues.add(l);
+    public void addItem(List<LocationData> l) {
+        mValues.addAll(l);
         LocationAdapter.super.notifyDataSetChanged();
     }
 
-    public void readData() {
-        database.getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot loc: snapshot.getChildren()){
-                    System.out.println(loc.getValue());
-                    LocationData ld= new LocationData(loc.child("url").getValue().toString(),
-                            loc.child("name").getValue().toString(), loc.child("coord").getValue().toString());
-                    addItem(ld);
-                }
-            }
+//    public void readData() {
+//        database.getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot loc: snapshot.getChildren()){
+//                    System.out.println(loc.getValue());
+//                    LocationData ld= new LocationData(loc.child("url").getValue().toString(),
+//                            loc.child("name").getValue().toString(), loc.child("coord").getValue().toString());
+//                    addItem(ld);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+//        public void readData() {
+//            HashMap<String, HashMap<String, >>
+//            List<List<String>> location= Arrays.asList(Arrays.asList("Library", "coord", "img"),
+//                    Arrays.asList("Horn Center", "33.78329304963111,-118.1143422024218", "img"),
+//                    Arrays.asList("Pyramid", "33.78751955186969,-118.1143634232833", "img"),
+//                    Arrays.asList("Bookstore", "33.77990681600415,-118.11433539967797", "img"),
+//                    Arrays.asList("Recreation Center", "33.78540258998671,-118.10833434295633", "img"),
+//                    Arrays.asList("Peterson Hall", "33.7789103347117,-118.11208171591433", "img"),
+//                    Arrays.asList("Hall of Science", "33.7799348325781,-118.11248888707836", "img"),
+//                    Arrays.asList("Fine Arts", "33.77731816652847,-118.11244580242203", "img"),
+//                    Arrays.asList("Vivian Engineering Center", "33.782898394374676,-118.10996078158416", "img"),
+//                    Arrays.asList("Outpost", "33.78230542378748,-118.1100073096946", "img"),
+//                    Arrays.asList("University Student Union", "33.781350858495934,-118.11235321060803", "img")
+//                    );
+//            for(List<String> x: location){
+//                LocationData ld = new LocationData(appUser.getAppUser().getUid(),x.get(0),x.get(1), x.get(2));
+//                addItem(ld);
+//            }
+//        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    public void setupLocations() {
+        List<LocationData> locations = new ArrayList<>();
+        locations.add(new LocationData("Library", 33.77727637749904, -118.1144357528539, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/library"));
+        locations.add(new LocationData("Student Success Center", 33.7792901977889, -118.11314359257676, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/horn"));
+        locations.add(new LocationData("Pyramid", 33.787438855444584, -118.11437994649592, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/pyramid"));
+        locations.add(new LocationData("Bookstore", 33.7799540997894, -118.11384260236342, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/bookstore"));
+        locations.add(new LocationData("Recreation Center", 33.78489252657812, -118.10953636911967, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/srwc"));
+        locations.add(new LocationData("Hall of Science", 33.78020681756154, -118.11287624906284, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/science"));
+        locations.add(new LocationData("College of Engineering", 33.78366951481241, -118.11028635886105, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/cecs"));
+        locations.add(new LocationData("Mcintosh Building", 33.776841200913005, -118.11326055538863, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/mcinstosh"));
+        locations.add(new LocationData("Outpost", 33.78231778337076, -118.11054256303376, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/outpost"));
+        locations.add(new LocationData("University Student Union", 33.78114194477148, -118.11376182442704, "android.resource://com.diamondTierHuggers.hugMeCampus/drawable/usu"));
+        addItem(locations);
     }
 
     public LocationAdapter(OnItemListener onItemListener){
-        readData();
-        System.out.println(mValues);
+        setupLocations();
+//        System.out.println(mValues);
         mOnItemListener = onItemListener;
     }
 
@@ -70,7 +101,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LocationData ld = mValues.get(position);
         holder.mlocationname.setText(ld.name);
-//        holder.mlocationPic.setImageAlpha(ld.url);
+        holder.mlocationPic.setImageURI(Uri.parse(ld.image));
     }
 
 
@@ -98,7 +129,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         }
 
     }
-
 
     public interface OnItemListener {
         void onItemClick(int position);

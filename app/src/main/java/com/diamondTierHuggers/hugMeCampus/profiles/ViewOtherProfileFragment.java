@@ -44,6 +44,8 @@ public class ViewOtherProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "hugMeUser";
     private HugMeUser mHugMeUser;
 
+    private DisplayUserProfile displayUserProfile;
+
     public ViewOtherProfileFragment() {
         // Required empty public constructor
     }
@@ -87,14 +89,72 @@ public class ViewOtherProfileFragment extends Fragment {
         });
     }
 
+    private static boolean isFABOpen = false;
+    private void showSingleFabMenu(FloatingActionButton fab1) {
+        isFABOpen=true;
+        fab1.setVisibility(View.VISIBLE);
+        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_1));
+    }
+    private void showFABMenu(FloatingActionButton fab1, FloatingActionButton fab2){
+        isFABOpen=true;
+        fab1.setVisibility(View.VISIBLE);
+        fab2.setVisibility(View.VISIBLE);
+        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_1));
+        fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_2));
+    }
+
+    private void closeFABMenu(FloatingActionButton fab1, FloatingActionButton fab2, FloatingActionButton fab3){
+        isFABOpen=false;
+        fab1.animate().translationY(0);
+        fab2.animate().translationY(0);
+        fab3.animate().translationY(0);
+        fab1.setVisibility(View.INVISIBLE);
+        fab2.setVisibility(View.INVISIBLE);
+        fab3.setVisibility(View.INVISIBLE);
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FloatingActionButton button = getView().findViewById(R.id.userButton);
+        FloatingActionButton blockButton = getView().findViewById(R.id.userButton);
         FloatingActionButton messageButton = getView().findViewById(R.id.messageButton);
-
+        FloatingActionButton rateUserButton = getView().findViewById(R.id.rateUserButton);
+        FloatingActionButton addFriendButton = getView().findViewById(R.id.add_friendButton);
+        FloatingActionButton fab = getView().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isFABOpen){
+                    if (mHugMeUser.getFriendRequestPending() == 0) {
+                        showFABMenu(rateUserButton, blockButton);
+                    }
+                    else if (mHugMeUser.getFriendRequestPending() == 1) {
+                        showSingleFabMenu(blockButton);
+                    }
+                    else if (mHugMeUser.getFriendRequestPending() == 2) {
+                        showFABMenu(addFriendButton, blockButton);
+                    }
+                }else{
+                    closeFABMenu(rateUserButton, addFriendButton, blockButton);
+                }
+            }
+        });
         if (mHugMeUser.getFriendRequestPending() >= 1) {
             messageButton.setVisibility(View.GONE);
         }
+
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO notify other user if they are on the app that they have a new friend
+                appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
+                appUser.acceptListModel.insertFriendUser(mHugMeUser.getUid(), appUser.getAppUser().getUid());
+                appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
+                appUser.getAppUser().friend_list.put(mHugMeUser.getUid(), true);
+                appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
+                messageButton.setVisibility(View.VISIBLE);
+                closeFABMenu(blockButton, addFriendButton, rateUserButton);
+            }
+        });
 
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,21 +170,35 @@ public class ViewOtherProfileFragment extends Fragment {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        rateUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(getContext(), button);
-                popupMenu.getMenuInflater().inflate(R.menu.add_friend_block_menu, popupMenu.getMenu());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("hugMeUser", mHugMeUser);
+                bundle.putSerializable("userprofile", displayUserProfile);
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_hugratings, bundle);
 
-                if (mHugMeUser.getFriendRequestPending() <= 1) {
-                    popupMenu.getMenu().findItem(R.id.add_friend).setVisible(false);
-                }
+            }
+        });
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        System.out.println(item.getNumericShortcut());
-                        if (item.getNumericShortcut() == '0') {
+        blockButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+//                PopupMenu popupMenu = new PopupMenu(getContext(), blockButton);
+//                popupMenu.getMenuInflater().inflate(R.menu.add_friend_block_menu, popupMenu.getMenu());
+//
+//                if (mHugMeUser.getFriendRequestPending() <= 1) {
+//                    popupMenu.getMenu().findItem(R.id.add_friend).setVisible(false);
+//                }
+
+
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+
+//                        System.out.println(item.getNumericShortcut());
+//                        if (item.getNumericShortcut() == '0') {
                             // TODO notify other user to remove this user from any lists/messages
                             //block user
                             if  (mHugMeUser.getFriendRequestPending() == 0) {
@@ -147,23 +221,19 @@ public class ViewOtherProfileFragment extends Fragment {
                             appUser.savedHugMeUsers.remove(mHugMeUser.getUid());
                             // TODO remove any messages
                             getFragmentManager().popBackStackImmediate();
-                        }
-                        else {
+//                        }
+//                        else {
                             //add friend
-                            // TODO notify other user if they are on the app that they have a new friend
-                            appUser.acceptListModel.insertFriendUser(appUser.getAppUser().getUid(), mHugMeUser.getUid());
-                            appUser.acceptListModel.insertFriendUser(mHugMeUser.getUid(), appUser.getAppUser().getUid());
-                            appUser.acceptListModel.removeRequestedPending(appUser.getAppUser().getUid(), mHugMeUser.getUid());
-                            appUser.getAppUser().friend_list.put(mHugMeUser.getUid(), true);
-                            appUser.getAppUser().request_list.remove(mHugMeUser.getUid());
-                            messageButton.setVisibility(View.VISIBLE);
-                        }
-                        return true;
+
+//                        }
+//                        return true;
                     }
                 });
-                popupMenu.show();
-            }
-        });
+//                popupMenu.show();
+
+
+//            }
+//        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -173,7 +243,8 @@ public class ViewOtherProfileFragment extends Fragment {
 
         View binding = inflater.inflate(R.layout.fragment_view_other_profile, container, false);
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view, new DisplayUserProfile(mHugMeUser));
+        displayUserProfile = new DisplayUserProfile(mHugMeUser);
+        fragmentTransaction.replace(R.id.fragment_container_view, displayUserProfile);
         fragmentTransaction.commit();
         return binding;
     }

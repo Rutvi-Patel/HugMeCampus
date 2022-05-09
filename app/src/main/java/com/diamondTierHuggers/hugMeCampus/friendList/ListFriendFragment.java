@@ -70,6 +70,12 @@ public class ListFriendFragment extends Fragment implements MyListItemRecyclerVi
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        mMyListItemRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("hugMeUser", mMyListItemRecyclerViewAdapter.getItem(position));

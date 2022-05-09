@@ -49,7 +49,7 @@ public class MessagesFragment extends Fragment implements com.diamondTierHuggers
 
         messagesRecyclerView.setHasFixedSize(true);
         messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        System.out.println(appUser.getAppUser().getUid());
+//        System.out.println(appUser.getAppUser().getUid());
 
 //        Set<String> messagesLists = appUser.getAppUser().getFriend_list().keySet();
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
@@ -88,7 +88,9 @@ public class MessagesFragment extends Fragment implements com.diamondTierHuggers
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("hugMeUser", adapter.getItem(position));
                 bundle.putString("chatKey", chatKey);
-                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_chat_to_chatBoxFragment, bundle);            }
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_chat_to_chatBoxFragment, bundle);
+
+            }
         });
 
     }

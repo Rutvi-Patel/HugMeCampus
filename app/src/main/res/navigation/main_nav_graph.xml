@@ -9,7 +9,16 @@
         android:id="@+id/nav_matchmaking"
         android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.MatchMakingFragment"
         android:label="@string/menu_matchmaking"
-        tools:layout="@layout/fragment_match_making" />
+        tools:layout="@layout/fragment_match_making"/>
+<!--    <fragment-->
+<!--        android:id="@+id/nav_load_mq"-->
+<!--        android:name="com.diamondTierHuggers.hugMeCampus.matchmaking.LoadMQFragment"-->
+<!--        android:label="@string/menu_matchmaking"-->
+<!--        tools:layout="@layout/fragment_load_m_q" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_nav_load_mq_to_nav_matchmaking"-->
+<!--            app:destination="@id/nav_matchmaking" />-->
+<!--    </fragment>-->
 
     <fragment
         android:id="@+id/editUserProfile"
@@ -30,7 +39,6 @@
         android:id="@+id/editProfile_to_editUserProfile"
         app:destination="@id/editUserProfile" />
     </fragment>
-
     <fragment
         android:id="@+id/nav_list_tabs"
         android:name="com.diamondTierHuggers.hugMeCampus.friendList.ListTabsFragment"
@@ -59,6 +67,9 @@
         <action
             android:id="@+id/action_nav_other_profile_to_viewhugs"
             app:destination="@id/viewhugs" />
+        <action
+            android:id="@+id/action_nav_other_profile_to_hugratings"
+            app:destination="@id/hugratings" />
     </fragment>
 
     <fragment
@@ -78,6 +89,9 @@
         <action
             android:id="@+id/action_chatBoxFragment_to_locationFragment2"
             app:destination="@id/locationFragment2" />
+        <action
+            android:id="@+id/action_chatBoxFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment2"
@@ -98,4 +112,10 @@
         android:name="com.diamondTierHuggers.hugMeCampus.ratings.ListHugRatingFragment"
         android:label="fragment_view_hugrating"
         tools:layout="@layout/fragment_view_hugrating" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.diamondTierHuggers.hugMeCampus.directions.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
+
 </navigation>

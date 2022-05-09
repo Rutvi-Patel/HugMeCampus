@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_purple"
+    android:background="@color/white"
     tools:context=".main.LoginRegisterActivity">
 
     <TextView
@@ -26,6 +26,20 @@
         android:layout_height="match_parent"
         app:rotation_degrees="15.5"
         tools:context=".MyActivity" />
+
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/loadFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="invisible">-->
+<!--    </androidx.fragment.app.FragmentContainerView>-->
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/logoImageViewMatchmaking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/heart" />
 
 
 

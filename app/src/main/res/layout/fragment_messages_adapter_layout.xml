@@ -42,7 +42,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/bryce_canyon" />
+                    android:src="@drawable/blank_profile_photo" />
 
             </androidx.cardview.widget.CardView>
 

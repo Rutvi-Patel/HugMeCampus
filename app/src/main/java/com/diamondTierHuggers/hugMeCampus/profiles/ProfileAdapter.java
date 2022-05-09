@@ -11,7 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.diamondTierHuggers.hugMeCampus.R;
@@ -23,6 +26,7 @@ import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import org.imaginativeworld.whynotimagecarousel.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +39,10 @@ public class ProfileAdapter extends BaseAdapter {
     private ArrayList<HugMeUser> mObjects;
     private final LayoutInflater mInflater;
     private final Context mContext;
-    private final String[] gender = {"Male", "Female"};
-    private final String[] emoji = {"poop", "coal", "bronze", "silver", "gold", "platinum", "diamond"};
+    private final String[] gender = {"Male", "Female", "Non-Binary"};
+    private final String[] emoji = {"💩", "🪨", "🥉", "🥈", "🏅", "💿", "💎"};
     private boolean mNotifyOnChange = true;
+    private TextView rating;
 
     public ProfileAdapter(Context context, ArrayList<HugMeUser> objects) {
         mContext = context;
@@ -117,7 +122,27 @@ public class ProfileAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.bio)).setText(item.bio);
 
 
+        this.rating = view.findViewById(R.id.averageRating);
 
+        if(item.num_reviews <= 0)
+        {
+            rating.setText("");
+            rating.setClickable(false);
+        }
+        else
+        {
+            DecimalFormat df = new DecimalFormat("#.0");
+            String avgRatingText = "★ " + df.format(item.total_rating / (float)item.num_reviews);
+            rating.setText(avgRatingText);
+//            rating.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("uid", item.getUid());
+//                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_nav_other_profile_to_viewhugs, bundle);
+//                }
+//            });
+        }
         // hug prefs
 
         if (!item.getHug_preferences().get("short")) {
@@ -254,29 +279,38 @@ public class ProfileAdapter extends BaseAdapter {
 
         // TODO set user pictures here
         List<CarouselItem> list = new ArrayList<>();
-        list.add(
-                new CarouselItem(
-//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.14.13%20PM.png?alt=media&token=ffc414fb-0524-404a-988a-61c5ede309f6"
-                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
 
+        for (String pic : item.getPictures().keySet()) {
+            list.add(
+                    new CarouselItem(
+                            item.getPicture(pic)
+                    )
+            );
+        }
+
+//        list.add(
+//                new CarouselItem(
+////                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.14.13%20PM.png?alt=media&token=ffc414fb-0524-404a-988a-61c5ede309f6"
+//                        "https://firebasestorage.googleapis.com/v0/b/hugmecampus-dff8c.appspot.com/o/Screen%20Shot%202022-02-13%20at%201.04.37%20PM.png?alt=media&token=d9303bfc-a962-4a6e-bd57-74b740a7bfd9"
+//
+////                        R.drawable.bryce_canyon
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
 //                        R.drawable.bryce_canyon
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.bryce_canyon
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.cathedral_rock
-                )
-        );
-        list.add(
-                new CarouselItem(
-                        R.drawable.death_valley
-                )
-        );
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.cathedral_rock
+//                )
+//        );
+//        list.add(
+//                new CarouselItem(
+//                        R.drawable.death_valley
+//                )
+//        );
         binding.carousel4.setData(list);
 
         binding.carousel4.setIndicator(binding.customIndicator);
