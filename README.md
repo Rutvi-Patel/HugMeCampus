@@ -16,7 +16,7 @@ Download the APK from the following link (or scan the QR code) on an Android pho
 
 https://csulb-my.sharepoint.com/:u:/g/personal/ryan_cavanagh_student_csulb_edu/EWtsRI9A_ldGhZHJBLN8_ecB0KYPgNZk9stSpMBv40hs9g?e=MH07BY
 
-
+![QR Code](frame-2.png)
 
 Install the application by tapping the APK (enable APK installations in settings)
 Open the app
